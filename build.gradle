@@ -12,6 +12,18 @@ repositories {
     mavenCentral();
 }
 
+// use a project layout that is compatible with the standard VS Code java extension
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src']
+        }
+        java{
+            srcDirs = ['src']
+        }
+    }
+}
+
 dependencies {
 
 }
