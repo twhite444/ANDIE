@@ -158,6 +158,8 @@ class EditableImage {
             fileIn.close();
         } catch (Exception ex) {
             // Could be no file or something else. Carry on for now.
+            ops.clear();
+            redoOps.clear();
         }
         this.refresh();
     }
