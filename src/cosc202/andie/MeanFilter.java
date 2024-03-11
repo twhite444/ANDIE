@@ -13,10 +13,6 @@ import java.util.*;
  * pixels in a surrounding neighbourhood, and can be implemented by a convolution.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
- * </p>
- * 
  * @see java.awt.image.ConvolveOp
  * @author Steven Mills
  * @version 1.0
