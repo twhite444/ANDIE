@@ -6,7 +6,6 @@ import javax.imageio.*;
 
 // comment
 
-// comment 2
 
 /**
  * <p>
