@@ -5,8 +5,7 @@ import javax.swing.*;
 import javax.imageio.*;
 
 // comment
-
-// comment - cc 
+//cc 
 
 /**
  * <p>
