@@ -13,10 +13,6 @@ import java.util.*;
  * pixels in a surrounding neighbourhood, and can be implemented by a convolution.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
- * </p>
- * 
  * @see java.awt.image.ConvolveOp
  * @author Steven Mills
  * @version 1.0
@@ -26,7 +22,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
     /**
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
-    private int rad;
+    private int radius;
 
     /**
      * <p>
