@@ -6,6 +6,7 @@ import javax.imageio.*;
 
 // comment
 
+
 /**
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
@@ -25,7 +26,30 @@ import javax.imageio.*;
  */
 public class Andie {
 
-
+    /**
+     * <p>
+     * Launches the main GUI for the ANDIE program.
+     * </p>
+     * 
+     * <p>
+     * This method sets up an interface consisting of an active image (an {@code ImagePanel})
+     * and various menus which can be used to trigger operations to load, save, edit, etc. 
+     * These operations are implemented {@link ImageOperation}s and triggered via
+     * {@code ImageAction}s grouped by their general purpose into menus.
+     * </p>
+     * 
+     * @see ImagePanel
+     * @see ImageAction
+     * @see ImageOperation
+     * @see FileActions
+     * @see EditActions
+     * @see ViewActions
+     * @see FilterActions
+     * @see ColourActions
+     * 
+     * @throws Exception if something goes wrong.
+     */
+    
     private static void createAndShowGUI() throws Exception {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
