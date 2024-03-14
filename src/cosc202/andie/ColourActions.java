@@ -33,8 +33,11 @@ public class ColourActions {
      * </p>
      */
     public ColourActions() {
+
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new CycleColoursAction("Colour cycle", null, "Cycle colour channels", Integer.valueOf(KeyEvent.VK_G)));
+
     }
 
     /**
@@ -45,13 +48,17 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
+
         JMenu fileMenu = new JMenu("Colour");
 
         for(Action action: actions) {
+
             fileMenu.add(new JMenuItem(action));
+
         }
 
         return fileMenu;
+
     }
 
     /**
@@ -74,7 +81,9 @@ public class ColourActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         ConvertToGreyAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
             super(name, icon, desc, mnemonic);
+
         }
 
         /**
@@ -90,9 +99,58 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
             target.getImage().apply(new ConvertToGrey());
             target.repaint();
             target.getParent().revalidate();
+
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to cycle the colours of an image.
+     * </p>
+     * 
+     * @see ConvertToGrey
+     */
+    public class CycleColoursAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new cycle colours action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        CycleColoursAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the cycle colours action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the CycleColoursAction is triggered.
+         * It changes the image to greyscale.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new CycleColoursAction());
+            target.repaint();
+            target.getParent().revalidate();
+
         }
 
     }
