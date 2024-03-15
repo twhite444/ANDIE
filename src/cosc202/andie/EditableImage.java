@@ -193,6 +193,14 @@ class EditableImage {
         fileOut.close();
     }
 
+    // new method to be used to export file in FileActions ExportAction
+    public void editedSaveAs(String imageFilename) throws Exception {
+        String extension = this.imageFilename.substring(1+this.imageFilename.lastIndexOf(".")).toLowerCase();
+        this.imageFilename = imageFilename;
+       
+        // Write image file based on file extension
+        ImageIO.write(current, extension, new File(imageFilename));
+    }
 
     /**
      * <p>
