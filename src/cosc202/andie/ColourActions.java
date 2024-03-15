@@ -36,7 +36,6 @@ public class ColourActions {
 
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new CycleColoursAction("Colour cycle", null, "Cycle colour channels", Integer.valueOf(KeyEvent.VK_G)));
 
     }
 
@@ -56,6 +55,12 @@ public class ColourActions {
             fileMenu.add(new JMenuItem(action));
 
         }
+
+        JMenu colourCyclemenu = new JMenu("Cycle Colours");
+
+        colourCyclemenu.add(new JMenuItem(new CycleColoursGBRAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G))));
+
+        fileMenu.add(colourCyclemenu);
 
         return fileMenu;
 
@@ -108,18 +113,19 @@ public class ColourActions {
 
     }
 
+
     /**
      * <p>
-     * Action to cycle the colours of an image.
+     * Action to cycle colours from RGB to GBR.
      * </p>
      * 
-     * @see ConvertToGrey
+     * @see CycleColoursGBR
      */
-    public class CycleColoursAction extends ImageAction {
+    public class CycleColoursGBRAction extends ImageAction {
 
         /**
          * <p>
-         * Create a new cycle colours action.
+         * Create a new CycleColoursGBR action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -127,7 +133,7 @@ public class ColourActions {
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
-        CycleColoursAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        CycleColoursGBRAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
 
             super(name, icon, desc, mnemonic);
 
@@ -135,19 +141,67 @@ public class ColourActions {
 
         /**
          * <p>
-         * Callback for when the cycle colours action is triggered.
+         * Callback for when the CycleColoursGBR action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the CycleColoursAction is triggered.
-         * It changes the image to greyscale.
+         * This method is called whenever the CycleColoursGBRAction is triggered.
+         * It cycle colours from RGB to GBR.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
 
-            target.getImage().apply(new CycleColoursAction());
+            target.getImage().apply(new CycleColoursGBR());
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+
+
+    /**
+     * <p>
+     * Action to cycle colours from RGB to BRG.
+     * </p>
+     * 
+     * @see CycleColoursBRG
+     */
+    public class CycleColoursBRGAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new CycleColoursBRG action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        CycleColoursBRGAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the CycleColoursBRG action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the CycleColoursBRGAction is triggered.
+         * It cycle colours from RGB to BRG.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new CycleColoursBRG());
             target.repaint();
             target.getParent().revalidate();
 
@@ -156,3 +210,10 @@ public class ColourActions {
     }
 
 }
+
+// RGB
+// RBG
+// GRB
+// BRG
+// BGR
+// GBR
