@@ -8,10 +8,6 @@ import java.awt.image.*;
  * </p>
  * 
  * <p>
- * The colors of the image are changes so that RGB is changed to GBR
- * </p>
- * 
- * <p>
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
@@ -51,7 +47,7 @@ public class CycleColoursGBR implements ImageOperation, java.io.Serializable {
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                argb = (a << 24) | (b << 16) | (r << 8) | g;
+                argb = (a << 24) | (g << 16) | (b << 8) | r;
 
                 input.setRGB(x, y, argb);
             }

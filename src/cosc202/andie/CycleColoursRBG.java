@@ -4,7 +4,7 @@ import java.awt.image.*;
 
 /**
  * <p>
- * ImageOperation to cycle colours from RGB to BRG.
+ * ImageOperation to cycle colours from RGB to RBG.
  * </p>
  * 
  * <p>
@@ -14,20 +14,20 @@ import java.awt.image.*;
  * @author Liam Williamson
  * @version 1.0
  */
-public class CycleColoursBRG implements ImageOperation, java.io.Serializable {
+public class CycleColoursRBG implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Create a new CycleColoursBRG operation.
+     * Create a new CycleColoursRBG operation.
      * </p>
      */
-    CycleColoursBRG() {
+    CycleColoursRBG() {
 
     }
 
     /**
      * <p>
-     * Apply colour cycing (RGB => BRG) to an image.
+     * Apply colour cycing (RGB => RBG) to an image.
      * </p>
      * 
      * 
@@ -47,7 +47,7 @@ public class CycleColoursBRG implements ImageOperation, java.io.Serializable {
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                argb = (a << 24) | (b << 16) | (r << 8) | g;
+                argb = (a << 24) | (r << 16) | (b << 8) | g;
 
                 input.setRGB(x, y, argb);
             }

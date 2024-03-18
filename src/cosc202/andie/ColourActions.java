@@ -36,6 +36,7 @@ public class ColourActions {
 
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new ConvertToInverseAction("Invert", null, "Invert colours", Integer.valueOf(KeyEvent.VK_G)));
 
     }
 
@@ -58,7 +59,11 @@ public class ColourActions {
 
         JMenu colourCyclemenu = new JMenu("Cycle Colours");
 
-        colourCyclemenu.add(new JMenuItem(new CycleColoursGBRAction("gbr", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G))));
+        colourCyclemenu.add(new JMenuItem(new CycleColoursBGRAction("BGR", null, "Convert from RGB to BGR", Integer.valueOf(KeyEvent.VK_G))));
+        colourCyclemenu.add(new JMenuItem(new CycleColoursBRGAction("BRG", null, "Convert from RGB to BRG", Integer.valueOf(KeyEvent.VK_G))));
+        colourCyclemenu.add(new JMenuItem(new CycleColoursRBGAction("RBG", null, "Convert from RGB to RBG", Integer.valueOf(KeyEvent.VK_G))));
+        colourCyclemenu.add(new JMenuItem(new CycleColoursGRBAction("GRB", null, "Convert from RGB to GRB", Integer.valueOf(KeyEvent.VK_G))));
+        colourCyclemenu.add(new JMenuItem(new CycleColoursGBRAction("GBR", null, "Convert from RGB to GBR", Integer.valueOf(KeyEvent.VK_G))));
 
         fileMenu.add(colourCyclemenu);
 
@@ -113,19 +118,18 @@ public class ColourActions {
 
     }
 
-
     /**
      * <p>
-     * Action to cycle colours from RGB to GBR.
+     * Action to convert an image to inverse.
      * </p>
      * 
-     * @see CycleColoursGBR
+     * @see CovertToInverse
      */
-    public class CycleColoursGBRAction extends ImageAction {
+    public class ConvertToInverseAction extends ImageAction {
 
         /**
          * <p>
-         * Create a new CycleColoursGBR action.
+         * Create a new CovertToInverse action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -133,7 +137,7 @@ public class ColourActions {
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
-        CycleColoursGBRAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        ConvertToInverseAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
 
             super(name, icon, desc, mnemonic);
 
@@ -141,19 +145,19 @@ public class ColourActions {
 
         /**
          * <p>
-         * Callback for when the CycleColoursGBR action is triggered.
+         * Callback for when the convert to inverse action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the CycleColoursGBRAction is triggered.
-         * It cycle colours from RGB to GBR.
+         * This method is called whenever the ConvertToInverseAction is triggered.
+         * It inverts the image
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
 
-            target.getImage().apply(new CycleColours());
+            target.getImage().apply(new ConvertToInverse());
             target.repaint();
             target.getParent().revalidate();
 
@@ -161,7 +165,53 @@ public class ColourActions {
 
     }
 
+    /**
+     * <p>
+     * Action to cycle colours from RGB to BGR.
+     * </p>
+     * 
+     * @see CycleColoursGBR
+     */
+    public class CycleColoursBGRAction extends ImageAction {
 
+        /**
+         * <p>
+         * Create a new CycleColoursBGR action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        CycleColoursBGRAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the CycleColoursBGR action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the CycleColoursBGRAction is triggered.
+         * It cycle colours from RGB to BGR.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new CycleColoursBGR());
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+    
     /**
      * <p>
      * Action to cycle colours from RGB to BRG.
@@ -209,12 +259,157 @@ public class ColourActions {
 
     }
 
+    /**
+     * <p>
+     * Action to cycle colours from RGB to GBR.
+     * </p>
+     * 
+     * @see CycleColoursGBR
+     */
+    public class CycleColoursGBRAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new CycleColoursGBR action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        CycleColoursGBRAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the CycleColoursGBR action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the CycleColoursGBRAction is triggered.
+         * It cycle colours from RGB to GBR.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new CycleColoursGBR());
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+
+        /**
+     * <p>
+     * Action to cycle colours from RGB to GRB.
+     * </p>
+     * 
+     * @see CycleColoursGBR
+     */
+    public class CycleColoursGRBAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new CycleColoursGRB action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        CycleColoursGRBAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the CycleColoursGRB action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the CycleColoursGRBAction is triggered.
+         * It cycle colours from RGB to GRB.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new CycleColoursGRB());
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to cycle colours from RGB to RBG.
+     * </p>
+     * 
+     * @see CycleColoursGBR
+     */
+    public class CycleColoursRBGAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new CycleColoursRBG action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        CycleColoursRBGAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the CycleColoursRBG action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the CycleColoursRBGAction is triggered.
+         * It cycle colours from RGB to RBG.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            target.getImage().apply(new CycleColoursRBG());
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+
 }
 
 // RGB
 // ->
-// RBG
-// GRB
-// BRG
-// BGR
-// GBR
+// BGR x
+// BRG x
+// GBR x
+// GRB x
+// RBG x
+
+
+
+

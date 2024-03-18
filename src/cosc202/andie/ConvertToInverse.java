@@ -4,7 +4,7 @@ import java.awt.image.*;
 
 /**
  * <p>
- * ImageOperation to cycle colours from RGB to BRG.
+ * ImageOperation to invert colours.
  * </p>
  * 
  * <p>
@@ -14,24 +14,24 @@ import java.awt.image.*;
  * @author Liam Williamson
  * @version 1.0
  */
-public class CycleColoursBRG implements ImageOperation, java.io.Serializable {
+public class ConvertToInverse implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Create a new CycleColoursBRG operation.
+     * Create a new ConvertToInverse operation.
      * </p>
      */
-    CycleColoursBRG() {
+    ConvertToInverse() {
 
     }
 
     /**
      * <p>
-     * Apply colour cycing (RGB => BRG) to an image.
+     * Apply colour inverting to an image.
      * </p>
      * 
      * 
-     * @param input The image to be cycled
+     * @param input The image to be inverted
      * @return The resulting image.
      */
     public BufferedImage apply(BufferedImage input) {
@@ -47,7 +47,7 @@ public class CycleColoursBRG implements ImageOperation, java.io.Serializable {
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                argb = (a << 24) | (b << 16) | (r << 8) | g;
+                argb = (a << 24) | (255 - r << 16) | (255 - g << 8) | 255 - b;
 
                 input.setRGB(x, y, argb);
             }

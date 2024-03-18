@@ -4,11 +4,7 @@ import java.awt.image.*;
 
 /**
  * <p>
- * ImageOperation to cycle colours from RGB to GBR.
- * </p>
- * 
- * <p>
- * The colors of the image are changes so that RGB is changed to GBR
+ * ImageOperation to cycle colours from RGB to GRB.
  * </p>
  * 
  * <p>
@@ -18,27 +14,27 @@ import java.awt.image.*;
  * @author Liam Williamson
  * @version 1.0
  */
-public class CycleColours implements ColourCycleOperation, java.io.Serializable {
+public class CycleColoursGRB implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Create a new CycleColoursGBR operation.
+     * Create a new CycleColoursGRB operation.
      * </p>
      */
-    CycleColours() {
+    CycleColoursGRB() {
 
     }
 
     /**
      * <p>
-     * Apply colour cycing (RGB => GBR) to an image.
+     * Apply colour cycing (RGB => GRB) to an image.
      * </p>
      * 
      * 
      * @param input The image to be cycled
      * @return The resulting image.
      */
-    public BufferedImage apply(BufferedImage input, String s) {
+    public BufferedImage apply(BufferedImage input) {
   
         for (int y = 0; y < input.getHeight(); ++y) {
 
@@ -51,7 +47,7 @@ public class CycleColours implements ColourCycleOperation, java.io.Serializable 
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                argb = (a << 24) | (b << 16) | (r << 8) | g;
+                argb = (a << 24) | (g << 16) | (r << 8) | b;
 
                 input.setRGB(x, y, argb);
             }
