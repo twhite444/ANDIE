@@ -58,7 +58,7 @@ public class ColourActions {
 
         JMenu colourCyclemenu = new JMenu("Cycle Colours");
 
-        colourCyclemenu.add(new JMenuItem(new CycleColoursGBRAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G))));
+        colourCyclemenu.add(new JMenuItem(new CycleColoursGBRAction("gbr", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G))));
 
         fileMenu.add(colourCyclemenu);
 
@@ -153,7 +153,7 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            target.getImage().apply(new CycleColoursGBR());
+            target.getImage().apply(new CycleColours());
             target.repaint();
             target.getParent().revalidate();
 
@@ -212,6 +212,7 @@ public class ColourActions {
 }
 
 // RGB
+// ->
 // RBG
 // GRB
 // BRG
