@@ -1,6 +1,6 @@
 package cosc202.andie;
 
-import java.awt.image.*;
+//import java.awt.image.*;
 
 
 /**
@@ -15,14 +15,14 @@ import java.awt.image.*;
  * @author Tommo White
  * @version 1.0
  */
-public class RotateImage implements ImageOperation, java.io.Serializable {
+public class Rotate90Right implements java.io.Serializable {
 
     /**
      * <p>
      * Create a new RotateImage operation.
      * </p>
      */
-    RotateImage() {
+    Rotate90Right() {
 
     }
 
@@ -40,11 +40,11 @@ public class RotateImage implements ImageOperation, java.io.Serializable {
      * @return The resulting rotated image.
      */
     
-    public BufferedImage apply(BufferedImage input) {
-        //rotate 90 degrees right
+    public int[][] apply(int[][] input) {
+        //rotate 180 degrees
         //create height (y), width (x) variables
-        int width = input.getWidth();
-        int height = input.getHeight();
+        int width = input[0].length;
+        int height = input.length;
 
         //initialize new image array
         int[][] rotatedImage = new int[height][width];
@@ -52,10 +52,9 @@ public class RotateImage implements ImageOperation, java.io.Serializable {
         //run through each pixel 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                //map pixel coordinate from old position to new position
                 int newX=y;
                 int newY=width-1-x;
-                rotatedImage[newY][newX]=image[y][x];
+                rotatedImage[newY][newX]=input[y][x];
             }
         }
         
@@ -63,4 +62,4 @@ public class RotateImage implements ImageOperation, java.io.Serializable {
     }
     }
     
-}
+

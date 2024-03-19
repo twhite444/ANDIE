@@ -15,14 +15,14 @@ import java.awt.image.*;
  * @author Tommo White
  * @version 1.0
  */
-public class RotateImage implements ImageOperation, java.io.Serializable {
+public class Rotate90Left implements java.io.Serializable {
 
     /**
      * <p>
      * Create a new RotateImage operation.
      * </p>
      */
-    RotateImage() {
+    Rotate90Left() {
 
     }
 
@@ -41,39 +41,21 @@ public class RotateImage implements ImageOperation, java.io.Serializable {
      * @param input The image to be rotated
      * @return The resulting rotated image.
      */
-    public BufferedImage apply(BufferedImage input) {
+    public int[][] apply(int[][] input) {
         //rotate 90 degrees left
-        
         //create height (y), width (x) variables
-        int width = input.getWidth();
-        int height = input.getHeight();
+        int width = input[0].length;
+        int height = input.length;
 
         //initialize new image array
         int[][] rotatedImage = new int[height][width];
 
         //run through each pixel 
-        for (int y = 0; y < input.getHeight(); y++) {
-            for (int x = 0; x < input.getWidth(); x++) {
-                rotatedImage[x][height-1-y]=image[y][x];
-            }
-        }
-        
-        return rotatedImage;
-    }
-
-    public BufferedImage apply(BufferedImage input) {
-        //rotate 90 degrees right
-        //create height (y), width (x) variables
-        int width = input.getWidth();
-        int height = input.getHeight();
-
-        //initialize new image array
-        int[][] rotatedImage = new int[height][width];
-
-        //run through each pixel 
-        for (int y = 0; y < input.getHeight(); y++) {
-            for (int x = 0; x < input.getWidth(); x++) {
-                rotatedImage[width-1-x][y]=image[y][x];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int newX=height-1-y;
+                int newY=x;
+                rotatedImage[newY][newX]=input[y][x];
             }
         }
         
@@ -81,4 +63,4 @@ public class RotateImage implements ImageOperation, java.io.Serializable {
     }
     }
     
-}
+
