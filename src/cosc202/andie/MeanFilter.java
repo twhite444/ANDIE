@@ -42,7 +42,9 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @param radius The radius of the newly constructed MeanFilter
      */
     MeanFilter(int radius) {
+
         this.radius = radius;    
+
     }
 
     /**
@@ -57,7 +59,9 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @see MeanFilter(int)
      */
     MeanFilter() {
+
         this(1);
+
     }
 
     /**
@@ -75,14 +79,22 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
+
         int size = (2*radius+1) * (2*radius+1);
+
         float [] array = new float[size];
+
         Arrays.fill(array, 1.0f/size);
 
+
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
+
         ConvolveOp convOp = new ConvolveOp(kernel);
+
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+
         convOp.filter(input, output);
+        
 
         return output;
     }
