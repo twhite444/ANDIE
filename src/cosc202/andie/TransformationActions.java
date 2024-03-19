@@ -35,9 +35,7 @@ public class TransformationActions {
      */
     public TransformationActions() {
         actions = new ArrayList<Action>();
-        actions.add(new Rotate90LeftAction("Rotate 90 (left)", null, "Rotate image 90 degrees to the left", null));
-        actions.add(new Rotate90RightAction("Rotate 90 (right)", null, "Rotate image 90 degrees to the right", null));
-        actions.add(new Rotate180Action("Rotate 180", null, "Rotate image 180 degrees", null));
+        
     }
 
     /**
@@ -54,8 +52,26 @@ public class TransformationActions {
             fileMenu.add(new JMenuItem(action));
         }
 
+        JMenu flipsMenu= new JMenu("flips");
+        //add flipsMenu actions for horizontal and vertical flip
+        fileMenu.add(flipsMenu);
+
+        JMenu resizeMenu= new JMenu("resize");
+        //add resizeMenu actions for diff percentages
+        fileMenu.add(resizeMenu);
+
+
+        JMenu rotationsMenu= new JMenu("Rotations");
+        
+        rotationsMenu.add(new Rotate90LeftAction("90 (left)", null, "Rotate image 90 degrees to the left", null));
+        rotationsMenu.add(new Rotate90RightAction("90 (right)", null, "Rotate image 90 degrees to the right", null));
+        rotationsMenu.add(new Rotate180Action("180", null, "Rotate image 180 degrees", null));
+
+        fileMenu.add(rotationsMenu);
+
         return fileMenu;
     }
+    
 
     /**
      * <p>
