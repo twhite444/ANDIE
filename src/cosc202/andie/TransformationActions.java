@@ -35,9 +35,9 @@ public class TransformationActions {
      */
     public TransformationActions() {
         actions = new ArrayList<Action>();
-        actions.add(new Rotate90LeftAction("Rotate 90 (left)", null, "Rotate image 90 degrees to the left", null);
-        actions.add(new Rotate90RightAction("Rotate 90 (right)", null, "Rotate image 90 degrees to the right", null);
-        actions.add(new Rotate180Action("Rotate 180", null, "Rotate image 180 degrees", null);
+        actions.add(new Rotate90LeftAction("Rotate 90 (left)", null, "Rotate image 90 degrees to the left", null));
+        actions.add(new Rotate90RightAction("Rotate 90 (right)", null, "Rotate image 90 degrees to the right", null));
+        actions.add(new Rotate180Action("Rotate 180", null, "Rotate image 180 degrees", null));
     }
 
     /**
