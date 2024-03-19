@@ -1,6 +1,6 @@
 package cosc202.andie;
 
-//import java.awt.image.*;
+import java.awt.image.*;
 
 
 /**
@@ -15,7 +15,7 @@ package cosc202.andie;
  * @author Tommo White
  * @version 1.0
  */
-public class Rotate180 implements java.io.Serializable {
+public class Rotate180 implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
@@ -40,21 +40,24 @@ public class Rotate180 implements java.io.Serializable {
      * @return The resulting rotated image.
      */
     
-    public int[][] apply(int[][] input) {
-        //rotate 180 degrees
+    
+    public BufferedImage apply(BufferedImage input) {
+        //rotate 180 degrees left
         //create height (y), width (x) variables
-        int width = input[0].length;
-        int height = input.length;
+        int width = input.getWidth();
+        int height = input.getHeight();
 
         //initialize new image array
-        int[][] rotatedImage = new int[height][width];
+        BufferedImage rotatedImage = new BufferedImage(width, height, input.getType());
+        
 
         //run through each pixel 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
+                int pixel = input.getRGB(x, y);
                 int newX=width-1-x;
                 int newY=height-1-y;
-                rotatedImage[newY][newX]=input[y][x];
+                rotatedImage.setRGB(newX, newY, pixel);
             }
         }
         
