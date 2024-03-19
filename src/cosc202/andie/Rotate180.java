@@ -33,6 +33,7 @@ public class RotateImage implements ImageOperation, java.io.Serializable {
      * 
      * <p>
      * The rotation...
+     * flips horizontally and vertically
      * </p>
      * 
      * @param input The image to be rotated
@@ -51,6 +52,8 @@ public class RotateImage implements ImageOperation, java.io.Serializable {
         //run through each pixel 
         for (int y = 0; y < input.getHeight(); y++) {
             for (int x = 0; x < input.getWidth(); x++) {
+                int newX=width-1-x;
+                int newY=height-1-y;
                 rotatedImage[height-1-y][width-1-x]=image[y][x];
             }
         }
