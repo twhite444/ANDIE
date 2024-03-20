@@ -35,6 +35,7 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SoftBlurAction("Soft blur",null,"Apply a soft blur",Integer.valueOf(KeyEvent.VK_B)));
     }
 
     /**
@@ -108,6 +109,19 @@ public class FilterActions {
 
             // Create and apply the filter
             target.getImage().apply(new MeanFilter(radius));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    public class SoftBlurAction extends ImageAction {
+
+        SoftBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+            super(name,icon,desc, mnemonic);
+        }
+        public void actionPerformed(ActionEvent e){
+            target.getImage().apply(new SoftBlur());
             target.repaint();
             target.getParent().revalidate();
         }
