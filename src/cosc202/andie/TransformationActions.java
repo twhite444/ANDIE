@@ -54,6 +54,8 @@ public class TransformationActions {
 
         JMenu flipsMenu= new JMenu("flips");
         //add flipsMenu actions for horizontal and vertical flip
+        flipsMenu.add(new ImageFlipVAction("Vertical",null,"Flip image vertically",null));
+        flipsMenu.add(new ImageFlipHAction("Horizontal",null,"Flip image horizontally",null));
         fileMenu.add(flipsMenu);
 
         JMenu resizeMenu= new JMenu("resize");
@@ -182,6 +184,77 @@ public class TransformationActions {
          */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new Rotate180());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    
+    }
+    public class ImageFlipVAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new Rotate90Left action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        ImageFlipVAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the image flip vertically  is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the Rotate90Left is triggered.
+         * It rotates the image 90 degrees to the left.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageFlipV());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+    public class ImageFlipHAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new Rotate90Left action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        ImageFlipHAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the image flip vertically  is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the Rotate90Left is triggered.
+         * It rotates the image 90 degrees to the left.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageFlipH());
             target.repaint();
             target.getParent().revalidate();
         }
