@@ -52,13 +52,21 @@ public abstract class ImageAction extends AbstractAction {
      * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
      */
     ImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
         super(name, icon);
+
         if (desc != null) {
+
            putValue(SHORT_DESCRIPTION, desc);
+
         }
+
         if (mnemonic != null) {
+
             putValue(MNEMONIC_KEY, mnemonic);
+
         }
+
     }
 
     /**
@@ -69,7 +77,9 @@ public abstract class ImageAction extends AbstractAction {
      * @param newTarget The ImagePanel to apply ImageActions to.
      */
     public static void setTarget(ImagePanel newTarget) {
+
         target = newTarget;
+
     } 
 
     /**
@@ -80,7 +90,9 @@ public abstract class ImageAction extends AbstractAction {
      * @return The ImagePanel to which ImageActions are currently being applied.
      */
     public static ImagePanel getTarget() {
+
         return target;
+        
     }
 
 }

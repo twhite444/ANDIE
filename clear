@@ -1,0 +1,256 @@
+[33mcommit 5f560b8c1c80764890eb1068a044efe26e5abf99[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mliam-branch[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/liam-branch[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Liam Williamson <wilia181@student.otago.ac.nz>
+Date:   Tue Mar 12 13:01:37 2024 +1300
+
+    aggoag
+
+[33mcommit c294894da294afea1b3e5bfa8550b23c2f3e4275[m
+Merge: 2e90d14 bfa1e1c
+Author: Liam Williamson <wilia181@student.otago.ac.nz>
+Date:   Tue Mar 12 12:59:57 2024 +1300
+
+    Merge branch 'main' of https://altitude.otago.ac.nz/cosc202-kooky_koalas/andie
+
+[33mcommit 2e90d14bc7139972c51435675023a5abde49c85d[m
+Author: Liam Williamson <wilia181@student.otago.ac.nz>
+Date:   Tue Mar 12 12:59:07 2024 +1300
+
+    agoogah
+
+[33mcommit bfa1e1c926c5496f4db11a810aad76c628523455[m
+Author: cooch498 <cooch498@student.otago.ac.nz>
+Date:   Tue Mar 12 12:58:28 2024 +1300
+
+    cc - removed comment
+
+[33mcommit 92d2613019d91d78cc8585737d2256e2b6dfe025[m
+Author: cooch498 <cooch498@student.otago.ac.nz>
+Date:   Tue Mar 12 12:57:58 2024 +1300
+
+    cc test 3
+
+[33mcommit 2cff3bd02ea7ec56114300a3fb57167fd3a7ec06[m
+Merge: 41c7ab7 61019e0
+Author: cooch498 <cooch498@student.otago.ac.nz>
+Date:   Tue Mar 12 12:57:26 2024 +1300
+
+    Merge branch 'main' of https://altitude.otago.ac.nz/cosc202-kooky_koalas/andie
+
+[33mcommit 61019e03738f2ef316ef4882f79cd39c4ecf83fc[m
+Merge: cd54f64 73aed77
+Author: bricu146 <bricu146@student.otago.ac.nz>
+Date:   Tue Mar 12 12:56:38 2024 +1300
+
+    Merge branch 'main' of https://altitude.otago.ac.nz/cosc202-kooky_koalas/andie
+
+[33mcommit 41c7ab7877902c2e8473a9624a34d8f4ca293e62[m
+Author: cooch498 <cooch498@student.otago.ac.nz>
+Date:   Tue Mar 12 12:56:33 2024 +1300
+
+    cc test 2
+
+[33mcommit cd54f64f8e9e3276336a3c820c6328e491900f9c[m
+Merge: dfd510f d21f2e9
+Author: bricu146 <bricu146@student.otago.ac.nz>
+Date:   Tue Mar 12 12:56:25 2024 +1300
+
+    Merge branch 'main' of https://altitude.otago.ac.nz/cosc202-kooky_koalas/andie
+
+[33mcommit 73aed7794b49a981567f2b5010045351a3afbb07[m
+Merge: e4f6806 d21f2e9
+Author: cooch498 <cooch498@student.otago.ac.nz>
+Date:   Tue Mar 12 12:54:12 2024 +1300
+
+    Merge branch 'main' of https://altitude.otago.ac.nz/cosc202-kooky_koalas/andie
+
+[33mcommit dfd510fe8de1e5940e8294498961cce001210bf6[m
+Author: bricu146 <bricu146@student.otago.ac.nz>
+Date:   Tue Mar 12 12:54:07 2024 +1300
+
+    test
+
+[33mcommit d6b32deeb70e19e53e1d46e4da073c24e56d7d23[m
+Author: bricu146 <bricu146@student.otago.ac.nz>
+Date:   Tue Mar 12 12:52:16 2024 +1300
+
+    TESTING
+
+[33mcommit e4f680664ff692d35a03bf9448539b95d9571ae1[m
+Author: tangled-up-in-plaid <137733520+tangled-up-in-plaid@users.noreply.github.com>
+Date:   Tue Mar 12 12:48:49 2024 +1300
+
+    cc test
+
+[33mcommit d21f2e92cdcb4ebd05e607c0700608a0235fe0ab[m
+Author: Liam Williamson <wilia181@student.otago.ac.nz>
+Date:   Tue Mar 12 12:45:52 2024 +1300
+
+    removed liscence >:)
+
+[33mcommit 3fca21471f96823fabb8a193f12242cb394efaf7[m
+Author: tangled-up-in-plaid <137733520+tangled-up-in-plaid@users.noreply.github.com>
+Date:   Tue Mar 12 12:44:06 2024 +1300
+
+    test cc
+
+[33mcommit 5e47c9d1cc8ecc99ef9fa9d6f432f6ede643f71b[m
+Author: tangled-up-in-plaid <137733520+tangled-up-in-plaid@users.noreply.github.com>
+Date:   Tue Mar 12 12:42:15 2024 +1300
+
+    test commit - cc
+
+[33mcommit 37d91999034eecfd35a67ac6fe8be735dc428add[m
+Author: Liam Williamson <wilia181@student.otago.ac.nz>
+Date:   Tue Mar 12 12:41:07 2024 +1300
+
+    radus
+
+[33mcommit e5932564579b19c458d9915068ca595ce75caab0[m
+Author: Liam Williamson <wilia181@student.otago.ac.nz>
+Date:   Tue Mar 12 12:37:58 2024 +1300
+
+    rad
+
+[33mcommit 7d856087b5f5c1d6f1b81fd0fdc14a1760303541[m
+Author: tokyu596 <tokyu596@student.otago.ac.nz>
+Date:   Tue Mar 12 12:27:20 2024 +1300
+
+    I deleted the comment 2, thanks
+
+[33mcommit 85aece57d9b507a80b30c7ef6f265c8fb3ee52e0[m
+Author: Liam Williamson <wilia181@student.otago.ac.nz>
+Date:   Tue Mar 12 12:22:09 2024 +1300
+
+    added another really good comment
+
+[33mcommit 4169f0c4ebda9cafdccccf4d45a23c2f63a8b4a0[m
+Author: Liam Williamson <wilia181@student.otago.ac.nz>
+Date:   Tue Mar 12 12:18:28 2024 +1300
+
+    added really good comment
+
+[33mcommit 8194aa37ff9548596f4d0537c5e4bab5bfad156a[m
+Merge: 1d3642c 2a1d7a8
+Author: David Eyers <dme@cs.otago.ac.nz>
+Date:   Fri Mar 8 14:58:56 2024 +1300
+
+    Merge branch 'gradle' into 'main'
+    
+    Add gradle to project and reorganise files into standard gradle directory layout
+    
+    See merge request cosc202/code/andie!13
+
+[33mcommit 1d3642c1a85ce3bca130064324535afba1ac3dfb[m
+Merge: 2f594c5 2792a76
+Author: David Eyers <dme@cs.otago.ac.nz>
+Date:   Fri Mar 8 14:52:04 2024 +1300
+
+    Merge branch 'bugfix/typos' into 'main'
+    
+    Fix typos in JavaDoc
+    
+    See merge request cosc202/code/andie!6
+
+[33mcommit 2f594c52a66e0b138210760f4cb9d785a428d3b1[m
+Merge: 02e8aff 49aca5d
+Author: David Eyers <dme@cs.otago.ac.nz>
+Date:   Fri Mar 8 14:50:36 2024 +1300
+
+    Merge branch 'bugfix/opsStack' into 'main'
+    
+    Ensure operation stack gets cleared when opening an image without an accompanying ops file
+    
+    See merge request cosc202/code/andie!5
+
+[33mcommit 02e8aff65cd4a1fb6f0b6a853057598c12cbe7e1[m
+Merge: 57a3eb9 f9e4e5e
+Author: David Eyers <dme@cs.otago.ac.nz>
+Date:   Fri Mar 8 14:50:10 2024 +1300
+
+    Merge branch 'main' into 'main'
+    
+    Fixed Zoom Full not repainting
+    
+    See merge request cosc202/code/andie!4
+
+[33mcommit 2a1d7a8e416579a7153cd20889a154a969bbad61[m
+Author: Mark George <mark.george@otago.ac.nz>
+Date:   Tue Mar 5 10:07:21 2024 +1300
+
+    Move files back into original directory structure, and change Gradle sourceSets to match
+    
+    This allows the standard Java extension to work, while still allowing
+    Gradle to be used.
+
+[33mcommit 845dcf1196cb7b4b12e7033c4c1d47b5d507ece9[m
+Author: Mark George <mark.george@otago.ac.nz>
+Date:   Fri Mar 1 13:56:57 2024 +1300
+
+    Add gradle to project and reorganise files into standard gradle directory layout
+
+[33mcommit 2792a764d035dc5651b1f6f5426671ba8d581590[m
+Author: Aaron Rumpler <aaron.rumpler@otago.ac.nz>
+Date:   Fri May 5 11:50:09 2023 +1200
+
+    Fix typos in JavaDoc
+
+[33mcommit 49aca5dc907fb43f8d2a07714d190cc339e72159[m
+Author: Aaron Rumpler <aaron.rumpler@otago.ac.nz>
+Date:   Fri May 5 11:38:18 2023 +1200
+
+    Ensure operation stack gets cleared when opening an image without an accompanying ops file
+
+[33mcommit f9e4e5e86850701fc439961718e72b1f09dc7634[m
+Author: wilbe447 <wilbe447@student.otago.ac.nz>
+Date:   Tue May 2 18:01:48 2023 +1200
+
+    Fixed Zoom Full not repainting
+
+[33mcommit 57a3eb9174d31a914547fd24d30a940389abcfd5[m
+Merge: 73608c1 5d8073f
+Author: David Eyers <dme@cs.otago.ac.nz>
+Date:   Tue May 17 09:15:26 2022 +1200
+
+    Merge branch 'lab19' into 'main'
+    
+    Lab 19 Fixes
+    
+    See merge request cosc202/code/andie!2
+
+[33mcommit 5d8073f0368b3ee50808998e44a3d43c373e69bd[m
+Author: Aaron Rumpler <80610725+Aaron-Rumpler@users.noreply.github.com>
+Date:   Mon May 16 13:02:12 2022 +1200
+
+    Load icon from classpath
+
+[33mcommit 431e7bc41660a2ee8bc934cd857b120844341fdd[m
+Author: Aaron Rumpler <80610725+Aaron-Rumpler@users.noreply.github.com>
+Date:   Mon May 16 11:32:38 2022 +1200
+
+    Print error message for caught exceptions
+
+[33mcommit 1f8ad0e329d024ca721503f21d7fcccc2b1f0877[m[33m ([m[1;31morigin/bugfix/saveDialog[m[33m)[m
+Author: rcrimp <crire682@student.otago.ac.nz>
+Date:   Tue Mar 22 13:58:31 2022 +1300
+
+    call save dialog, not open
+
+[33mcommit 73608c1791f81964ad0880a2865b2cfa9e2d3cbc[m
+Author: Steven Mills <steven.mills@otago.ac.nz>
+Date:   Mon Feb 21 10:39:04 2022 +1300
+
+    Fixed operator precedence bug
+
+[33mcommit 065267955cdb35e80fa670b2b8e4e66e59904d2d[m
+Author: Steven Mills <steven.mills@otago.ac.nz>
+Date:   Sat Feb 19 17:25:31 2022 +1300
+
+    Lots of JavaDocumentation, code tidy up, removing error handling so it can be done in the assignment.
+
+[33mcommit f52d292d091e9434e0f6c7fd15a4a9203802a73a[m
+Author: David Eyers <dme@cs.otago.ac.nz>
+Date:   Tue Feb 15 16:30:03 2022 +1300
+
+    Added package declarations.
+
+[33mcommit 39e0ea231cdb2dd3ae2af6142ccac77c1788b2

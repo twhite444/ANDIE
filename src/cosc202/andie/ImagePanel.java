@@ -49,8 +49,11 @@ public class ImagePanel extends JPanel {
      * </p>
      */
     public ImagePanel() {
+
         image = new EditableImage();
+
         scale = 1.0;
+
     }
 
     /**
@@ -61,7 +64,9 @@ public class ImagePanel extends JPanel {
      * @return the image currently displayed.
      */
     public EditableImage getImage() {
+
         return image;
+
     }
 
     /**
@@ -75,7 +80,9 @@ public class ImagePanel extends JPanel {
      * @return The current zoom level as a percentage.
      */
     public double getZoom() {
+
         return 100*scale;
+
     }
 
     /**
@@ -90,13 +97,21 @@ public class ImagePanel extends JPanel {
      * @param zoomPercent The new zoom level as a percentage.
      */
     public void setZoom(double zoomPercent) {
+
         if (zoomPercent < 50) {
+
             zoomPercent = 50;
+
         }
+
         if (zoomPercent > 200) {
+
             zoomPercent = 200;
+
         }
+
         scale = zoomPercent / 100;
+
     }
 
 
@@ -113,12 +128,18 @@ public class ImagePanel extends JPanel {
      */
     @Override
     public Dimension getPreferredSize() {
+
         if (image.hasImage()) {
+
             return new Dimension((int) Math.round(image.getCurrentImage().getWidth()*scale), 
                                  (int) Math.round(image.getCurrentImage().getHeight()*scale));
+
         } else {
+
             return new Dimension(450, 450);
+
         }
+
     }
 
     /**
@@ -130,12 +151,21 @@ public class ImagePanel extends JPanel {
      */
     @Override
     public void paintComponent(Graphics g) {
+
         super.paintComponent(g);
+
         if (image.hasImage()) {
+
             Graphics2D g2  = (Graphics2D) g.create();
+
             g2.scale(scale, scale);
+
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
+
             g2.dispose();
+
         }
+
     }
+    
 }
