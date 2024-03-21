@@ -157,7 +157,13 @@ public class FileActions {
 
     }
 
-    //class to export copy of edited image
+    /**
+     * <p>
+     * Action to export an edited image to a new file location.
+     * </p>
+     * 
+     * @see EditableImage#exportAs(String)
+     */
     public class FileExportAction extends ImageAction {
 
         /**

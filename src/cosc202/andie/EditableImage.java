@@ -220,25 +220,29 @@ class EditableImage {
      * 
      * <p>
      * Exports an image to the file provided as a parameter.
+     * </p>
+     * 
+     * <p>
      * Does not save a set of operations.
      * </p>
+     * 
      * @author Charlotte Cook
      * 
      * @param imageFilename The file location to export the image to.
      * @throws Exception If something goes wrong.
-     */    
+     */
     public void exportAs(String imageFilename) throws Exception {
         String extension = this.imageFilename.substring(1 + this.imageFilename.lastIndexOf(".")).toLowerCase();
         
-        // if new file name for the image does not include an extension,
-        // concatenates original images extension to the end of the new file name and writes image to file
+        // if the new file name for the image does not include an extension, the original extension of image
+        // is concatenated to the end of the new file name and the image is written to file
         if (imageFilename.indexOf(".") == -1) {
 
             ImageIO.write(current, extension, new File(imageFilename.concat(".").concat(extension)));
             
         } else {
-            // Else, if the extension on the new file name is different from original image,
-            // changes it to the images original extension and writes image to file
+            // Else, the extension of the new file is changed to that of the original image and the image is written to file 
+            // (whether or not the extension differs between original and new file name)
             ImageIO.write(current, extension,
                     new File(imageFilename.substring(0, 1 + imageFilename.lastIndexOf(".")).concat(extension)));
         }
