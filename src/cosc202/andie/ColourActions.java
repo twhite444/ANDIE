@@ -37,6 +37,8 @@ public class ColourActions {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ConvertToInverseAction("Invert", null, "Invert colours", Integer.valueOf(KeyEvent.VK_G)));
+        // actions.add(new CycleColoursAction("Cycle colours", null, "Cycle colours", Integer.valueOf(KeyEvent.VK_G)));
+
 
     }
 
@@ -57,15 +59,15 @@ public class ColourActions {
 
         }
 
-        JMenu colourCyclemenu = new JMenu("Cycle Colours");
+        // JMenu colourCyclemenu = new JMenu("Cycle Colours");
 
-        colourCyclemenu.add(new JMenuItem(new CycleColoursBGRAction("BGR", null, "Convert from RGB to BGR", Integer.valueOf(KeyEvent.VK_G))));
-        colourCyclemenu.add(new JMenuItem(new CycleColoursBRGAction("BRG", null, "Convert from RGB to BRG", Integer.valueOf(KeyEvent.VK_G))));
-        colourCyclemenu.add(new JMenuItem(new CycleColoursRBGAction("RBG", null, "Convert from RGB to RBG", Integer.valueOf(KeyEvent.VK_G))));
-        colourCyclemenu.add(new JMenuItem(new CycleColoursGRBAction("GRB", null, "Convert from RGB to GRB", Integer.valueOf(KeyEvent.VK_G))));
-        colourCyclemenu.add(new JMenuItem(new CycleColoursGBRAction("GBR", null, "Convert from RGB to GBR", Integer.valueOf(KeyEvent.VK_G))));
+        // colourCyclemenu.add(new JMenuItem(new CycleColoursBGRAction("BGR", null, "Convert from RGB to BGR", Integer.valueOf(KeyEvent.VK_G))));
+        // colourCyclemenu.add(new JMenuItem(new CycleColoursBRGAction("BRG", null, "Convert from RGB to BRG", Integer.valueOf(KeyEvent.VK_G))));
+        // colourCyclemenu.add(new JMenuItem(new CycleColoursRBGAction("RBG", null, "Convert from RGB to RBG", Integer.valueOf(KeyEvent.VK_G))));
+        // colourCyclemenu.add(new JMenuItem(new CycleColoursGRBAction("GRB", null, "Convert from RGB to GRB", Integer.valueOf(KeyEvent.VK_G))));
+        // colourCyclemenu.add(new JMenuItem(new CycleColoursGBRAction("GBR", null, "Convert from RGB to GBR", Integer.valueOf(KeyEvent.VK_G))));
 
-        fileMenu.add(colourCyclemenu);
+        // fileMenu.add(colourCyclemenu);
 
         return fileMenu;
 
