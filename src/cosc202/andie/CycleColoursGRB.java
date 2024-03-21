@@ -11,7 +11,7 @@ import java.awt.image.*;
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
- * @author Liam Williamson
+ * @author Steven Mills
  * @version 1.0
  */
 public class CycleColoursGRB implements ImageOperation, java.io.Serializable {
