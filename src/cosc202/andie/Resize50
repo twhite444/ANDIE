@@ -17,7 +17,7 @@ import java.awt.image.*;
  * @author Tommo White
  * @version 1.0
  */
-public class Rotate90Left implements ImageOperation, java.io.Serializable {
+public class Resize50 implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
