@@ -77,7 +77,9 @@ public class FilterActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            
             super(name, icon, desc, mnemonic);
+            
         }
 
         /**
