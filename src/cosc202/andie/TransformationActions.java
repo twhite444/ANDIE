@@ -304,7 +304,7 @@ public class TransformationActions {
                 scale = radiusModel.getNumber().intValue();
             }
 
-            target.getImage().apply(new Resize(scale));
+            target.getImage().apply(new Resize(scale / 100));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -341,7 +341,7 @@ public class TransformationActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            target.getImage().apply(new Resize(150));
+            target.getImage().apply(new Resize(1.5));
             target.repaint();
             target.getParent().revalidate();
         }
@@ -378,7 +378,7 @@ public class TransformationActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            target.getImage().apply(new Resize(50));
+            target.getImage().apply(new Resize(0.5));
             target.repaint();
             target.getParent().revalidate();
         }
