@@ -22,11 +22,23 @@ sourceSets {
             srcDirs = ['src']
         }
     }
+    test {
+        java {
+            srcDirs = ['test']
+        }
+    }
+
 }
 
 dependencies {
+    testImplementation group: "org.junit.jupiter", name: "junit-jupiter", version: "5.10.2"
+    //testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
 
 }
+test {
+useJUnitPlatform();
+}
+
 
 run {
     standardInput = System.in;
