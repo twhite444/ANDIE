@@ -40,8 +40,8 @@ public class Resize implements ImageOperation, java.io.Serializable {
      * @return The resulting resized image.
      */
     public BufferedImage apply(BufferedImage input) {
-        int newWidth = (int) (input.getWidth() * scale);
-        int newHeight = (int) (input.getHeight() * scale);
+        int newWidth = (int) (input.getWidth() * scale / 100);
+        int newHeight = (int) (input.getHeight() * scale / 100);
 
         BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, input.getType());
 
