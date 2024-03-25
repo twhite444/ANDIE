@@ -52,7 +52,7 @@ public class TransformationActions {
             fileMenu.add(new JMenuItem(action));
         }
 
-        JMenu flipsMenu= new JMenu("flips");
+        JMenu flipsMenu= new JMenu("flip");
         //add flipsMenu actions for horizontal and vertical flip
         flipsMenu.add(new ImageFlipVAction("Vertical",null,"Flip image vertically",null));
         flipsMenu.add(new ImageFlipHAction("Horizontal",null,"Flip image horizontally",null));
@@ -255,6 +255,78 @@ public class TransformationActions {
          */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new ImageFlipH());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    public class Resize50Action extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new Resize action for a scale factor of 50% as parameter.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        Resize50Action(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the resize 50%  is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the Resize50Action is triggered.
+         * It resizes the image to 50% of the input.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new Resize(scale==.5));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    public class Resize150Action extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new Resize action for a scale factor of 150% as parameter.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        Resize150Action(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the resize 150%  is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the Resize150Action is triggered.
+         * It resizes the image to 150% of the input.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new Resize(scale==1.5));
             target.repaint();
             target.getParent().revalidate();
         }
