@@ -35,6 +35,9 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SoftBlurAction("Soft blur",null,"Apply a soft blur",Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new SharpenFilterAction("Sharpen filter",null,"Apply a sharpen blur",Integer.valueOf(KeyEvent.VK_S)));
+
     }
 
     /**
@@ -74,7 +77,9 @@ public class FilterActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            
             super(name, icon, desc, mnemonic);
+            
         }
 
         /**
@@ -113,4 +118,31 @@ public class FilterActions {
         }
 
     }
+
+    public class SoftBlurAction extends ImageAction {
+
+        SoftBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+            super(name,icon,desc, mnemonic);
+        }
+        public void actionPerformed(ActionEvent e){
+            target.getImage().apply(new SoftBlur());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    public class SharpenFilterAction extends ImageAction {
+
+        SharpenFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+            super(name,icon,desc, mnemonic);
+        }
+        public void actionPerformed(ActionEvent e){
+            target.getImage().apply(new SharpenFilter());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
 }
