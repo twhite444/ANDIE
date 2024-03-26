@@ -9,7 +9,7 @@ import java.awt.image.*;
  * </p>
  * 
  * <p>
- * The images produced by this operation 
+ * The images produced by this operation are rotated 90 degrees to the left.
  * </p>
  * 
  * @author Tommo White
@@ -28,13 +28,13 @@ public class Rotate90Left implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Rotate image by a given angle
+     * Rotate image by 90 degrees to the left.
      * </p>
      * 
      * <p>
-     * The rotation...
-     * new x-coordinate is the old y coordinate. new y-coordinate is the old
-     * width of image minus x-coordinate minus 1 (Pixel coordinates start at 0, hence minus 1)
+     * The rotation occurs by swapping x and y coordinates where the new x-coordinate 
+     * is the old y-coordinate and the new y-coordinate is the old width of the image 
+     * minus the x-coordinate minus 1.
      * 
      * </p>
      * 
