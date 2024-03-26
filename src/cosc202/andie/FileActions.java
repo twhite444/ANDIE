@@ -201,7 +201,7 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
                 } catch (Exception ex) {
-                    System.exit(1);
+                    JOptionPane.showMessageDialog(null, "Error: problem saving", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

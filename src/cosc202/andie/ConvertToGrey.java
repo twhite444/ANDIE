@@ -47,7 +47,7 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
      * @return The resulting greyscale image.
      */
     public BufferedImage apply(BufferedImage input) {
-  
+
         for (int y = 0; y < input.getHeight(); ++y) {
 
             for (int x = 0; x < input.getWidth(); ++x) {
