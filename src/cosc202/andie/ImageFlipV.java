@@ -8,7 +8,7 @@ import java.awt.image.*;
  * </p>
  * 
  * <p>
- * Once the user click the Flip -> Vertically on the tab , this class gets
+ * Once the user click the Transformations -> flip -> Vertical on the tab , this class gets
  * called
  * </p>
  * 
