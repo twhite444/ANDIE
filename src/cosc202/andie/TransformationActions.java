@@ -56,7 +56,7 @@ public class TransformationActions {
             fileMenu.add(new JMenuItem(action));
         }
 
-        JMenu flipsMenu= new JMenu("flip"); //add flipsMenu actions for horizontal and vertical flip
+        JMenu flipsMenu= new JMenu("Flip"); //add flipsMenu actions for horizontal and vertical flip
         flipsMenu.add(new ImageFlipVAction("Vertical",null,"Flip image vertically",null));
         flipsMenu.add(new ImageFlipHAction("Horizontal",null,"Flip image horizontally",null));
         fileMenu.add(flipsMenu);
