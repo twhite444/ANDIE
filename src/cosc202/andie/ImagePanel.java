@@ -66,8 +66,6 @@ public class ImagePanel extends JPanel {
      */
     public EditableImage getImage() {
 
-        System.out.println(image.hasImage());
-
         if (!image.hasImage()) { // check if an image exsists
 
             JOptionPane.showMessageDialog(null, "Error: image does not seem to exist, proabably becasue no image is open", "Error", JOptionPane.ERROR_MESSAGE);
@@ -88,8 +86,6 @@ public class ImagePanel extends JPanel {
      * @return the image currently displayed or null
      */
     public EditableImage getImageDangerous() {
-
-        System.out.println(image.hasImage());
 
         return image;
 
