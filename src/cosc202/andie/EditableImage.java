@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -270,6 +271,15 @@ class EditableImage {
      * </p>
      */
     public void undo() {
+
+        if(ops.empty()) { // checks if there is anything to undo
+
+            JOptionPane.showMessageDialog(null, "Error: nothing to undo", "Error", JOptionPane.ERROR_MESSAGE);
+
+            throw new RuntimeException();
+
+        }
+
         redoOps.push(ops.pop());
         refresh();
     }
@@ -279,7 +289,16 @@ class EditableImage {
      * Reapply the most recently {@link undo}ne {@link ImageOperation} to the image.
      * </p>
      */
-    public void redo() {
+    public void redo()  {
+
+        if(redoOps.empty()) { // checks if there is anything to redo
+
+            JOptionPane.showMessageDialog(null, "Error: nothing to redo", "Error", JOptionPane.ERROR_MESSAGE);
+
+            throw new RuntimeException();
+
+        }
+
         apply(redoOps.pop());
     }
 
