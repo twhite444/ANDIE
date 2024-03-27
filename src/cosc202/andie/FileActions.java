@@ -104,7 +104,7 @@ public class FileActions {
                 try {
 
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getOpenedImage().open(imageFilepath);
+                    target.getImageDangerous().open(imageFilepath);
 
                 } catch (IOException ex) {
 
@@ -165,7 +165,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             try {
 
-                target.getImage().save();
+                target.getImageDangerous().save();
 
             } catch (NullPointerException ex) {
                 
@@ -173,6 +173,7 @@ public class FileActions {
 
             } catch (Exception ex) {
 
+                System.out.println(ex);
                 JOptionPane.showMessageDialog(null, ("Error: problem saving\n" + ex.getMessage() + "\n" + ex), "Error", JOptionPane.ERROR_MESSAGE);
 
             }
@@ -223,7 +224,7 @@ public class FileActions {
                 try {
 
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().saveAs(imageFilepath);
+                    target.getImageDangerous().saveAs(imageFilepath);
 
                 } catch (NullPointerException ex) {
                 

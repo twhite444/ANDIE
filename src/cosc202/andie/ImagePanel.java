@@ -80,12 +80,12 @@ public class ImagePanel extends JPanel {
 
         /**
      * <p>
-     * Only for opening an image, when opeining an image "image" (the variable) may be null so regular get image would not work
+     * Only for opening / saving images, somtimes get image needs to return null for them to work properly.
      * </p>
      *
      * @return the image being opened
      */
-    public EditableImage getOpenedImage() {
+    public EditableImage getImageDangerous() {
 
         return image;
 
