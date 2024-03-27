@@ -58,7 +58,6 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
                 int r = (argb & 0x00FF0000) >> 16;
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
-                System.out.println(a +" "+ r+" "+ g+" "+ b);
 
                 int grey = (int) Math.round(0.3*r + 0.6*g + 0.1*b);
 
