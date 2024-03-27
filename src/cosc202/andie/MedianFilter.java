@@ -5,12 +5,12 @@ import java.util.*;
 
 /**
  * <p>
- * ImageOperation to apply a Mean (simple blur) filter.
+ * ImageOperation to apply a Median filter.
  * </p>
  * 
  * <p>
- * A Mean filter blurs an image by replacing each pixel by the average of the
- * pixels in a surrounding neighbourhood, and can be implemented by a convolution.
+ * Median filter description goes here
+ * 
  * </p>
  * 
  * <p> 
@@ -75,7 +75,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * Larger radii lead to stronger blurring.
      * </p>
      * 
-     * @param input The image to apply the Mean filter to.
+     * @param input The image to apply the Median filter to.
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
