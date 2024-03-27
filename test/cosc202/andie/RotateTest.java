@@ -49,6 +49,7 @@ public class RotateOperationTest {
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);
+        system.out.println("testRotate90Left succesful");
     }
 
     @Test
@@ -70,6 +71,7 @@ public class RotateOperationTest {
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);
+        system.out.println("testRotate90Left succesful");
     }
 
     @Test
@@ -91,6 +93,7 @@ public class RotateOperationTest {
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);
+        system.out.println("testRotate90Left succesful");
     }
 
     private void assertImagesEqual(BufferedImage expected, BufferedImage actual) {
