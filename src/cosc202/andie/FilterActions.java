@@ -85,7 +85,7 @@ public class FilterActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the mean filter action is triggered.
          * </p>
          * 
          * <p>
@@ -148,7 +148,7 @@ public class FilterActions {
 
    /**
      * <p>
-     * Action to blur an image with a mean filter.
+     * Action to blur an image with a median filter.
      * </p>
      * 
      * @see MedianFilter
@@ -157,7 +157,7 @@ public class FilterActions {
 
         /**
          * <p>
-         * Create a new mean-filter action.
+         * Create a new median-filter action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -173,12 +173,12 @@ public class FilterActions {
 
         /**
          * <p>
-         * Callback for when the convert-to-grey action is triggered.
+         * Callback for when the median action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the MeanFilterAction is triggered.
-         * It prompts the user for a filter radius, then applies an appropriately sized {@link MeanFilter}.
+         * This method is called whenever the MedianFilterAction is triggered.
+         * It prompts the user for a filter radius, then applies an appropriately sized {@link MedianFilter}.
          * </p>
          * 
          * @param e The event triggering this callback.
