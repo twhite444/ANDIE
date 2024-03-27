@@ -66,6 +66,8 @@ public class ImagePanel extends JPanel {
      */
     public EditableImage getImage() {
 
+        System.out.println(image.hasImage());
+
         if (!image.hasImage()) { // check if an image exsists
 
             JOptionPane.showMessageDialog(null, "Error: image does not seem to exist, proabably becasue no image is open", "Error", JOptionPane.ERROR_MESSAGE);
@@ -80,12 +82,18 @@ public class ImagePanel extends JPanel {
 
         /**
      * <p>
-     * Only for opening / saving images, somtimes get image needs to return null for them to work properly.
+     * Only for required opening images when no image is opened (as current image will be null)
+     * 
+     * also for some reason when saving images getImage returns null.
+     * But ONLY when andie has been opened for the first time after turing on the computer.
+     * If you close andie and reopen it this doesnt happen.
      * </p>
      *
      * @return the image being opened
      */
     public EditableImage getImageDangerous() {
+
+        System.out.println(image.hasImage());
 
         return image;
 
