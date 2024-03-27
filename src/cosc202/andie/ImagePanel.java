@@ -80,16 +80,12 @@ public class ImagePanel extends JPanel {
 
     }
 
-        /**
+    /**
      * <p>
      * Only for required opening images when no image is opened (as current image will be null)
-     * 
-     * also for some reason when saving images getImage somtimes returns null.
-     * But ONLY when andie has been opened for the first time after turing on the computer.
-     * If you close andie and reopen it this doesnt happen.
      * </p>
      *
-     * @return the image being opened
+     * @return the image currently displayed or null
      */
     public EditableImage getImageDangerous() {
 

@@ -106,17 +106,13 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImageDangerous().open(imageFilepath);
 
-                } catch (IOException ex) {
-
-                    JOptionPane.showMessageDialog(null, ("Error: Input / Output error\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
-
                 } catch (NullPointerException ex) {
 
                     JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
 
                 } catch (Exception ex) {
                     
-                    System.out.println(ex + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, ("Error: Unspecified error\n" + ex.getMessage()) + "\n" + ex, "Error", JOptionPane.ERROR_MESSAGE);
 
                 }
             }
@@ -170,11 +166,14 @@ public class FileActions {
             } catch (NullPointerException ex) {
                 
                 JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+                
+            } catch (IllegalArgumentException ex) {
+                
+                JOptionPane.showMessageDialog(null, ("Error: Illegal argument error, probably tried to save an image that doesnt exist\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
 
             } catch (Exception ex) {
 
-                System.out.println(ex);
-                JOptionPane.showMessageDialog(null, ("Error: problem saving\n" + ex.getMessage() + "\n" + ex), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, ("Error: Unspecified error\n" + ex.getMessage() + "\n" + ex), "Error", JOptionPane.ERROR_MESSAGE);
 
             }
         }
@@ -228,7 +227,11 @@ public class FileActions {
 
                 } catch (NullPointerException ex) {
                 
-                    JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);    
+
+                } catch (IllegalArgumentException ex) {
+                
+                    JOptionPane.showMessageDialog(null, ("Error: Illegal argument error, probably tried to save an image that doesnt exist\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
 
                 } catch (Exception ex) {
 
