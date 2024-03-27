@@ -4,7 +4,15 @@ import java.awt.Color;
 import java.util.*;
 import java.awt.image.BufferedImage;
 
-
+/**
+ * A class representing a median filter operation for images.
+ * This class implements the ImageOperation interface and provides a method to apply
+ * a median filter to a BufferedImage.
+ *
+ *
+ * @author Cushla Bridges
+ * @version 1.0
+ */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
 
     /**

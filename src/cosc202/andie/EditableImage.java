@@ -15,17 +15,18 @@ import javax.swing.JOptionPane;
  * The EditableImage represents an image with a series of operations applied to it.
  * It is fairly core to the ANDIE program, being the central data structure.
  * The operations are applied to a copy of the original image so that they can be undone.
- * THis is what is meant by "A Non-Destructive Image Editor" - you can always undo back to the original image.
+ * This is what is meant by "A Non-Destructive Image Editor" - you can always 
+ * undo back to the original image.
  * </p>
  * 
  * <p>
- * Internally the EditableImage has two {@link BufferedImage}s - the original image 
- * and the result of applying the current set of operations to it. 
- * The operations themselves are stored on a {@link Stack}, with a second {@link Stack} 
- * being used to allow undone operations to be redone.
+ * Internally the EditableImage has two {@link BufferedImage}s - the original image
+ * and the result of applying the current set of operations to it.
+ * The operations themselves are stored on a {@link Stack}, with a second
+ * {@link Stack} being used to allow undone operations to be redone.
  * </p>
  * 
- * <p> 
+ * <p>
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
@@ -53,7 +54,8 @@ class EditableImage {
      * </p>
      * 
      * <p>
-     * A new EditableImage has no image (it is a null reference), and an empty stack of operations.
+     * A new EditableImage has no image (it is a null reference), and an empty stack
+     * of operations.
      * </p>
      */
     public EditableImage() {
@@ -78,14 +80,14 @@ class EditableImage {
 
     /**
      * <p>
-     * Make a 'deep' copy of a BufferedImage. 
+     * Make a 'deep' copy of a BufferedImage.
      * </p>
      * 
      * <p>
-     * Object instances in Java are accessed via references, which means that assignment does
-     * not copy an object, it merely makes another reference to the original.
+     * Object instances in Java are accessed via references, which means that
+     * assignment does not copy an object, it merely makes another reference to the original.
      * In order to make an independent copy, the {@code clone()} method is generally used.
-     * {@link BufferedImage} does not implement {@link Cloneable} interface, and so the 
+     * {@link BufferedImage} does not implement {@link Cloneable} interface, and so the
      * {@code clone()} method is not accessible.
      * </p>
      * 
@@ -99,13 +101,14 @@ class EditableImage {
      * <p>
      * This code is taken from StackOverflow:
      * <a href="https://stackoverflow.com/a/3514297">https://stackoverflow.com/a/3514297</a>
-     * in response to 
+     * in response to
      * <a href="https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage">https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage</a>.
      * Code by Klark used under the CC BY-SA 2.5 license.
      * </p>
      * 
      * <p>
-     * This method (only) is released under <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a>
+     * This method (only) is released under
+     * <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a>
      * </p>
      * 
      * @param bi The BufferedImage to copy.
@@ -117,7 +120,7 @@ class EditableImage {
         WritableRaster raster = bi.copyData(null);
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
-    
+
     /**
      * <p>
      * Open an image from a file.
@@ -126,8 +129,8 @@ class EditableImage {
      * <p>
      * Opens an image from the specified file.
      * Also tries to open a set of operations from the file with <code>.ops</code> added.
-     * So if you open <code>some/path/to/image.png</code>, this method will also try to
-     * read the operations from <code>some/path/to/image.png.ops</code>.
+     * So if you open <code>some/path/to/image.png</code>, this method will also try
+     * to read the operations from <code>some/path/to/image.png.ops</code>.
      * </p>
      * 
      * @param filePath The file to open the image from.
@@ -139,7 +142,7 @@ class EditableImage {
         File imageFile = new File(imageFilename);
         original = ImageIO.read(imageFile);
         current = deepCopy(original);
-        
+
         try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
@@ -173,8 +176,8 @@ class EditableImage {
      * <p>
      * Saves an image to the file it was opened from, or the most recent file saved as.
      * Also saves a set of operations from the file with <code>.ops</code> added.
-     * So if you save to <code>some/path/to/image.png</code>, this method will also save
-     * the current operations to <code>some/path/to/image.png.ops</code>.
+     * So if you save to <code>some/path/to/image.png</code>, this method will also
+     * save the current operations to <code>some/path/to/image.png.ops</code>.
      * </p>
      * 
      * @throws Exception If something goes wrong.
@@ -184,7 +187,7 @@ class EditableImage {
             this.opsFilename = this.imageFilename + ".ops";
         }
         // Write image file based on file extension
-        String extension = imageFilename.substring(1+imageFilename.lastIndexOf(".")).toLowerCase();
+        String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
         ImageIO.write(original, extension, new File(imageFilename));
         // Write operations file
         FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
@@ -194,6 +197,40 @@ class EditableImage {
         fileOut.close();
     }
 
+/**
+     * <p>
+     * Export an image to a specified file.
+     * </p>
+     * 
+     * <p>
+     * Exports an image to the file provided as a parameter.
+     * </p>
+     * 
+     * <p>
+     * Does not save a set of operations.
+     * </p>
+     * 
+     * @author Charlotte Cook
+     * 
+     * @param imageFilename The file location to export the image to.
+     * @throws Exception If something goes wrong.
+     */
+    public void exportAs(String imageFilename) throws Exception {
+        String extension = this.imageFilename.substring(1 + this.imageFilename.lastIndexOf(".")).toLowerCase();
+        
+        // if the new file name for the image does not include an extension, the original extension of image
+        // is concatenated to the end of the new file name and the image is written to file
+        if (imageFilename.indexOf(".") == -1) {
+
+            ImageIO.write(current, extension, new File(imageFilename.concat(".").concat(extension)));
+            
+        } else {
+            // Else, the extension of the new file is changed to that of the original image and the image is written to file 
+            // (whether or not the extension differs between original and new file name)
+            ImageIO.write(current, extension,
+                    new File(imageFilename.substring(0, 1 + imageFilename.lastIndexOf(".")).concat(extension)));
+        }
+    }
 
     /**
      * <p>
@@ -203,8 +240,8 @@ class EditableImage {
      * <p>
      * Saves an image to the file provided as a parameter.
      * Also saves a set of operations from the file with <code>.ops</code> added.
-     * So if you save to <code>some/path/to/image.png</code>, this method will also save
-     * the current operations to <code>some/path/to/image.png.ops</code>.
+     * So if you save to <code>some/path/to/image.png</code>, this method will also
+     * save the current operations to <code>some/path/to/image.png.ops</code>.
      * </p>
      * 
      * @param imageFilename The file location to save the image to.
@@ -283,14 +320,15 @@ class EditableImage {
      * 
      * <p>
      * While the latest version of the image is stored in {@link current}, this
-     * method makes a fresh copy of the original and applies the operations to it in sequence.
-     * This is useful when undoing changes to the image, or in any other case where {@link current}
-     * cannot be easily incrementally updated. 
+     * method makes a fresh copy of the original and applies the operations to it in
+     * sequence.
+     * This is useful when undoing changes to the image, or in any other case where
+     * {@link current} cannot be easily incrementally updated.
      * </p>
      */
-    private void refresh()  {
+    private void refresh() {
         current = deepCopy(original);
-        for (ImageOperation op: ops) {
+        for (ImageOperation op : ops) {
             current = op.apply(current);
         }
     }

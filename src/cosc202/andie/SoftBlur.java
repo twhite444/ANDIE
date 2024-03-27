@@ -6,18 +6,19 @@ import java.awt.image.*;
 /**
  * <p>
  * ImageOperation to apply a Softblur filter.
- * </p>
- * 
+ * This class implements the ImageOperation interface and provides a method to apply
+ * a sharpening filter to a BufferedImage.
  * <p>
+ * This class is typically called when the user selects the "Filter -> Softblur Filter" option.
  * </p>
- * 
- * 
  * @see java.awt.image.ConvolveOp
  * @author Yusei Tokito
  * @version 1.0
  */
 public class SoftBlur implements ImageOperation, java.io.Serializable {
-   /**Default constractor */
+   /**
+     * Constructs a new instance of SoftBlur filter.
+     */
    
     SoftBlur() {
 
@@ -25,10 +26,6 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
 /**
      * <p>
      * Apply a Soft Blur filter to an image.
-     * </p>
-     * 
-     * <p>
-     * 
      * </p>
      * 
      * @param input The image to apply the Soft filter to.
