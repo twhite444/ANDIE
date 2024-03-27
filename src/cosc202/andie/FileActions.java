@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 /**
@@ -98,11 +99,20 @@ public class FileActions {
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
+
                 try {
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().open(imageFilepath);
+                    target.getImageDangerous().open(imageFilepath);
+
+                } catch (NullPointerException ex) {
+
+                    JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+
                 } catch (Exception ex) {
-                    System.exit(1);
+                    
+                    JOptionPane.showMessageDialog(null, ("Error: Unspecified error\n" + ex.getMessage()) + "\n" + ex, "Error", JOptionPane.ERROR_MESSAGE);
+
                 }
             }
 
@@ -149,9 +159,21 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                target.getImage().save();
+
+                target.getImageDangerous().save();
+
+            } catch (NullPointerException ex) {
+                
+                JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+                
+            } catch (IllegalArgumentException ex) {
+                
+                JOptionPane.showMessageDialog(null, ("Error: Illegal argument error, probably tried to save an image that doesnt exist\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+
             } catch (Exception ex) {
-                System.exit(1);
+
+                JOptionPane.showMessageDialog(null, ("Error: Unspecified error\n" + ex.getMessage() + "\n" + ex), "Error", JOptionPane.ERROR_MESSAGE);
+
             }
         }
 
@@ -198,10 +220,22 @@ public class FileActions {
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().saveAs(imageFilepath);
+                    target.getImageDangerous().saveAs(imageFilepath);
+
+                } catch (NullPointerException ex) {
+                
+                    JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);    
+
+                } catch (IllegalArgumentException ex) {
+                
+                    JOptionPane.showMessageDialog(null, ("Error: Illegal argument error, probably tried to save an image that doesnt exist\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Error: problem saving", "Error", JOptionPane.ERROR_MESSAGE);
+
+                    JOptionPane.showMessageDialog(null, ("Error: problem saving as\n" + ex.getMessage() + "\n" + ex), "Error", JOptionPane.ERROR_MESSAGE);
+
                 }
             }
         }
