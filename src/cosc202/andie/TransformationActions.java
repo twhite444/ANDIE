@@ -36,7 +36,6 @@ public class TransformationActions {
     public TransformationActions() {
         actions = new ArrayList<Action>();
 
-        actions.add(new ResizeAction("Resize", null, "resize the image from 1% - 1000%", null));
         actions.add(new Resize50Action("Resize to 50%", null, "resize the image", null));
         actions.add(new Resize150Action("Resize to 150%", null, "resize the image", null));
         
@@ -253,58 +252,6 @@ public class TransformationActions {
          */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new ImageFlipH());
-            target.repaint();
-            target.getParent().revalidate();
-        }
-
-    }
-
-    public class ResizeAction extends ImageAction {
-
-        /**
-         * <p>
-         * Create a new Resize action.
-         * </p>
-         * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
-         */
-        ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        /**
-         * <p>
-         * Callback for when resize is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the ResizeAction is triggered.
-         * It resizes the image.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-
-            // Determine the scale - ask the user.
-            int scale = 100;
-
-            // Pop-up dialog box to ask for the scale value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(100d, 1d, 1000d, 1d);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter scale (%)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                scale = radiusModel.getNumber().intValue();
-            }
-
-            target.getImage().apply(new Resize(scale / 100));
             target.repaint();
             target.getParent().revalidate();
         }
