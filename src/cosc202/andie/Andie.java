@@ -1,6 +1,10 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
 import javax.swing.*;
 import javax.imageio.*;
 
@@ -96,6 +100,9 @@ public class Andie {
         TransformationActions transformationActions = new TransformationActions();
         menuBar.add(transformationActions.createMenu());
 
+        LanguageActions languageActions = new LanguageActions();
+        menuBar.add(languageActions.createMenu());
+
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
@@ -127,4 +134,44 @@ public class Andie {
             }
         });
     }
+
+    /**
+     * A class with methods to set and supply the language settings for setup of app
+     * 
+     * @author Charlotte Cook
+     */
+    public class LanguageSettings {
+
+        private static Preferences prefs;
+        private static ResourceBundle bundle;
+        private static Locale defaultLocale;
+
+        /**
+         * Method used to set the default language settings
+         * Used in main method before creating the GUI
+         */
+        public static void languageDefaultSetup() {
+            prefs = Preferences.userNodeForPackage(Andie.class);
+            if(defaultLocale == null){
+                defaultLocale = new Locale(prefs.get("language", "en"), prefs.get("country", "NZ"));
+                Locale.setDefault(defaultLocale);
+            }
+            bundle = ResourceBundle.getBundle("MessageBundle");
+
+        }
+
+        public static ResourceBundle getMessageBundle() {
+            return bundle;
+        }
+
+        public static Preferences getPrefs() {
+            return prefs;
+        }
+
+        public static Locale getDefaultLocale() {
+            return defaultLocale;
+        }
+
+    }
+
 }
