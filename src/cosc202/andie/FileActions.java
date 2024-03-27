@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.*;
 
 /**
@@ -98,11 +100,24 @@ public class FileActions {
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
+
                 try {
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().open(imageFilepath);
+                    target.getOpenedImage().open(imageFilepath);
+
+                } catch (IOException ex) {
+
+                    JOptionPane.showMessageDialog(null, ("Error: Input / Output error\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+
+                } catch (NullPointerException ex) {
+
+                    JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+
                 } catch (Exception ex) {
-                    System.exit(1);
+                    
+                    System.out.println(ex + ex.getMessage());
+
                 }
             }
 
@@ -149,9 +164,17 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
+
                 target.getImage().save();
+
+            } catch (NullPointerException ex) {
+                
+                JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+
             } catch (Exception ex) {
-                System.exit(1);
+
+                JOptionPane.showMessageDialog(null, ("Error: problem saving\n" + ex.getMessage() + "\n" + ex), "Error", JOptionPane.ERROR_MESSAGE);
+
             }
         }
 
@@ -198,10 +221,18 @@ public class FileActions {
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
+
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
+
+                } catch (NullPointerException ex) {
+                
+                    JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Error: problem saving", "Error", JOptionPane.ERROR_MESSAGE);
+
+                    JOptionPane.showMessageDialog(null, ("Error: problem saving as\n" + ex.getMessage() + "\n" + ex), "Error", JOptionPane.ERROR_MESSAGE);
+
                 }
             }
         }

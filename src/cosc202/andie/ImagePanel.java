@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
@@ -74,6 +73,19 @@ public class ImagePanel extends JPanel {
             throw new RuntimeException("no image");
 
         }
+
+        return image;
+
+    }
+
+        /**
+     * <p>
+     * Only for opening an image, when opeining an image "image" (the variable) may be null so regular get image would not work
+     * </p>
+     *
+     * @return the image being opened
+     */
+    public EditableImage getOpenedImage() {
 
         return image;
 
