@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 /**
@@ -64,6 +65,27 @@ public class ImagePanel extends JPanel {
      * @return the image currently displayed.
      */
     public EditableImage getImage() {
+
+        if (!image.hasImage()) { // check if an image exsists
+
+            JOptionPane.showMessageDialog(null, "Error: image does not seem to exist, proabably becasue no image is open", "Error", JOptionPane.ERROR_MESSAGE);
+
+            throw new RuntimeException("no image");
+
+        }
+
+        return image;
+
+    }
+
+    /**
+     * <p>
+     * Only for required opening images when no image is opened (as current image will be null)
+     * </p>
+     *
+     * @return the image currently displayed or null
+     */
+    public EditableImage getImageDangerous() {
 
         return image;
 
