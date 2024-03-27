@@ -1,4 +1,4 @@
-package test.cosc202.andie;
+package cosc202.andie;
 
 import java.beans.Transient;
 
