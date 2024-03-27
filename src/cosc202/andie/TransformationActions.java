@@ -293,7 +293,7 @@ public class TransformationActions {
             int scale = 100;
 
             // Pop-up dialog box to ask for the scale value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(100, 1, 1000, 1);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(100d, 1d, 1000d, 1d);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter scale (%)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
