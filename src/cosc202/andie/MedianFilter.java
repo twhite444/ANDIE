@@ -18,7 +18,7 @@ import java.util.*;
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
- * @author Steven Mills
+ * @author Yusei Tokito
  * @version 1.0
  */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
@@ -81,19 +81,69 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
 
         int size = (2*radius+1) * (2*radius+1);
+        int argb =0; // default
+        
+        for (int y = 0; y < input.getHeight(); ++y) {
 
-        float [] array = new float[size];
+            for (int x = 0; x < input.getWidth(); ++x) {
+                float [] array = new float[size];
+                int[] a = new int[size];
+                int[] r = new int[size];
+                int[] g = new int[size];
+                int[] b = new int[size];
+                int index = 0;
+                for(int y1 = -radius; y1<=radius; ++y1){
+                    
+                    for(int x1 = -radius; x1<=radius ;++x1 ){
+                        int moveX = x + x1;
+                        int moveY = y + y1;
+                        //condition where there is no such a pixel(out of bounds) fill with 0
+                        if(moveX<0&&moveY<0&&input.getHeight()<moveY&&input.getWidth()<moveX){
+                            a[index] = 0;
+                            r[index] = 0;
+                            g[index] = 0;
+                            b[index] = 0;
 
-        Arrays.fill(array, 1.0f/size);
+                        }else{
+                            argb = input.getRGB(moveX, moveY);
+                
+                            a[index]= (argb & 0xFF000000) >> 24;
+                            r[index] = (argb & 0x00FF0000) >> 16;
+                            g[index]= (argb & 0x0000FF00) >> 8;
+                            b[index]= (argb & 0x000000FF);
+                        }
+                        index++;
+                    }
+                    
+                }
+                Arrays.sort(a);
+                Arrays.sort(r);
+                Arrays.sort(g);
+                Arrays.sort(b);
+                int medianIndex = size/2 +1;
+                argb = (a[medianIndex]<< 24) | (r[medianIndex] << 16) | (g[medianIndex] << 8) | b[medianIndex];
+                input.setRGB(x,y,argb);
+                
+
+                
+                
+
+                    
+            }
+
+            }
+    
+
+    //    Arrays.fill(array, 1.0f/size);
 
 
-        Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
+        //Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
 
-        ConvolveOp convOp = new ConvolveOp(kernel);
+        //ConvolveOp convOp = new ConvolveOp(kernel);
 
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
-        convOp.filter(input, output);
+      //  convOp.filter(input, output);
         
 
         return output;
