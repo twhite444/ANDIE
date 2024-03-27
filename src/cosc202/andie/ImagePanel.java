@@ -67,13 +67,6 @@ public class ImagePanel extends JPanel {
      */
     public EditableImage getImage() {
 
-        if (!image.hasImage()) { // check if an image exsists
-
-            JOptionPane.showMessageDialog(null, "Error: tried to do an action on nothing, open an image first", "Error", JOptionPane.ERROR_MESSAGE);
-
-            throw new RuntimeException("no image");
-
-        }
 
         return image;
 

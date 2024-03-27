@@ -21,7 +21,7 @@ import java.util.*;
  * @author Yusei Tokito
  * @version 1.0
  */
-public class MedianFilter implements ImageOperation, java.io.Serializable {
+public class MedianFilterY implements ImageOperation, java.io.Serializable {
     
     /**
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
@@ -41,7 +41,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * 
      * @param radius The radius of the newly constructed MedianFilter
      */
-    MedianFilter(int radius) {
+    MedianFilterY(int radius) {
 
         this.radius = radius;    
 
@@ -58,7 +58,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * 
      * @see MeanFilter(int)
      */
-    MedianFilter() {
+    MedianFilterY() {
 
         this(1);
 
@@ -86,33 +86,36 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         for (int y = 0; y < input.getHeight(); ++y) {
 
             for (int x = 0; x < input.getWidth(); ++x) {
-                float [] array = new float[size];
+
                 int[] a = new int[size];
                 int[] r = new int[size];
                 int[] g = new int[size];
                 int[] b = new int[size];
                 int index = 0;
+                
                 for(int y1 = -radius; y1<=radius; ++y1){
-                    
+                    int moveY = y + y1;
                     for(int x1 = -radius; x1<=radius ;++x1 ){
                         int moveX = x + x1;
-                        int moveY = y + y1;
+                        
                         //condition where there is no such a pixel(out of bounds) fill with 0
-                        if(moveX<0&&moveY<0&&input.getHeight()<moveY&&input.getWidth()<moveX){
-                            a[index] = 0;
-                            r[index] = 0;
-                            g[index] = 0;
-                            b[index] = 0;
 
-                        }else{
+
+
+                        if (moveY >= 0 && moveY < input.getHeight() && moveX >= 0 && moveX < input.getWidth()) {
                             argb = input.getRGB(moveX, moveY);
-                
                             a[index]= (argb & 0xFF000000) >> 24;
                             r[index] = (argb & 0x00FF0000) >> 16;
                             g[index]= (argb & 0x0000FF00) >> 8;
                             b[index]= (argb & 0x000000FF);
+                        }else{
+                            a[index] = 0;
+                            r[index] = 0;
+                            g[index] = 0;
+                            b[index] = 0;
                         }
                         index++;
+                        
                     }
                     
                 }
@@ -137,16 +140,16 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
     //    Arrays.fill(array, 1.0f/size);
 
 
-        //Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
+        // Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
 
-        //ConvolveOp convOp = new ConvolveOp(kernel);
+        // ConvolveOp convOp = new ConvolveOp(kernel);
 
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+        // BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
       //  convOp.filter(input, output);
         
 
-        return output;
+        return input;
     }
 
 
