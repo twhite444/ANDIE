@@ -3,19 +3,18 @@ package cosc202.andie;
 import java.awt.image.*;
 
 /**
+* A class representing an operation to flip an image horizontally.
+* This class implements the ImageOperation interface and provides a method to flip an image horizontally.
+* 
+* <p>
+* Flipping an image horizontally involves reversing the order of pixels in each row.
+* </p>
  * <p>
- * This is the class for image flipping horizontally.
+ * This class is typically called when the user selects the "Transformations -> Flip -> Horizontal" option.
  * </p>
- * 
- * <p>
- * Once the user click the Flip -> Horizontally on the tab , this class gets
- * called
- * </p>
- * 
- * 
- * @author Yusei Tokito
- * @version 1.0
- */
+* @author Yusei Tokito
+* @version 1.0
+*/
 public class ImageFlipH implements ImageOperation, java.io.Serializable {
     /**
      * Default constractor
@@ -25,14 +24,14 @@ public class ImageFlipH implements ImageOperation, java.io.Serializable {
     }
 
     /**
+     * Apply the horizontal flip operation to the input image.
      * 
      * <p>
-     * Flipping the image horizontally
+     * This method flips the input image horizontally by reversing the order of pixels in each row.
      * </p>
      * 
-     * 
-     * @param input The image to flip the image horizontally.
-     * @return The resulting flipped horizontally image
+     * @param input The image to flip horizontally.
+     * @return The resulting horizontally flipped image.
      */
     public BufferedImage apply(BufferedImage input) {
 

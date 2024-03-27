@@ -2,16 +2,18 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+
 /**
+ * A class representing an operation to flip an image vertically.
+ * This class implements the ImageOperation interface and provides a method to flip an image vertically.
+ * 
  * <p>
- * This is the class for image flipping vertically .
+ * Flipping an image vertically involves reversing the order of pixels in each column.
  * </p>
  * 
  * <p>
- * Once the user click the Transformations -> flip -> Vertical on the tab , this class gets
- * called
+ * This class is typically called when the user selects the "Transformations -> Flip -> Vertical" option.
  * </p>
- * 
  * 
  * @author Yusei Tokito
  * @version 1.0
@@ -24,16 +26,16 @@ public class ImageFlipV implements ImageOperation, java.io.Serializable {
     ImageFlipV() {
 
     }
-
+    
     /**
+     * Apply the vertical flip operation to the input image.
      * 
      * <p>
-     * Flipping the image vertically
+     * This method flips the input image vertically by reversing the order of pixels in each column.
      * </p>
      * 
-     * 
-     * @param input The image to flip the image vertically.
-     * @return The resulting flipped vertically image
+     * @param input The image to flip vertically.
+     * @return The resulting vertically flipped image.
      */
     public BufferedImage apply(BufferedImage input) {
 
