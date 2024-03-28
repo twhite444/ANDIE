@@ -154,8 +154,6 @@ public class Andie {
             prefs = Preferences.userNodeForPackage(Andie.class);
             Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
             bundle = ResourceBundle.getBundle("MessageBundle");
-            //prefs.put("language", "en");
-            //    prefs.put("country", "NZ");
         }
 
         public static ResourceBundle getMessageBundle() {

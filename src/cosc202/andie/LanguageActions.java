@@ -64,9 +64,11 @@ public class LanguageActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            JOptionPane.showOptionDialog(null, bundle.getString("languageChangeMessage"), bundle.getString("important"), JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,null, new String[]{bundle.getString("optionPane_okButtonText")},null);
             Locale.setDefault(en_nz_locale);
             prefs.put("language", "en");
             prefs.put("country", "NZ");
+
         }
     }
 
@@ -83,6 +85,7 @@ public class LanguageActions {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
+            JOptionPane.showOptionDialog(null, bundle.getString("languageChangeMessage"), bundle.getString("important"), JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,null, new String[]{bundle.getString("optionPane_okButtonText")},null);
             Locale.setDefault(ru_RU_locale);
             prefs.put("language", "ru");
             prefs.put("country", "RU");
