@@ -1,7 +1,8 @@
 package cosc202.andie;
 
 import java.awt.*;
-import java.util.Locale;
+import java.util.*;
+import java.util.Locale.*;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
@@ -55,7 +56,6 @@ public class Andie {
      * 
      * @throws Exception if something goes wrong.
      */
-
     private static void createAndShowGUI() throws Exception {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
@@ -100,6 +100,7 @@ public class Andie {
         TransformationActions transformationActions = new TransformationActions();
         menuBar.add(transformationActions.createMenu());
 
+        // Actions that allow the user to change the language used in app
         LanguageActions languageActions = new LanguageActions();
         menuBar.add(languageActions.createMenu());
 
@@ -145,7 +146,6 @@ public class Andie {
 
         private static Preferences prefs;
         private static ResourceBundle bundle;
-        private static Locale defaultLocale;
 
         /**
          * Method used to set the default language settings
@@ -153,12 +153,10 @@ public class Andie {
          */
         public static void languageDefaultSetup() {
             prefs = Preferences.userNodeForPackage(Andie.class);
-            if(defaultLocale == null){
-                defaultLocale = new Locale(prefs.get("language", "en"), prefs.get("country", "NZ"));
-                Locale.setDefault(defaultLocale);
+            if(Locale.getDefault().toString().equals("en_AU")){
+                Locale.setDefault(new Builder().setLanguage("en").setRegion("NZ").build());
             }
             bundle = ResourceBundle.getBundle("MessageBundle");
-
         }
 
         public static ResourceBundle getMessageBundle() {
@@ -168,11 +166,6 @@ public class Andie {
         public static Preferences getPrefs() {
             return prefs;
         }
-
-        public static Locale getDefaultLocale() {
-            return defaultLocale;
-        }
-
     }
 
 }

@@ -27,19 +27,22 @@ public class ColourActions {
     /** A list of actions for the Colour menu. */
     protected ArrayList<Action> actions;
 
+    //needed for languages:
+    private static ResourceBundle bundle;
+
     /**
      * <p>
      * Create a set of Colour menu actions.
      * </p>
      */
     public ColourActions() {
+        //needed for multilingual support:
+        bundle = Andie.LanguageSettings.getMessageBundle();
 
         actions = new ArrayList<Action>();
-        actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new ConvertToInverseAction("Invert", null, "Invert colours", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new CycleColoursAction("Cycle colours", null, "Cycle colours", Integer.valueOf(KeyEvent.VK_G)));
-
-
+        actions.add(new ConvertToGreyAction(bundle.getString("menu_colour_greyscale"), null, bundle.getString("menu_colour_greyscale_desc"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new ConvertToInverseAction(bundle.getString("menu_colour_imageInversion"), null, bundle.getString("menu_colour_imageInversion_desc"), Integer.valueOf(KeyEvent.VK_I)));
+        actions.add(new CycleColoursAction("Cycle colours", null, "Cycle colours", Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -50,8 +53,8 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
+        JMenu fileMenu = new JMenu(bundle.getString("menu_colour"));
 
-        JMenu fileMenu = new JMenu("Colour");
 
         for(Action action: actions) {
 
@@ -205,7 +208,7 @@ public class ColourActions {
                                         "gbr",
                                         "grb",
                                         "rbg",
-                                        "rgb" }; // differernt options for cycle type
+                                        "rgb" }; // different options for cycle type
 
             JComboBox<String> comboBox = new JComboBox<String>(); // drop down menu for options
 
@@ -244,7 +247,3 @@ public class ColourActions {
 // GBR x
 // GRB x
 // RBG x
-
-
-
-

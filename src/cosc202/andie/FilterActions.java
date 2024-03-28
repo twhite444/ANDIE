@@ -4,6 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 /**
  * <p>
  * Actions provided by the Filter menu.
@@ -27,19 +28,24 @@ public class FilterActions {
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
 
+    //needed for languages:
+    private static ResourceBundle bundle;
+
     /**
      * <p>
      * Create a set of Filter menu actions.
      * </p>
      */
     public FilterActions() {
-        actions = new ArrayList<Action>();
-        actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SoftBlurAction("Soft blur filter",null,"Apply a soft blur",Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new SharpenFilterAction("Sharpen filter",null,"Apply a sharpen blur",Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new MedianFilterAction("Median filter",null,"Apply a median blur",Integer.valueOf(KeyEvent.VK_D)));
-        actions.add(new GaussianFilterAction("Gaussian filter", null, "Apply a Gaussian filter", Integer.valueOf(KeyEvent.VK_G)));
+        //needed for multilingual support:
+        bundle = Andie.LanguageSettings.getMessageBundle();
 
+        actions = new ArrayList<Action>();
+        actions.add(new MeanFilterAction(bundle.getString("menu_filter_meanFilter"), null, bundle.getString("menu_filter_meanFilter_desc"), null));
+        actions.add(new SoftBlurAction("Soft blur filter",null,"Apply a soft blur", null));
+        actions.add(new SharpenFilterAction("Sharpen filter",null,"Apply a sharpen blur", null));
+        actions.add(new MedianFilterAction(bundle.getString("menu_filter_medianFilter"), null, bundle.getString("menu_filter_medianFilter_desc"), null));
+        actions.add(new GaussianFilterAction(bundle.getString("menu_filter_gaussianFilter"), null, bundle.getString("menu_filter_gaussianFilter_desc"), null));
     }
 
     /**
@@ -50,7 +56,7 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Filter");
+        JMenu fileMenu = new JMenu(bundle.getString("menu_filter"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));
