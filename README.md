@@ -14,7 +14,7 @@ Other error avoidance/prevention - Liam
     -Error dialogue boxes/throwing exceptions for save and open functions, and applying methods to no image  
 Junit Testing and Gradle build (testing for rotations and flips) - Tommo  
 Transformation actions menu - Tommo (added to by Yusei)  
-User Guide - Cushla (modified by everyone)  
+User Guide - Cushla, Tommo (modified by everyone)  
 
 
 
