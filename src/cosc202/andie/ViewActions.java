@@ -28,16 +28,24 @@ public class ViewActions {
      */
     protected ArrayList<Action> actions;
 
+    //needed for languages:
+    private static ResourceBundle bundle;
+
     /**
      * <p>
      * Create a set of View menu actions.
      * </p>
      */
     public ViewActions() {
+
+        //needed for multilingual support:
+        Locale.setDefault(Andie.LanguageSettings.getDefaultLocale());
+        bundle = Andie.LanguageSettings.getMessageBundle();
+
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction("Zoom In", null, "Zoom In", Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction("Zoom Out", null, "Zoom Out", Integer.valueOf(KeyEvent.VK_MINUS)));
-        actions.add(new ZoomFullAction("Zoom Full", null, "Zoom Full", Integer.valueOf(KeyEvent.VK_1)));
+        actions.add(new ZoomInAction(bundle.getString("menu_view_zoomIn"), null, bundle.getString("menu_view_zoomIn_desc"), Integer.valueOf(KeyEvent.VK_PLUS)));
+        actions.add(new ZoomOutAction(bundle.getString("menu_view_zoomOut"), null, bundle.getString("menu_view_zoomOut_desc"), Integer.valueOf(KeyEvent.VK_MINUS)));
+        actions.add(new ZoomFullAction(bundle.getString("menu_view_zoomFull"), null, bundle.getString("menu_view_zoomFull_desc"), Integer.valueOf(KeyEvent.VK_1)));
     }
 
     /**
@@ -48,7 +56,7 @@ public class ViewActions {
      * @return The view menu UI element.
      */
     public JMenu createMenu() {
-        JMenu viewMenu = new JMenu("View");
+        JMenu viewMenu = new JMenu(bundle.getString("menu_view"));
 
         for (Action action: actions) {
             viewMenu.add(new JMenuItem(action));
