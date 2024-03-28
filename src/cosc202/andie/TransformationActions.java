@@ -66,7 +66,7 @@ public class TransformationActions {
         flipsMenu.add(new ImageFlipHAction(bundle.getString("menu_transform_flipHorizontal"),null,bundle.getString("menu_transform_flipHorizontal_desc"),null));
         fileMenu.add(flipsMenu);
 
-        JMenu rotationsMenu= new JMenu("Rotations"); // add rotaions menu for rotaions
+        JMenu rotationsMenu= new JMenu(bundle.getString("menu_transform_rotate")); // add rotaions menu for rotaions
         rotationsMenu.add(new Rotate90LeftAction(bundle.getString("menu_transform_rotateLeft"),null, bundle.getString("menu_transform_rotateLeft_desc"),null));
         rotationsMenu.add(new Rotate90RightAction(bundle.getString("menu_transform_rotateRight"),null, bundle.getString("menu_transform_rotateRight_desc"),null));
         rotationsMenu.add(new Rotate180Action(bundle.getString("menu_transform_rotate180"),null, bundle.getString("menu_transform_rotate180_desc"),null));
