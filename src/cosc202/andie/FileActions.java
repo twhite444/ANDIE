@@ -96,6 +96,17 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
+            int option = JOptionPane.showOptionDialog(null, "Open new image?\nUnsaved progress will be lost.", "Open?", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) { // cancel the exiting
+
+                return;
+
+            } else if (option == JOptionPane.OK_OPTION) {
+
+            
+
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
 
@@ -119,6 +130,9 @@ public class FileActions {
 
             target.repaint();
             target.getParent().revalidate();
+
+            }
+
         }
 
     }
@@ -159,6 +173,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
             try {
 
                 target.getImageDangerous().save();
@@ -222,9 +237,20 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().exportAs(imageFilepath);
+                    target.getImageDangerous().exportAs(imageFilepath);
+
+                } catch (NullPointerException ex) {
+                
+                    JOptionPane.showMessageDialog(null, ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+                    
+                } catch (IllegalArgumentException ex) {
+                    
+                    JOptionPane.showMessageDialog(null, ("Error: Illegal argument error, probably tried to save an image that doesnt exist\n" + ex.getMessage()), "Error", JOptionPane.ERROR_MESSAGE);
+    
                 } catch (Exception ex) {
-                    System.exit(1);
+    
+                    JOptionPane.showMessageDialog(null, ("Error: Unspecified error\n" + ex.getMessage() + "\n" + ex), "Error", JOptionPane.ERROR_MESSAGE);
+    
                 }
             }
         }
@@ -330,7 +356,19 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            System.exit(0);
+
+            int option = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?\nUnsaved progress will be lost.", "Exit?", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) { // cancel the exiting
+
+                return;
+
+            } else if (option == JOptionPane.OK_OPTION) {
+
+                System.exit(0);
+
+            }
+
         }
 
     }
