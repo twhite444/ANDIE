@@ -80,7 +80,7 @@ public class ImagePanel extends JPanel {
 
     /**
      * <p>
-     * Only for required opening images when no image is opened (as current image will be null)
+     * Only required for when current image may be null
      * </p>
      *
      * @return the image currently displayed or null
