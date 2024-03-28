@@ -4,6 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+
  /**
  * <p>
  * Actions provided by the Edit menu.
@@ -27,15 +28,24 @@ public class EditActions {
     /** A list of actions for the Edit menu. */
     protected ArrayList<Action> actions;
 
+    //needed for languages:
+    private static ResourceBundle bundle;
+    
+
     /**
      * <p>
      * Create a set of Edit menu actions.
      * </p>
      */
     public EditActions() {
+        //needed for multilingual support:
+        Locale.setDefault(Andie.LanguageSettings.getDefaultLocale());
+        bundle = Andie.LanguageSettings.getMessageBundle();
+        
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction("Undo", null, "Undo", Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction("Redo", null, "Redo", Integer.valueOf(KeyEvent.VK_Y)));
+        actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), Integer.valueOf(KeyEvent.VK_Z)));
+        actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), Integer.valueOf(KeyEvent.VK_Y)));
+    
     }
 
     /**
@@ -46,8 +56,8 @@ public class EditActions {
      * @return The edit menu UI element.
      */
     public JMenu createMenu() {
-        JMenu editMenu = new JMenu("Edit");
-
+        JMenu editMenu = new JMenu(bundle.getString("menu_edit"));
+        
         for (Action action: actions) {
             editMenu.add(new JMenuItem(action));
         }

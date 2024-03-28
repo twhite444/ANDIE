@@ -29,18 +29,24 @@ public class FileActions {
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
 
+    //needed for languages:
+    private static ResourceBundle bundle;
+
     /**
      * <p>
      * Create a set of File menu actions.
      * </p>
      */
     public FileActions() {
+        //needed for multilingual support:
+        bundle = Andie.LanguageSettings.getMessageBundle();
+
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction("Open", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction("Save", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAction("Export", null, "Save a copy of the edited image", Integer.valueOf(KeyEvent.VK_E)));
-        actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
+        actions.add(new FileOpenAction(bundle.getString("menu_file_open"), null, bundle.getString("menu_file_open_desc"), Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileSaveAction(bundle.getString("menu_file_save"), null, bundle.getString("menu_file_save_desc"), Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new FileSaveAsAction(bundle.getString("menu_file_saveAs"), null, bundle.getString("menu_file_saveAs_desc"), Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAction(bundle.getString("menu_file_export"), null, bundle.getString("menu_file_export_desc"), Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(new FileExitAction(bundle.getString("menu_file_exit"), null, bundle.getString("menu_file_exit_desc"), Integer.valueOf(0)));
     }
 
     /**
@@ -51,7 +57,7 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu(bundle.getString("menu_file"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
