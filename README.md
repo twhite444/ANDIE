@@ -1,8 +1,8 @@
 ## Contributions to features
-Sharpen Filter - Yusei
-Gaussian blur filter - Charlotte
-Median Filter - Cushla, Liam, (Yusei wrote his own version of the code)
-Image inversion - Liam
+Sharpen Filter - Yusei  
+Gaussian blur filter - Charlotte  
+Median Filter - Cushla, Liam, (Yusei wrote his own version of the code)  
+Image inversion - Liam  
 Colour channel cycling - Liam
 Multi-Language support - Charlotte
 Image resize - Tommo
