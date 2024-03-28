@@ -10,8 +10,10 @@ import org.junit.jupiter.api.Test;
 import cosc202.andie.Rotate180;
 import cosc202.andie.Rotate90Right;
 import cosc202.andie.Rotate90Left;
+import cosc202.andie.ImageFlipH;
+import cosc202.andie.ImageFlipV;
 
-public class RotateTest {
+public class TransformationsTest {
     private BufferedImage sampleInputImage;
 
     @BeforeEach
@@ -50,7 +52,6 @@ public class RotateTest {
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);
-        System.out.println("testRotate90Left succesful");
     }
 
     @Test
@@ -68,13 +69,11 @@ public class RotateTest {
         expectedOutputImage.setRGB(2, 2, 0xFF0000); // Red
 
 
-
         // Apply Rotate180
         BufferedImage outputImage = new Rotate180().apply(sampleInputImage);
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);
-        System.out.println("testRotate90Left succesful");
     }
 
     @Test
@@ -91,15 +90,53 @@ public class RotateTest {
         expectedOutputImage.setRGB(1, 2, 0x00FFFF); // Cyan
         expectedOutputImage.setRGB(2, 2, 0x0000FF); // Blue
 
-
-
-
         // Apply Rotate90Right
         BufferedImage outputImage = new Rotate90Right().apply(sampleInputImage);
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);
-        System.out.println("testRotate90Left succesful");
+    }
+
+    @Test
+    void testImageFlipV() {
+        // Expected output image after ImageFlipV
+        BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
+        expectedOutputImage.setRGB(0, 0, 0xFFFFFF); // White
+        expectedOutputImage.setRGB(1, 0, 0x000000); // Black
+        expectedOutputImage.setRGB(2, 0, 0x808080); // Gray
+        expectedOutputImage.setRGB(0, 1, 0xFFFF00); // Yellow
+        expectedOutputImage.setRGB(1, 1, 0xFF00FF); // Magenta
+        expectedOutputImage.setRGB(2, 1, 0x00FFFF); // Cyan
+        expectedOutputImage.setRGB(0, 2, 0xFF0000); // Red
+        expectedOutputImage.setRGB(1, 2, 0x00FF00); // Green
+        expectedOutputImage.setRGB(2, 2, 0x0000FF); // Blue
+
+        // Apply ImageFlipV
+        BufferedImage outputImage = new ImageFlipV().apply(sampleInputImage);
+
+        // Compare output with expected output
+        assertImagesEqual(expectedOutputImage, outputImage);
+    }
+
+    @Test
+    void testImageFlipH() {
+        // Expected output image after ImageFlipH
+        BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
+        expectedOutputImage.setRGB(0, 0, 0x0000FF); // Blue
+        expectedOutputImage.setRGB(1, 0, 0x00FF00); // Green
+        expectedOutputImage.setRGB(2, 0, 0xFF0000); // Red
+        expectedOutputImage.setRGB(0, 1, 0x00FFFF); // Cyan
+        expectedOutputImage.setRGB(1, 1, 0xFF00FF); // Magenta
+        expectedOutputImage.setRGB(2, 1, 0xFFFF00); // Yellow
+        expectedOutputImage.setRGB(0, 2, 0x808080); // Gray
+        expectedOutputImage.setRGB(1, 2, 0x000000); // Black
+        expectedOutputImage.setRGB(2, 2, 0xFFFFFF); // White
+
+        // Apply ImageFlipH
+        BufferedImage outputImage = new ImageFlipH().apply(sampleInputImage);
+
+        // Compare output with expected output
+        assertImagesEqual(expectedOutputImage, outputImage);
     }
 
     private void assertImagesEqual(BufferedImage expected, BufferedImage actual) {
