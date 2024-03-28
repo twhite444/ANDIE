@@ -42,7 +42,7 @@ public class ColourActions {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction(bundle.getString("menu_colour_greyscale"), null, bundle.getString("menu_colour_greyscale_desc"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ConvertToInverseAction(bundle.getString("menu_colour_imageInversion"), null, bundle.getString("menu_colour_imageInversion_desc"), Integer.valueOf(KeyEvent.VK_I)));
-        actions.add(new CycleColoursAction("Cycle colours", null, "Cycle colours", Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new CycleColoursAction(bundle.getString("menu_colour_cycleColours"), null, bundle.getString("menu_colour_cycleColours_desc"), Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -218,7 +218,7 @@ public class ColourActions {
 
             }
 
-            int option = JOptionPane.showOptionDialog(null, comboBox, "Cycle colours from rgb to:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, comboBox, "Cycle colours from rgb to:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
 
             if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
 
