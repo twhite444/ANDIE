@@ -2,7 +2,7 @@ package cosc202.andie;
 
 import java.awt.*;
 import java.util.*;
-import java.util.Locale;
+import java.util.Locale.*;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 

@@ -39,7 +39,6 @@ public class ViewActions {
     public ViewActions() {
 
         //needed for multilingual support:
-        Locale.setDefault(Andie.LanguageSettings.getDefaultLocale());
         bundle = Andie.LanguageSettings.getMessageBundle();
 
         actions = new ArrayList<Action>();

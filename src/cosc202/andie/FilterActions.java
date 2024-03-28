@@ -38,7 +38,6 @@ public class FilterActions {
      */
     public FilterActions() {
         //needed for multilingual support:
-        Locale.setDefault(Andie.LanguageSettings.getDefaultLocale());
         bundle = Andie.LanguageSettings.getMessageBundle();
 
         actions = new ArrayList<Action>();

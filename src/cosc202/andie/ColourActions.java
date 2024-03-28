@@ -40,7 +40,7 @@ public class ColourActions {
         bundle = Andie.LanguageSettings.getMessageBundle();
 
         actions = new ArrayList<Action>();
-        actions.add(new ConvertToGreyAction(bundle.getString("menu_colour_greyscale"), null, bundle.getString("menu_colour_greyscale_desc"), Integer.valueOf(KeyEvent.VK_G)))
+        actions.add(new ConvertToGreyAction(bundle.getString("menu_colour_greyscale"), null, bundle.getString("menu_colour_greyscale_desc"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ConvertToInverseAction(bundle.getString("menu_colour_imageInversion"), null, bundle.getString("menu_colour_imageInversion_desc"), Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new CycleColoursAction("Cycle colours", null, "Cycle colours", Integer.valueOf(KeyEvent.VK_C)));
     }

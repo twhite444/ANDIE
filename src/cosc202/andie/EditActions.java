@@ -39,7 +39,6 @@ public class EditActions {
      */
     public EditActions() {
         //needed for multilingual support:
-        Locale.setDefault(Andie.LanguageSettings.getDefaultLocale());
         bundle = Andie.LanguageSettings.getMessageBundle();
         
         actions = new ArrayList<Action>();
