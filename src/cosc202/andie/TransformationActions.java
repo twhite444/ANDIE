@@ -28,12 +28,18 @@ public class TransformationActions {
     /** A list of actions for the Transformations menu. */
     protected ArrayList<Action> actions;
 
+    //needed for languages:
+    private static ResourceBundle bundle;
+
     /**
      * <p>
      * Create a set of transformation menu actions.
      * </p>
      */
     public TransformationActions() {
+        //needed for multilingual support:
+        bundle = Andie.LanguageSettings.getMessageBundle();
+
         actions = new ArrayList<Action>();
 
         actions.add(new Resize50Action("Resize to 50%", null, "resize the image", null));
@@ -49,7 +55,7 @@ public class TransformationActions {
      * @return The transformation menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Transformations");
+        JMenu fileMenu = new JMenu(bundle.getString("menu_transform"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));

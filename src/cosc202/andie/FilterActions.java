@@ -42,8 +42,8 @@ public class FilterActions {
 
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction(bundle.getString("menu_filter_meanFilter"), null, bundle.getString("menu_filter_meanFilter_desc"), null));
-        actions.add(new SoftBlurAction("Soft blur filter",null,"Apply a soft blur", null));
-        actions.add(new SharpenFilterAction("Sharpen filter",null,"Apply a sharpen blur", null));
+        actions.add(new SoftBlurAction(bundle.getString("menu_filter_softblurFilter"),null,bundle.getString("menu_filter_softblurFilter_desc"), null));
+        actions.add(new SharpenFilterAction(bundle.getString("menu_filter_sharpenFilter"),null,bundle.getString("menu_filter_sharpenFilter_desc"), null));
         actions.add(new MedianFilterAction(bundle.getString("menu_filter_medianFilter"), null, bundle.getString("menu_filter_medianFilter_desc"), null));
         actions.add(new GaussianFilterAction(bundle.getString("menu_filter_gaussianFilter"), null, bundle.getString("menu_filter_gaussianFilter_desc"), null));
     }
@@ -101,7 +101,15 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius, 1 - 10 px", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(
+                null,
+                radiusSpinner,
+                bundle.getString("menu_filter_enterFilterRadius1to10px"), 
+                JOptionPane.OK_CANCEL_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
+                null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -163,7 +171,15 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius, 1 - 10 px", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(
+                null, 
+                radiusSpinner, 
+                bundle.getString("menu_filter_enterFilterRadius1to10px"), 
+                JOptionPane.OK_CANCEL_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
+                null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -251,7 +267,15 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius, 1 - 10 px", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(
+                null,
+                radiusSpinner,
+                bundle.getString("menu_filter_enterFilterRadius1to10px"), 
+                JOptionPane.OK_CANCEL_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
+                null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
