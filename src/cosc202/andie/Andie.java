@@ -3,7 +3,6 @@ package cosc202.andie;
 import java.awt.*;
 import java.util.*;
 import java.util.Locale.*;
-import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
@@ -153,10 +152,10 @@ public class Andie {
          */
         public static void languageDefaultSetup() {
             prefs = Preferences.userNodeForPackage(Andie.class);
-            if(Locale.getDefault().toString().equals("en_AU")){
-                Locale.setDefault(new Builder().setLanguage("en").setRegion("NZ").build());
-            }
+            Locale.setDefault(new Locale(prefs.get("language", "en"), prefs.get("country", "NZ")));
             bundle = ResourceBundle.getBundle("MessageBundle");
+            //prefs.put("language", "en");
+            //    prefs.put("country", "NZ");
         }
 
         public static ResourceBundle getMessageBundle() {
