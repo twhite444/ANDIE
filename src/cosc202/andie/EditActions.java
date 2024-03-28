@@ -91,9 +91,15 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().undo();
-            target.repaint();
-            target.getParent().revalidate();
+
+            try {
+
+                target.getImage().undo();
+                target.repaint();
+                target.getParent().revalidate();
+
+            } catch (Exception ex) {}
+
         }
     }
 
@@ -134,9 +140,15 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
+            try {
+
             target.getImage().redo();
             target.repaint();
             target.getParent().revalidate();
+
+            } catch (Exception ex) {}
+
         }
     }
 
