@@ -97,15 +97,17 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
 
+            if (target.getImageDangerous().hasImage()) { // checks is an image is open
+
             int option = JOptionPane.showOptionDialog(null, "Open new image?\nUnsaved progress will be lost.", "Open?", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             if (option == JOptionPane.CANCEL_OPTION) { // cancel the exiting
 
                 return;
 
-            } else if (option == JOptionPane.OK_OPTION) {
+            }
 
-            
+            }
 
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
@@ -130,8 +132,6 @@ public class FileActions {
 
             target.repaint();
             target.getParent().revalidate();
-
-            }
 
         }
 
