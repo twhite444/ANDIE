@@ -68,7 +68,7 @@ public class ImagePanel extends JPanel {
 
         if (!image.hasImage()) { // check if an image exsists
 
-            JOptionPane.showMessageDialog(null, "Error: image does not seem to exist, proabably becasue no image is open", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error: image does not seem to exist, probably because no image is open", "Error", JOptionPane.ERROR_MESSAGE);
 
             throw new RuntimeException("no image");
 
@@ -80,7 +80,7 @@ public class ImagePanel extends JPanel {
 
     /**
      * <p>
-     * Only for required opening images when no image is opened (as current image will be null)
+     * Only required for when current image may be null
      * </p>
      *
      * @return the image currently displayed or null
