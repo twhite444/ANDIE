@@ -1,6 +1,6 @@
 package cosc202.andie;
 
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
 
 /**
  * <p>
@@ -24,7 +24,7 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Create a new CovertToGrey operation.
+     * Create a new ConvertToGrey operation.
      * </p>
      */
     ConvertToGrey() {

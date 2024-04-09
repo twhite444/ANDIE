@@ -1,8 +1,15 @@
 package cosc202.andie;
 
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -115,13 +122,13 @@ public class ColourActions {
      * Action to convert an image to inverse.
      * </p>
      * 
-     * @see CovertToInverse
+     * @see ConvertToInverse
      */
     public class ConvertToInverseAction extends ImageAction {
 
         /**
          * <p>
-         * Create a new CovertToInverse action.
+         * Create a new ConvertToInverse action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
