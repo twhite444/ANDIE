@@ -65,8 +65,6 @@ public class GaussianFilter  implements ImageOperation, java.io.Serializable {
         int height = 2 * radius + 1;
         int size = width * height;
 
-        System.out.println("width: " + width + "height: " + height);
-
         float[] array = new float[size];
 
         float sigma = (float)radius / 3;

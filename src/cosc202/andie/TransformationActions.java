@@ -28,16 +28,22 @@ public class TransformationActions {
     /** A list of actions for the Transformations menu. */
     protected ArrayList<Action> actions;
 
+    //needed for languages:
+    private static ResourceBundle bundle;
+
     /**
      * <p>
      * Create a set of transformation menu actions.
      * </p>
      */
     public TransformationActions() {
+        //needed for multilingual support:
+        bundle = Andie.LanguageSettings.getMessageBundle();
+
         actions = new ArrayList<Action>();
 
-        actions.add(new Resize50Action("Resize to 50%", null, "resize the image", null));
-        actions.add(new Resize150Action("Resize to 150%", null, "resize the image", null));
+        actions.add(new Resize50Action(bundle.getString("menu_transform_resize50"), null, bundle.getString("menu_transform_resize_desc"), null));
+        actions.add(new Resize150Action(bundle.getString("menu_transform_resize150"), null, bundle.getString("menu_transform_resize_desc"), null));
         
     }
 
@@ -49,21 +55,21 @@ public class TransformationActions {
      * @return The transformation menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Transformations");
+        JMenu fileMenu = new JMenu(bundle.getString("menu_transform"));
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));
         }
 
-        JMenu flipsMenu= new JMenu("Flip"); //add flipsMenu actions for horizontal and vertical flip
-        flipsMenu.add(new ImageFlipVAction("Vertical",null,"Flip image vertically",null));
-        flipsMenu.add(new ImageFlipHAction("Horizontal",null,"Flip image horizontally",null));
+        JMenu flipsMenu= new JMenu(bundle.getString("menu_transform_flipMenu")); //add flipsMenu actions for horizontal and vertical flip
+        flipsMenu.add(new ImageFlipVAction(bundle.getString("menu_transform_flipVertical"),null, bundle.getString("menu_transform_flipVertical_desc"),null));
+        flipsMenu.add(new ImageFlipHAction(bundle.getString("menu_transform_flipHorizontal"),null,bundle.getString("menu_transform_flipHorizontal_desc"),null));
         fileMenu.add(flipsMenu);
 
-        JMenu rotationsMenu= new JMenu("Rotations"); // add rotaions menu for rotaions
-        rotationsMenu.add(new Rotate90LeftAction("90 (left)", null, "Rotate image 90 degrees to the left", null));
-        rotationsMenu.add(new Rotate90RightAction("90 (right)", null, "Rotate image 90 degrees to the right", null));
-        rotationsMenu.add(new Rotate180Action("180", null, "Rotate image 180 degrees", null));
+        JMenu rotationsMenu= new JMenu(bundle.getString("menu_transform_rotate")); // add rotaions menu for rotaions
+        rotationsMenu.add(new Rotate90LeftAction(bundle.getString("menu_transform_rotateLeft"),null, bundle.getString("menu_transform_rotateLeft_desc"),null));
+        rotationsMenu.add(new Rotate90RightAction(bundle.getString("menu_transform_rotateRight"),null, bundle.getString("menu_transform_rotateRight_desc"),null));
+        rotationsMenu.add(new Rotate180Action(bundle.getString("menu_transform_rotate180"),null, bundle.getString("menu_transform_rotate180_desc"),null));
         fileMenu.add(rotationsMenu);
 
         return fileMenu;
