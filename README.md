@@ -1,3 +1,34 @@
+ Extended filters
+ Filters with negative results
+ Emboss and edge detection filters
+ Brightness adjustment
+ Contrast adjustment
+ Block averaging
+ Random scattering
+ Toolbar for common operations
+ Keyboard shortcuts
+ Mouse selection of rectangular regions
+ Crop to selection
+ Drawing functions – rectangle, ellipse, line
+ Macros for record and replay of operation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Contributions to features
 Sharpen Filter - Yusei  
 Soft Blur - Yusei
