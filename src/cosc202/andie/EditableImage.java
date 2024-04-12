@@ -80,6 +80,17 @@ class EditableImage {
 
     /**
      * <p>
+     * Check if the image has been edited.
+     * </p>
+     * 
+     * @return True if the image has been edited, false otherwise.
+     */
+    public boolean imageHasBeenEdited() {
+        return !ops.empty();
+    }
+
+    /**
+     * <p>
      * Make a 'deep' copy of a BufferedImage.
      * </p>
      * 
