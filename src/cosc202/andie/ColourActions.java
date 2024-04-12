@@ -1,10 +1,12 @@
 package cosc202.andie;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.swing.*;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -51,6 +53,9 @@ public class ColourActions {
         actions.add(new ConvertToGreyAction(bundle.getString("menu_colour_greyscale"), null, bundle.getString("menu_colour_greyscale_desc"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ConvertToInverseAction(bundle.getString("menu_colour_imageInversion"), null, bundle.getString("menu_colour_imageInversion_desc"), Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new CycleColoursAction(bundle.getString("menu_colour_cycleColours"), null, bundle.getString("menu_colour_cycleColours_desc"), Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new ContrastAction("Change contrast", null, "Description", Integer.valueOf(KeyEvent.VK_C)));
+        //actions.add(new BrightnessAction("Change brightness", null, "Description", Integer.valueOf(KeyEvent.VK_C)));
+
     }
 
     /**
@@ -226,7 +231,7 @@ public class ColourActions {
 
             }
 
-            int option = JOptionPane.showOptionDialog(null, comboBox, "Cycle colours from rgb to:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
+            int option = JOptionPane.showOptionDialog(null, comboBox, "Cycle colours from rgb to:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
 
             if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
 
@@ -239,6 +244,80 @@ public class ColourActions {
             }
 
             target.getImage().apply(new CycleColours(cycleType));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+
+
+    /**
+     * <p>
+     * Action to change an images contrast
+     * </p>
+     * 
+     * @see ChangeContrast
+     */
+    public class ContrastAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new ChangeContrast action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        ContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the convert to inverse action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ConvertToInverseAction is triggered.
+         * It inverts the image
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the amount - ask the user.
+            int amount = 1;
+
+            // Pop-up dialog box to ask for the amount value.
+            JSlider amountSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
+
+            amountSlider.setPreferredSize(new Dimension(500, 50));
+
+            amountSlider.setMajorTickSpacing(25);
+            amountSlider.setMinorTickSpacing(5);
+            amountSlider.setPaintTicks(true);
+            amountSlider.setPaintLabels(true);
+
+            int option = JOptionPane.showOptionDialog(null, amountSlider, "Enter amount -100 - 100", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ok", "Cancel"}, null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+
+                return;
+
+            } else if (option == JOptionPane.OK_OPTION) {
+
+                amount = amountSlider.getValue();
+
+            }
+
+            target.getImage().apply(new ChangeContrast(amount));
             target.repaint();
             target.getParent().revalidate();
 
