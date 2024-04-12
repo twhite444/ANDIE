@@ -85,7 +85,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                         int pixelX = Math.min(Math.max(x + x2 ,0), width -1);
                         int pixelY = Math.min(Math.max(y + y2 ,0), height -1);
 
-                        Color pixelColor = new Color(inputImage.getRGB(pixelX, pixelY));
+                        Color pixelColor = new Color(inputImage.getRGB(pixelX, pixelY), true);
 
                         alphaPixelValue[marker] = pixelColor.getAlpha();
                         redPixelValue[marker] = pixelColor.getRed();
