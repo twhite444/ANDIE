@@ -108,7 +108,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            if (target.getImageDangerous().hasImage() && target.getImageDangerous().imageHasBeenEdited()) { // checks is an image is open
+            if (target.getImageDangerous().hasImage() && target.getImageDangerous().imageHasBeenEdited()) { // checks if an image is open and has been edited
 
                 int option = JOptionPane.showOptionDialog(null, "Open new image?\nUnsaved progress will be lost.",
                         "Open?", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
