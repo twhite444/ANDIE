@@ -16,16 +16,18 @@ import java.awt.image.*;
  */
 public class ChangeContrastAndBrightness implements ImageOperation, java.io.Serializable {
 
-    private int amount;
+    private int brightness;
+    private int contrast;
 
     /**
      * <p>
      * Create a new CycleColours operation of a specified type.
      * </p>
      */
-    ChangeContrastAndBrightness(int amount) {
+    ChangeContrastAndBrightness(int brightness, int contrast) {
 
-        this.amount = amount;
+        this.brightness = brightness;
+        this.contrast = contrast;
 
     }
 
@@ -36,7 +38,7 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
      */
     ChangeContrastAndBrightness() {
 
-        this(0);
+        this(0, 0);
 
     }
 
@@ -50,8 +52,8 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
      * @return The resulting image.
      */
     public BufferedImage apply(BufferedImage input) {
-        
-        System.out.println(amount);
+
+        System.out.println(brightness + " " + contrast);
 
         for (int y = 0; y < input.getHeight(); ++y) {
 
@@ -59,10 +61,24 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
 
                 int argb = input.getRGB(x, y);
 
-                int a = (argb & 0xFF000000) >> 24;
-                int r = (argb & 0x00FF0000) >> 16;
-                int g = (argb & 0x0000FF00) >> 8;
-                int b = (argb & 0x000000FF);
+                double a = (argb & 0xFF000000) >> 24;
+                double r = (argb & 0x00FF0000) >> 16;
+                double g = (argb & 0x0000FF00) >> 8;
+                double b = (argb & 0x000000FF);
+
+                r = ((1 + ((double)contrast / 100)) * (r - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
+                g = ((1 + ((double)contrast / 100)) * (g - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
+                b = ((1 + ((double)contrast / 100)) * (b - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
+
+                if (r > 255) { r = 255;}
+                if (g > 255) { g = 255;}
+                if (b > 255) { b = 255;}
+
+                if (r < 0) { r = 0;}
+                if (g < 0) { g = 0;}
+                if (b < 0) { b = 0;}
+
+                argb = ((int)a << 24) | ((int)r << 16) | ((int)g << 8) | (int)b;
 
                 input.setRGB(x, y, argb);
 

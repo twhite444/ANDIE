@@ -53,7 +53,7 @@ public class ColourActions {
         actions.add(new ConvertToGreyAction(bundle.getString("menu_colour_greyscale"), null, bundle.getString("menu_colour_greyscale_desc"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ConvertToInverseAction(bundle.getString("menu_colour_imageInversion"), null, bundle.getString("menu_colour_imageInversion_desc"), Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new CycleColoursAction(bundle.getString("menu_colour_cycleColours"), null, bundle.getString("menu_colour_cycleColours_desc"), Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new ContrastAction("Change contrast", null, "Description", Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new ContrastAndBrightnessAction("Change contrast and brightness", null, "Change the contrast and / or brightness of an image by a specified percentage", Integer.valueOf(KeyEvent.VK_C)));
         //actions.add(new BrightnessAction("Change brightness", null, "Description", Integer.valueOf(KeyEvent.VK_C)));
 
     }
@@ -259,7 +259,7 @@ public class ColourActions {
      * 
      * @see ChangeContrastAndBrightness
      */
-    public class ContrastAction extends ImageAction {
+    public class ContrastAndBrightnessAction extends ImageAction {
 
         /**
          * <p>
@@ -271,7 +271,7 @@ public class ColourActions {
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
-        ContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        ContrastAndBrightnessAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
 
             super(name, icon, desc, mnemonic);
 
@@ -292,11 +292,16 @@ public class ColourActions {
         public void actionPerformed(ActionEvent e) {
 
             // Determine the amount - ask the user.
-            int amount = 1;
+            int brightness = 0;
+            int contrast = 0;
 
             // Pop-up dialog box to ask for the amount value.
 
             JPanel sliderPanel = new JPanel();
+
+            sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
+
+            sliderPanel.add(new JLabel("Change brightness, -100% - 100%"));
 
             JSlider brightnessSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
 
@@ -308,6 +313,8 @@ public class ColourActions {
             brightnessSlider.setPaintLabels(true);
 
             sliderPanel.add(brightnessSlider);
+
+            sliderPanel.add(new JLabel("Change contrast, -100% - 100%"));
 
             JSlider contrastSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
 
@@ -329,11 +336,12 @@ public class ColourActions {
 
             } else if (option == JOptionPane.OK_OPTION) {
 
-                amount = brightnessSlider.getValue();
+                brightness = brightnessSlider.getValue();
+                contrast = contrastSlider.getValue();
 
             }
 
-            target.getImage().apply(new ChangeContrastAndBrightness(amount));
+            target.getImage().apply(new ChangeContrastAndBrightness(brightness, contrast));
             target.repaint();
             target.getParent().revalidate();
 
