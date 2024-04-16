@@ -257,7 +257,7 @@ public class ColourActions {
      * Action to change an images contrast
      * </p>
      * 
-     * @see ChangeContrast
+     * @see ChangeContrastAndBrightness
      */
     public class ContrastAction extends ImageAction {
 
@@ -295,16 +295,32 @@ public class ColourActions {
             int amount = 1;
 
             // Pop-up dialog box to ask for the amount value.
-            JSlider amountSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
 
-            amountSlider.setPreferredSize(new Dimension(500, 50));
+            JPanel sliderPanel = new JPanel();
 
-            amountSlider.setMajorTickSpacing(25);
-            amountSlider.setMinorTickSpacing(5);
-            amountSlider.setPaintTicks(true);
-            amountSlider.setPaintLabels(true);
+            JSlider brightnessSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
 
-            int option = JOptionPane.showOptionDialog(null, amountSlider, "Enter amount -100 - 100", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ok", "Cancel"}, null);
+            brightnessSlider.setPreferredSize(new Dimension(500, 50));
+
+            brightnessSlider.setMajorTickSpacing(25);
+            brightnessSlider.setMinorTickSpacing(5);
+            brightnessSlider.setPaintTicks(true);
+            brightnessSlider.setPaintLabels(true);
+
+            sliderPanel.add(brightnessSlider);
+
+            JSlider contrastSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
+
+            contrastSlider.setPreferredSize(new Dimension(500, 50));
+
+            contrastSlider.setMajorTickSpacing(25);
+            contrastSlider.setMinorTickSpacing(5);
+            contrastSlider.setPaintTicks(true);
+            contrastSlider.setPaintLabels(true);
+
+            sliderPanel.add(contrastSlider);
+
+            int option = JOptionPane.showOptionDialog(null, sliderPanel, "Enter amount -100 - 100", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ok", "Cancel"}, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -313,11 +329,11 @@ public class ColourActions {
 
             } else if (option == JOptionPane.OK_OPTION) {
 
-                amount = amountSlider.getValue();
+                amount = brightnessSlider.getValue();
 
             }
 
-            target.getImage().apply(new ChangeContrast(amount));
+            target.getImage().apply(new ChangeContrastAndBrightness(amount));
             target.repaint();
             target.getParent().revalidate();
 

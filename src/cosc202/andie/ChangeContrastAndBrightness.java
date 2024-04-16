@@ -14,7 +14,7 @@ import java.awt.image.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class ChangeContrast implements ImageOperation, java.io.Serializable {
+public class ChangeContrastAndBrightness implements ImageOperation, java.io.Serializable {
 
     private int amount;
 
@@ -23,7 +23,7 @@ public class ChangeContrast implements ImageOperation, java.io.Serializable {
      * Create a new CycleColours operation of a specified type.
      * </p>
      */
-    ChangeContrast(int amount) {
+    ChangeContrastAndBrightness(int amount) {
 
         this.amount = amount;
 
@@ -34,7 +34,7 @@ public class ChangeContrast implements ImageOperation, java.io.Serializable {
      * Create a new CycleColours operation of default type.
      * </p>
      */
-    ChangeContrast() {
+    ChangeContrastAndBrightness() {
 
         this(0);
 
