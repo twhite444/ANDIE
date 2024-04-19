@@ -66,15 +66,15 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
                 double g = (argb & 0x0000FF00) >> 8;
                 double b = (argb & 0x000000FF);
 
-                r = ((1 + ((double)contrast / 100)) * (r - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
+                r = ((1 + ((double)contrast / 100)) * (r - 127.5)) + (127.5 * (1 + ((double)brightness / 100))); // fromula for recolouring pixels based on a percent change of contrast and brightness
                 g = ((1 + ((double)contrast / 100)) * (g - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
                 b = ((1 + ((double)contrast / 100)) * (b - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
 
-                if (r > 255) { r = 255;}
+                if (r > 255) { r = 255;} // clamping for values ovr 255
                 if (g > 255) { g = 255;}
                 if (b > 255) { b = 255;}
 
-                if (r < 0) { r = 0;}
+                if (r < 0) { r = 0;} // clamping for values below 0
                 if (g < 0) { g = 0;}
                 if (b < 0) { b = 0;}
 
