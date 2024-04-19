@@ -20,8 +20,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
     private int radius;
     
 
-    private int size = (2 * radius + 1) * (2 * radius + 1);
-
+  
     /**
      * <p>
      * Construct a median filter with the given size.
