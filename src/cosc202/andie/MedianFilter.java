@@ -62,54 +62,65 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
  * @param BufferedImage inputImage, int radius 
  * @return BufferedImage
  */
-    public BufferedImage apply(BufferedImage inputImage) {
-        int width = inputImage.getWidth();
-        int height = inputImage.getHeight();
-        BufferedImage outputImage= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+public BufferedImage apply(BufferedImage input) {
+    BufferedImage outputImage = new BufferedImage(input.getWidth(), input.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
-        //two for-loops that goes throught each pixel in the inputImage
-        for(int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
-                //creates an array for each color to store pixel values
-                int[] alphaPixelValue = new int[(2 * radius + 1) * (2 * radius + 1)];
-                int[] redPixelValue = new int[(2 * radius + 1) * (2 * radius + 1)];
-                int[] greenPixelValue = new int[(2 * radius + 1) * (2 * radius + 1)];
-                int[] bluePixelValue = new int[(2 * radius + 1) * (2 * radius + 1)];
+    for (int y = 0; y < input.getHeight(); ++y) {
+        for (int x = 0; x < input.getWidth(); ++x) {
 
-                int marker = 0;
-                //two for-loops that go through each pixel
-                for (int x2 = -radius; x2 <= radius; x2++){
-                    for (int y2 = -radius; y2 <= radius; y2++){
-                        //calculating the new color of the pixels and storing in red green and blue values 
+            int[] alpha = new int[9];
+            int[] red = new int[9];
+            int[] green = new int[9];
+            int[] blue = new int[9];
+            int i = 0;
 
-                        int pixelX = Math.min(Math.max(x + x2 ,0), width -1);
-                        int pixelY = Math.min(Math.max(y + y2 ,0), height -1);
-
-                        Color pixelColor = new Color(inputImage.getRGB(pixelX, pixelY), true);
-
-                        alphaPixelValue[marker] = pixelColor.getAlpha();
-                        redPixelValue[marker] = pixelColor.getRed();
-                        greenPixelValue[marker] = pixelColor.getGreen();
-                        bluePixelValue[marker] = pixelColor.getBlue();
-
-                        marker++;
-                    }
+            for (int dy = -1; dy <= 1; ++dy) {
+                int moveY = y + dy;
+                for (int dx = -1; dx <= 1; ++dx) {
+                    int moveX = x + dx;
+                    if (moveY >= 0 && moveY < input.getHeight() && moveX >= 0 && moveX < input.getWidth()) {
+                        int pixel = input.getRGB(moveX, moveY);
+                        alpha[i] = (pixel >> 24) & 0xFF;
+                        red[i] = (pixel >> 16) & 0xFF;
+                        green[i] = (pixel >> 8) & 0xFF;
+                        blue[i] = pixel & 0xFF;
+                    } else {
+                        int tempX = moveX;
+                        int tempY = moveY;
+                        if (moveX < 0) {
+                            tempX = 0;
+                        }
+                        if (moveY < 0) {
+                            tempY = 0;
+                        }
+                        if (moveX >= input.getWidth()) {
+                            tempX = input.getWidth() - 1;
+                        }
+                        if (moveY >= input.getHeight()) {
+                            tempY = input.getHeight() - 1;
+                        }
+                        int pixel = input.getRGB(tempX, tempY);
+                        alpha[i] = (pixel >> 24) & 0xFF;
+                        red[i] = (pixel >> 16) & 0xFF;
+                        green[i] = (pixel >> 8) & 0xFF;
+                        blue[i] = pixel & 0xFF;
+                   }
+                    i++;
                 }
-                //set the new values of the red, green and blue pixels into the output image
-                int argb = (getMedianColor(alphaPixelValue) << 24) | (getMedianColor(redPixelValue) << 16) | (getMedianColor(greenPixelValue) << 8) | getMedianColor(bluePixelValue);
-
-                outputImage.setRGB(x, y, argb);
-
             }
+
+            int argb = (getMedianValue(alpha) << 24) | (getMedianValue(red) << 16) | (getMedianValue(green) << 8)| getMedianValue(blue);
+            outputImage.setRGB(x, y, argb);
         }
-        return outputImage;
     }
+    return outputImage;
+}
 
     /*Method that calculates the median values for the color arrays of integers
      * @param int[] values
      * @return int[] 
      */
-    private static int getMedianColor(int[] values) {
+    private static int getMedianValue(int[] values) {
         int length = values.length;
         int[] finall = values.clone();
         //sort array of values 

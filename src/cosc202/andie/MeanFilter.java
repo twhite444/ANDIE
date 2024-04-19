@@ -84,7 +84,6 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
         int height = input.getHeight();
         int width = input.getWidth();
-       // System.out.println(height+" "+width);
         int size = (2 * radius + 1) * (2 * radius + 1);
         BufferedImage outputImage= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         int argb =0;
@@ -123,9 +122,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
                             if(moveY>=input.getHeight()){
                                 tempY = input.getHeight()-1;
                             }
-                            //System.out.println(tempX+" "+tempY);
                             argb = input.getRGB(tempX, tempY);
-                           // System.out.println("error here?");
                             
                             a[i] = (argb & 0xFF000000) >> 24;
                             r[i] = (argb & 0x00FF0000) >> 16;
@@ -144,29 +141,12 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
 
             
         }
-        // int size = (2*radius+1) * (2*radius+1);
-
-        // float [] array = new float[size];
-
-        // Arrays.fill(array, 1.0f/size);
-
-        // Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
-
-        // ConvolveOp convOp = new ConvolveOp(kernel);
-
-        // BufferedImage output = new BufferedImage(input.getColorModel(),
-        // input.copyData(null), input.isAlphaPremultiplied(), null);
-
-        // convOp.filter(input, output);
-
-        // return output;
-
         
         return outputImage;
     }
 
 
-    public int meanValue(int[] m, int size){
+    private int meanValue(int[] m, int size){
         int total = 0;
          
         for(int i = 0;i<m.length;i++){

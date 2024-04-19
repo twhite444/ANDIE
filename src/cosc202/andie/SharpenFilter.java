@@ -92,7 +92,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
     }
 
 
-    public static int sharpenValue(int[] s) {
+    private static int sharpenValue(int[] s) {
         float result = 0;
         for (int i = 0; i < 9; i++) {
             result += SHARPEN_MATRIX[i] * s[i];
