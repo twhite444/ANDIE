@@ -26,8 +26,8 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
      */
     BlockAverage(int xDist, int yDist) {
 
-        this.xDist = xDist;
-        this.yDist = yDist;
+        this.xDist = xDist - 1; // minus one as size so xDist and yDist are equal to the side lengths of the blocks
+        this.yDist = yDist - 1;
 
     }
 
@@ -38,7 +38,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
      */
     BlockAverage() {
 
-        this(1, 1);
+        this(0, 0);
 
     }
 
@@ -58,22 +58,53 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
         int width = input.getWidth();
         int height = input.getHeight();
 
-        for (int x = 0; x <= input.getWidth() + xDist; x += xDist) { // for each pixel in the input image at multiples of xDist and yDist
+        for (int x = 0; x <= input.getWidth(); x += xDist + 1) { // for each pixel in the input image at multiples of xDist and yDist
 
-            for (int y = 0; y <= input.getHeight() + yDist; y += yDist) {
+            for (int y = 0; y <= input.getHeight(); y += yDist + 1) {
 
-                int r = 0; // inital values for argb
+                int argb = 0;
+
+                int r = 0;
                 int g = 0;
                 int b = 0;
                 int a = 0;
 
-                int RGB = input.getRGB(Math.min(x, width - 1), Math.min(y, height - 1));
+                int pixelsInBlock = 0;
 
-                for (int xLocal = 0; xLocal <= xDist; xLocal ++) {
+                int xLocal = 0;
+                int yLocal = 0;
 
-                    for (int yLocal = 0; yLocal <= yDist; yLocal ++) {
+                //int RGB = input.getRGB(Math.min(x + 1, width - 1), Math.min(y + 1, height - 1));
 
-                        input.setRGB(Math.min(x + xLocal, width - 1), Math.min(y + yLocal, height - 1), RGB);
+                for (xLocal = 0; xLocal + x <= width && xLocal <= xDist; xLocal ++) { // for each pixel within the block, add its color to the total
+
+                    for (yLocal = 0; yLocal + y <= height && yLocal <= yDist; yLocal ++) {
+
+                        argb = input.getRGB(Math.min(x + xLocal, width - 1), Math.min(y + yLocal, height - 1));
+
+                        a += (argb & 0xFF000000) >> 24;
+                        r += (argb & 0x00FF0000) >> 16;
+                        g += (argb & 0x0000FF00) >> 8;
+                        b += (argb & 0x000000FF);
+
+                        pixelsInBlock ++; // number of pixels in block may be variable due to being cut off by the edges
+
+                    }
+
+                }
+
+                a /= pixelsInBlock; // divide by the number of pixels in the block
+                r /= pixelsInBlock;
+                g /= pixelsInBlock;
+                b /= pixelsInBlock;
+
+                argb = (a << 24) | (r << 16) | (g << 8) | b;
+
+                for (xLocal = 0; xLocal <= xDist; xLocal ++) { // for each pixel within the block, set its colour to the average colour of the block
+
+                    for (yLocal = 0; yLocal <= yDist; yLocal ++) {
+
+                        input.setRGB(Math.min(x + xLocal, width - 1), Math.min(y + yLocal, height - 1), argb);
 
                     }
 
