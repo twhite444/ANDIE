@@ -1,6 +1,5 @@
 package cosc202.andie;
 
-import java.awt.Color; 
 import java.util.*;
 import java.awt.image.BufferedImage;
 
@@ -19,6 +18,9 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
+    
+
+    private int size = (2 * radius + 1) * (2 * radius + 1);
 
     /**
      * <p>
@@ -67,16 +69,16 @@ public BufferedImage apply(BufferedImage input) {
 
     for (int y = 0; y < input.getHeight(); ++y) {
         for (int x = 0; x < input.getWidth(); ++x) {
-
-            int[] alpha = new int[9];
-            int[] red = new int[9];
-            int[] green = new int[9];
-            int[] blue = new int[9];
+            int size = (2*radius+1)*(2*radius+1);
+            int[] alpha = new int[size];
+            int[] red = new int[size];
+            int[] green = new int[size];
+            int[] blue = new int[size];
             int i = 0;
 
-            for (int dy = -1; dy <= 1; ++dy) {
+            for (int dy = -radius; dy <= radius; ++dy) {
                 int moveY = y + dy;
-                for (int dx = -1; dx <= 1; ++dx) {
+                for (int dx = -radius; dx <= radius; ++dx) {
                     int moveX = x + dx;
                     if (moveY >= 0 && moveY < input.getHeight() && moveX >= 0 && moveX < input.getWidth()) {
                         int pixel = input.getRGB(moveX, moveY);
