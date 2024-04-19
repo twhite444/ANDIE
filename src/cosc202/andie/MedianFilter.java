@@ -63,13 +63,17 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
  * @return BufferedImage
  */
     public BufferedImage apply(BufferedImage inputImage) {
+
         int width = inputImage.getWidth();
         int height = inputImage.getHeight();
+        
         BufferedImage outputImage= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
         //two for-loops that goes throught each pixel in the inputImage
         for(int x = 0; x < width; x++) {
+
             for(int y = 0; y < height; y++) {
+
                 //creates an array for each color to store pixel values
                 int[] alphaPixelValue = new int[(2 * radius + 1) * (2 * radius + 1)];
                 int[] redPixelValue = new int[(2 * radius + 1) * (2 * radius + 1)];
@@ -77,9 +81,12 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                 int[] bluePixelValue = new int[(2 * radius + 1) * (2 * radius + 1)];
 
                 int marker = 0;
-                //two for-loops that go through each pixel
+                
+                //two for-loops that go through each pixel within a radius of each pixel in the inputImage
                 for (int x2 = -radius; x2 <= radius; x2++){
+
                     for (int y2 = -radius; y2 <= radius; y2++){
+
                         //calculating the new color of the pixels and storing in red green and blue values 
 
                         int pixelX = Math.min(Math.max(x + x2 ,0), width -1);
@@ -93,16 +100,22 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                         bluePixelValue[marker] = pixelColor.getBlue();
 
                         marker++;
+
                     }
+
                 }
+
                 //set the new values of the red, green and blue pixels into the output image
                 int argb = (getMedianColor(alphaPixelValue) << 24) | (getMedianColor(redPixelValue) << 16) | (getMedianColor(greenPixelValue) << 8) | getMedianColor(bluePixelValue);
 
                 outputImage.setRGB(x, y, argb);
 
             }
+
         }
+
         return outputImage;
+
     }
 
     /*Method that calculates the median values for the color arrays of integers
@@ -110,10 +123,14 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * @return int[] 
      */
     private static int getMedianColor(int[] values) {
+
         int length = values.length;
         int[] finall = values.clone();
+
         //sort array of values 
         Arrays.sort(finall);
         return finall[length / 2 + 1]; //return new array 
+
     }
+
 }

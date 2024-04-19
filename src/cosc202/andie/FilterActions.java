@@ -46,8 +46,8 @@ public class FilterActions {
         actions.add(new SharpenFilterAction(bundle.getString("menu_filter_sharpenFilter"),null,bundle.getString("menu_filter_sharpenFilter_desc"), null));
         actions.add(new MedianFilterAction(bundle.getString("menu_filter_medianFilter"), null, bundle.getString("menu_filter_medianFilter_desc"), null));
         actions.add(new GaussianFilterAction(bundle.getString("menu_filter_gaussianFilter"), null, bundle.getString("menu_filter_gaussianFilter_desc"), null));
-        actions.add(new BlockAverageAction(bundle.getString("menu_filter_blockAverage"), null, bundle.getString("menu_filter_blockAverage_desc"), null));
-
+        actions.add(new BlockAverageAction( "Block Average", null, "Replaces blocks on a regular grid with the average pixel value within that region", null));
+        
     }
 
     /**
@@ -334,21 +334,22 @@ public class FilterActions {
             // Pop-up dialog box to ask for the x any y values.
             JPanel blockPanel = new JPanel();
 
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel xRadiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel yRadiusModel = new SpinnerNumberModel(1, 1, 10, 1);
 
-            JSpinner xSpinner = new JSpinner(radiusModel);
-            JSpinner ySpinner = new JSpinner(radiusModel);
+            JSpinner xSpinner = new JSpinner(xRadiusModel);
+            JSpinner ySpinner = new JSpinner(yRadiusModel);
 
-            blockPanel.add(new JLabel(bundle.getString("menu_filter_blockAverage_xSelect")));
+            blockPanel.add(new JLabel("Select x value, 1px - 10px"));
             blockPanel.add(xSpinner);
-            blockPanel.add(new JLabel(bundle.getString("menu_filter_blockAverage_ySelect")));
+            blockPanel.add(new JLabel("Select y value, 1px - 10px"));
             blockPanel.add(ySpinner);
 
             int option = JOptionPane.showOptionDialog(
 
                 null,
                 blockPanel,
-                bundle.getString("menu_filter_blockAverage_window_title"),
+                "select block size",
                 JOptionPane.OK_CANCEL_OPTION, 
                 JOptionPane.QUESTION_MESSAGE, 
                 null, 
@@ -368,7 +369,7 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            target.getImage().apply(new BlockAverage(xDIst, yDIst));
+            target.getImage().apply(new BlockAverage(xDist, yDist));
             target.repaint();
             target.getParent().revalidate();
         }

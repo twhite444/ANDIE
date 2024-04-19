@@ -55,32 +55,29 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
 
         System.out.println(xDist + " " + yDist);
 
-        for (int y = 0; y < input.getHeight(); ++y) {
+        int width = input.getWidth();
+        int height = input.getHeight();
 
-            for (int x = 0; x < input.getWidth(); ++x) {
+        for (int x = 0; x <= input.getWidth() + xDist; x += xDist) { // for each pixel in the input image at multiples of xDist and yDist
 
-                // int argb = input.getRGB(x, y);
+            for (int y = 0; y <= input.getHeight() + yDist; y += yDist) {
 
-                // double a = (argb & 0xFF000000) >> 24;
-                // double r = (argb & 0x00FF0000) >> 16;
-                // double g = (argb & 0x0000FF00) >> 8;
-                // double b = (argb & 0x000000FF);
+                int r = 0; // inital values for argb
+                int g = 0;
+                int b = 0;
+                int a = 0;
 
-                // r = ((1 + ((double)contrast / 100)) * (r - 127.5)) + (127.5 * (1 + ((double)brightness / 100))); // fromula for recolouring pixels based on a percent change of contrast and brightness
-                // g = ((1 + ((double)contrast / 100)) * (g - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
-                // b = ((1 + ((double)contrast / 100)) * (b - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
+                int RGB = input.getRGB(Math.min(x, width - 1), Math.min(y, height - 1));
 
-                // if (r > 255) { r = 255;} // clamping for values ovr 255
-                // if (g > 255) { g = 255;}
-                // if (b > 255) { b = 255;}
+                for (int xLocal = 0; xLocal <= xDist; xLocal ++) {
 
-                // if (r < 0) { r = 0;} // clamping for values below 0
-                // if (g < 0) { g = 0;}
-                // if (b < 0) { b = 0;}
+                    for (int yLocal = 0; yLocal <= yDist; yLocal ++) {
 
-                // argb = ((int)a << 24) | ((int)r << 16) | ((int)g << 8) | (int)b;
+                        input.setRGB(Math.min(x + xLocal, width - 1), Math.min(y + yLocal, height - 1), RGB);
 
-                // input.setRGB(x, y, argb);
+                    }
+
+                }
 
             }
 
