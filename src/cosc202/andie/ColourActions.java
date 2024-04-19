@@ -54,7 +54,6 @@ public class ColourActions {
         actions.add(new ConvertToInverseAction(bundle.getString("menu_colour_imageInversion"), null, bundle.getString("menu_colour_imageInversion_desc"), Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new CycleColoursAction(bundle.getString("menu_colour_cycleColours"), null, bundle.getString("menu_colour_cycleColours_desc"), Integer.valueOf(KeyEvent.VK_C)));
         actions.add(new ContrastAndBrightnessAction("Change contrast and brightness", null, "Change the contrast and / or brightness of an image by a specified percentage", Integer.valueOf(KeyEvent.VK_C)));
-        //actions.add(new BrightnessAction("Change brightness", null, "Description", Integer.valueOf(KeyEvent.VK_C)));
 
     }
 
@@ -175,7 +174,7 @@ public class ColourActions {
 
     /**
      * <p>
-     * Action to cycle colours from RGB to BGR.
+     * Action to cycle colours from RGB to any.
      * </p>
      * 
      * @see CycleColours
@@ -184,7 +183,7 @@ public class ColourActions {
 
         /**
          * <p>
-         * Create a new CycleColoursBGR action.
+         * Create a new CycleColours action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -254,7 +253,7 @@ public class ColourActions {
 
     /**
      * <p>
-     * Action to change an images contrast
+     * Action to change an images contrast and brightness
      * </p>
      * 
      * @see ChangeContrastAndBrightness
@@ -263,7 +262,7 @@ public class ColourActions {
 
         /**
          * <p>
-         * Create a new ChangeContrast action.
+         * Create a new ContrastAndBrightnessAction.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -283,7 +282,7 @@ public class ColourActions {
          * </p>
          * 
          * <p>
-         * This method is called whenever the ConvertToInverseAction is triggered.
+         * This method is called whenever the ContrastAndBrightnessAction is triggered.
          * It inverts the image
          * </p>
          * 

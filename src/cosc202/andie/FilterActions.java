@@ -46,6 +46,8 @@ public class FilterActions {
         actions.add(new SharpenFilterAction(bundle.getString("menu_filter_sharpenFilter"),null,bundle.getString("menu_filter_sharpenFilter_desc"), null));
         actions.add(new MedianFilterAction(bundle.getString("menu_filter_medianFilter"), null, bundle.getString("menu_filter_medianFilter_desc"), null));
         actions.add(new GaussianFilterAction(bundle.getString("menu_filter_gaussianFilter"), null, bundle.getString("menu_filter_gaussianFilter_desc"), null));
+        actions.add(new BlockAverageAction(bundle.getString("menu_filter_blockAverage"), null, bundle.getString("menu_filter_blockAverage_desc"), null));
+
     }
 
     /**
@@ -291,5 +293,87 @@ public class FilterActions {
         }
 
     }
+
+
+    public class BlockAverageAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new Block-average action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        BlockAverageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the Block Average action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the BlockAverageAction is triggered.
+         * It prompts the user for a filter radius, then applies an appropriately sized {@link BlockAverage}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the x and y distance, ask the user.
+            int xDist = 1;
+            int yDist = 1;
+
+            // Pop-up dialog box to ask for the x any y values.
+            JPanel blockPanel = new JPanel();
+
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+
+            JSpinner xSpinner = new JSpinner(radiusModel);
+            JSpinner ySpinner = new JSpinner(radiusModel);
+
+            blockPanel.add(new JLabel(bundle.getString("menu_filter_blockAverage_xSelect")));
+            blockPanel.add(xSpinner);
+            blockPanel.add(new JLabel(bundle.getString("menu_filter_blockAverage_ySelect")));
+            blockPanel.add(ySpinner);
+
+            int option = JOptionPane.showOptionDialog(
+
+                null,
+                blockPanel,
+                bundle.getString("menu_filter_blockAverage_window_title"),
+                JOptionPane.OK_CANCEL_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
+                null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+
+                return;
+
+            } else if (option == JOptionPane.OK_OPTION) {
+
+                xDist = (int)xSpinner.getValue();
+                yDist = (int)ySpinner.getValue();
+
+            }
+
+            // Create and apply the filter
+            target.getImage().apply(new BlockAverage(xDIst, yDIst));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
 
 }
