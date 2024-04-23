@@ -56,6 +56,56 @@ public class ColourTest {
         
     }
 
+    @Test
+    void testChangeContrastAndBrightnessDark() {
+
+        // Expected output image after ChangeContrastAndBrightness
+        BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
+
+        // all the colours should be half as bright and grey is now black
+        expectedOutputImage.setRGB(0, 0, 0x7f0000); // Darker Red
+        expectedOutputImage.setRGB(1, 0, 0x007f00); // Darker Green
+        expectedOutputImage.setRGB(2, 0, 0x00007f); // Darker Blue
+        expectedOutputImage.setRGB(0, 1, 0x7f7f00); // Darker Yellow
+        expectedOutputImage.setRGB(1, 1, 0x7f007f); // Darker Magenta
+        expectedOutputImage.setRGB(2, 1, 0x007f7f); // Darker Cyan
+        expectedOutputImage.setRGB(0, 2, 0x7f7f7f); // Darker White (grey)
+        expectedOutputImage.setRGB(1, 2, 0x000000); // Black
+        expectedOutputImage.setRGB(2, 2, 0x000000); // also Black
+
+        // Apply ChangeContrastAndBrightness
+        BufferedImage outputImage = new ChangeContrastAndBrightness(-100, 0).apply(sampleInputImage);
+
+        // Compare output with expected output
+        assertImagesEqual(expectedOutputImage, outputImage);
+        
+    }
+
+    // @Test
+    // void testChangeContrastAndBrightnessBigContrast() {
+
+    //     // Expected output image after ChangeContrastAndBrightness
+    //     BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
+
+    //     // everything should be unchanged except grey is now black
+    //     expectedOutputImage.setRGB(0, 0, 0xFF0000); // Red
+    //     expectedOutputImage.setRGB(1, 0, 0x00FF00); // Green
+    //     expectedOutputImage.setRGB(2, 0, 0x0000FF); // Blue
+    //     expectedOutputImage.setRGB(0, 1, 0xFFFF00); // Yelloww
+    //     expectedOutputImage.setRGB(1, 1, 0xFF00FF); // Magentata
+    //     expectedOutputImage.setRGB(2, 1, 0x00FFFF); // Cyan
+    //     expectedOutputImage.setRGB(0, 2, 0xFFFFFF); // White (grey)
+    //     expectedOutputImage.setRGB(1, 2, 0x000000); // Black
+    //     expectedOutputImage.setRGB(2, 2, 0x000000); // also Black
+
+    //     // Apply ChangeContrastAndBrightness
+    //     BufferedImage outputImage = new ChangeContrastAndBrightness(0, 100).apply(sampleInputImage);
+
+    //     // Compare output with expected output
+    //     assertImagesEqual(expectedOutputImage, outputImage);
+        
+    // }
+
     private void assertImagesEqual(BufferedImage expected, BufferedImage actual) {
 
         assertEquals(expected.getWidth(), actual.getWidth());

@@ -78,6 +78,8 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
                 if (g < 0) { g = 0;}
                 if (b < 0) { b = 0;}
 
+                System.out.println((int)a + ", " + (int)r + ", " + (int)g + ", " + (int)b);
+
                 argb = ((int)a << 24) | ((int)r << 16) | ((int)g << 8) | (int)b;
 
                 input.setRGB(x, y, argb);
