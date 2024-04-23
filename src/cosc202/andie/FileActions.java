@@ -43,15 +43,15 @@ public class FileActions {
 
         actions = new ArrayList<Action>();
         actions.add(new FileOpenAction(bundle.getString("menu_file_open"), null,
-                bundle.getString("menu_file_open_desc"), Integer.valueOf(KeyEvent.VK_O)));
+                bundle.getString("menu_file_open_desc"), null));
         actions.add(new FileSaveAction(bundle.getString("menu_file_save"), null,
-                bundle.getString("menu_file_save_desc"), Integer.valueOf(KeyEvent.VK_S)));
+                bundle.getString("menu_file_save_desc"), null));
         actions.add(new FileSaveAsAction(bundle.getString("menu_file_saveAs"), null,
-                bundle.getString("menu_file_saveAs_desc"), Integer.valueOf(KeyEvent.VK_A)));
+                bundle.getString("menu_file_saveAs_desc"), null));
         actions.add(new FileExportAction(bundle.getString("menu_file_export"), null,
-                bundle.getString("menu_file_export_desc"), Integer.valueOf(KeyEvent.VK_E)));
+                bundle.getString("menu_file_export_desc"), null));
         actions.add(new FileExitAction(bundle.getString("menu_file_exit"), null,
-                bundle.getString("menu_file_exit_desc"), Integer.valueOf(0)));
+                bundle.getString("menu_file_exit_desc"), null));
     }
 
     /**
@@ -67,6 +67,27 @@ public class FileActions {
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
+
+        //Open
+        fileMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_O, ActionEvent.META_MASK)); 
+        
+        //Save
+        fileMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_S, ActionEvent.META_MASK));
+        
+        //Save as
+        fileMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_S, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
+        
+        //Export
+        fileMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_E, ActionEvent.META_MASK)); 
+        
+        //Exit
+        fileMenu.getItem(4).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_Q, ActionEvent.META_MASK)); 
+        
 
         return fileMenu;
     }

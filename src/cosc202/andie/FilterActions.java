@@ -64,6 +64,30 @@ public class FilterActions {
             fileMenu.add(new JMenuItem(action));
         }
 
+        //Mean filter
+        fileMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_M, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        
+        //Soft blur
+        fileMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_F, ActionEvent.META_MASK | ActionEvent.CTRL_MASK));
+        
+        //Sharpen
+        fileMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_S, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        
+        //Median
+        fileMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_A, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        
+        //Gaussian filter
+        fileMenu.getItem(4).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_G, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+
+        //Block average
+        fileMenu.getItem(5).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+
         return fileMenu;
     }
 

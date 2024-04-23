@@ -74,6 +74,23 @@ public class ColourActions {
 
         }
 
+        //Convert to grey
+        fileMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_G, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
+        
+        //Invert
+        fileMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_I, ActionEvent.META_MASK));
+        
+        //Cycle colours
+        fileMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_C, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        
+        //Contrast and brightness
+        fileMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
+        
+
         return fileMenu;
 
     }

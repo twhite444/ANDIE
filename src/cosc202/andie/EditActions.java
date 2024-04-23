@@ -42,9 +42,9 @@ public class EditActions {
         bundle = Andie.LanguageSettings.getMessageBundle();
         
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), Integer.valueOf(KeyEvent.VK_Y)));
-    
+        actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), null));
+        actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), null));
+        
     }
 
     /**
@@ -60,6 +60,10 @@ public class EditActions {
         for (Action action: actions) {
             editMenu.add(new JMenuItem(action));
         }
+        editMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_Z, ActionEvent.META_MASK)); //Undo
+        editMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_Y, ActionEvent.META_MASK)); //Redo
 
         return editMenu;
     }
