@@ -38,15 +38,15 @@ public class ColourTest {
         BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 
         // all the colours should be unchanged except for grey
-        expectedOutputImage.setRGB(0, 2, 0xFF0000); // Red
-        expectedOutputImage.setRGB(0, 1, 0x00FF00); // Green
-        expectedOutputImage.setRGB(0, 0, 0x0000FF); // Blue
-        expectedOutputImage.setRGB(1, 2, 0xFFFF00); // Yellow
+        expectedOutputImage.setRGB(0, 0, 0xFF0000); // Red
+        expectedOutputImage.setRGB(1, 0, 0x00FF00); // Green
+        expectedOutputImage.setRGB(2, 0, 0x0000FF); // Blue
+        expectedOutputImage.setRGB(0, 1, 0xFFFF00); // Yellow
         expectedOutputImage.setRGB(1, 1, 0xFF00FF); // Magenta
-        expectedOutputImage.setRGB(1, 0, 0x00FFFF); // Cyan
-        expectedOutputImage.setRGB(2, 2, 0xFFFFFF); // White
-        expectedOutputImage.setRGB(2, 1, 0x000000); // Black
-        expectedOutputImage.setRGB(2, 0, 0x404040); // Darker Gray
+        expectedOutputImage.setRGB(2, 1, 0x00FFFF); // Cyan
+        expectedOutputImage.setRGB(0, 2, 0xFFFFFF); // White
+        expectedOutputImage.setRGB(1, 2, 0x000000); // Black
+        expectedOutputImage.setRGB(2, 2, 0x404040); // Darker Gray
 
         // Apply ChangeContrastAndBrightness
         BufferedImage outputImage = new ChangeContrastAndBrightness(-50, 50).apply(sampleInputImage);
