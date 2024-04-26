@@ -140,13 +140,21 @@ public class TransformationsTest {
     }
 
     private void assertImagesEqual(BufferedImage expected, BufferedImage actual) {
+        
         assertEquals(expected.getWidth(), actual.getWidth());
         assertEquals(expected.getHeight(), actual.getHeight());
+
         for (int y = 0; y < expected.getHeight(); y++) {
+
             for (int x = 0; x < expected.getWidth(); x++) {
+
                 assertEquals(expected.getRGB(x, y), actual.getRGB(x, y),
                         "Pixel at (" + x + ", " + y + ") doesn't match expected value.");
+
             }
+
         }
+
     }
+
 }
