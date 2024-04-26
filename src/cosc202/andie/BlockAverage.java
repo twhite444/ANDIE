@@ -21,7 +21,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Create a new CycleColours operation of a specified type.
+     * Create a new BlockAverage operation of a specified type.
      * </p>
      */
     BlockAverage(int xDist, int yDist) {
@@ -33,7 +33,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
 
         /**
      * <p>
-     * Create a new CycleColours operation of default type.
+     * Create a new BlockAverage operation of default type.
      * </p>
      */
     BlockAverage() {
@@ -44,7 +44,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Apply colour cycing to an image.
+     * Apply block averaging to an image.
      * </p>
      * 
      * 
@@ -58,9 +58,9 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
         int width = input.getWidth();
         int height = input.getHeight();
 
-        for (int x = 0; x <= input.getWidth(); x += xDist + 1) { // for each pixel in the input image at multiples of xDist and yDist
+        for (int x = 0; x <= width; x += xDist + 1) { // for each pixel in the input image at multiples of xDist and yDist
 
-            for (int y = 0; y <= input.getHeight(); y += yDist + 1) {
+            for (int y = 0; y <= height; y += yDist + 1) {
 
                 int argb = 0;
 
@@ -76,18 +76,22 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
 
                 //int RGB = input.getRGB(Math.min(x + 1, width - 1), Math.min(y + 1, height - 1));
 
-                for (xLocal = 0; xLocal + x <= width && xLocal <= xDist; xLocal ++) { // for each pixel within the block, add its color to the total
+                for (xLocal = 0; xLocal + x < width && xLocal <= xDist; xLocal ++) { // for each pixel within the block, add its color to the total
 
-                    for (yLocal = 0; yLocal + y <= height && yLocal <= yDist; yLocal ++) {
+                    for (yLocal = 0; yLocal + y < height && yLocal <= yDist; yLocal ++) {
 
                         argb = input.getRGB(Math.min(x + xLocal, width - 1), Math.min(y + yLocal, height - 1));
 
-                        a += (argb & 0xFF000000) >> 24;
-                        r += (argb & 0x00FF0000) >> 16;
-                        g += (argb & 0x0000FF00) >> 8;
-                        b += (argb & 0x000000FF);
+                        if (argb != 0) {
 
-                        pixelsInBlock ++; // number of pixels in block may be variable due to being cut off by the edges
+                            a += (argb & 0xFF000000) >> 24;
+                            r += (argb & 0x00FF0000) >> 16;
+                            g += (argb & 0x0000FF00) >> 8;
+                            b += (argb & 0x000000FF);
+
+                            pixelsInBlock ++; // number of pixels in block may be variable due to being cut off by the edges
+
+                        }
 
                     }
 
