@@ -4,7 +4,7 @@ import java.awt.image.*;
 
 /**
  * <p>
- * ImageOperation to cycle colours.
+ * ImageOperation to BlockAverage.
  * </p>
  * 
  * <p>
@@ -48,7 +48,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
      * </p>
      * 
      * 
-     * @param input The image to be cycled
+     * @param input The image to be BlockAveraged
      * @return The resulting image.
      */
     public BufferedImage apply(BufferedImage input) {
