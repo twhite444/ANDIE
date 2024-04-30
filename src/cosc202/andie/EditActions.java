@@ -4,6 +4,9 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import cosc202.andie.EditActions.RedoAction;
+import cosc202.andie.EditActions.UndoAction;
+
 
  /**
  * <p>
@@ -30,6 +33,9 @@ public class EditActions {
 
     //needed for languages:
     private static ResourceBundle bundle;
+
+    /** The menu that will hold the FileActions */
+    private JMenu editMenu;
     
 
     /**
@@ -42,9 +48,9 @@ public class EditActions {
         bundle = Andie.LanguageSettings.getMessageBundle();
         
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), Integer.valueOf(KeyEvent.VK_Y)));
-    
+        actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), null));
+        actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), null));
+        
     }
 
     /**
@@ -55,13 +61,26 @@ public class EditActions {
      * @return The edit menu UI element.
      */
     public JMenu createMenu() {
-        JMenu editMenu = new JMenu(bundle.getString("menu_edit"));
+        editMenu = new JMenu(bundle.getString("menu_edit"));
         
         for (Action action: actions) {
             editMenu.add(new JMenuItem(action));
         }
+        
+        setShortcuts();
 
         return editMenu;
+    }
+
+    /** Sets the keyboard shortcuts for filterMenu */
+    private void setShortcuts(){
+        //Undo
+        editMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_Z, ActionEvent.META_MASK)); 
+        
+        //Redo
+        editMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_Y, ActionEvent.META_MASK)); 
     }
 
     /**
