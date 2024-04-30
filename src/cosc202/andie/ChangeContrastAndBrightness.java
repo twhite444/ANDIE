@@ -4,7 +4,7 @@ import java.awt.image.*;
 
 /**
  * <p>
- * ImageOperation to cycle colours.
+ * ImageOperation to change contrast and brightness.
  * </p>
  * 
  * <p>
@@ -21,7 +21,7 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
 
     /**
      * <p>
-     * Create a new CycleColours operation of a specified type.
+     * Create a new ChangeContrastAndBrightness operation of a specified type.
      * </p>
      */
     ChangeContrastAndBrightness(int brightness, int contrast) {
@@ -33,7 +33,7 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
 
         /**
      * <p>
-     * Create a new CycleColours operation of default type.
+     * Create a new ChangeContrastAndBrightness operation of default type.
      * </p>
      */
     ChangeContrastAndBrightness() {
@@ -44,7 +44,7 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
 
     /**
      * <p>
-     * Apply colour cycing to an image.
+     * Apply ChangeContrastAndBrightness to an image.
      * </p>
      * 
      * 
