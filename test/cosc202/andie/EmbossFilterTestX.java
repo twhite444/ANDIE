@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 
 
-public class EmbossFilterTest{
+public class EmbossFilterTestX{
     private BufferedImage sampleInputImage;
 
     @BeforeEach
