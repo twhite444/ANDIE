@@ -31,6 +31,9 @@ public class FileActions {
 
     // needed for languages:
     private static ResourceBundle bundle;
+    
+    /** The menu that will hold the FileActions */
+    private JMenu fileMenu;
 
     /**
      * <p>
@@ -62,34 +65,38 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(bundle.getString("menu_file"));
+        fileMenu = new JMenu(bundle.getString("menu_file"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
 
+        setShortcuts();
+
+        return fileMenu;
+    }
+
+    /** Sets the keyboard shortcuts for fileMenu */
+    private void setShortcuts(){
         //Open
-        fileMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
+        this.fileMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_O, ActionEvent.META_MASK)); 
         
         //Save
-        fileMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
+        this.fileMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_S, ActionEvent.META_MASK));
         
         //Save as
-        fileMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+        this.fileMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_S, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
         
         //Export
-        fileMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
+        this.fileMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_E, ActionEvent.META_MASK)); 
         
         //Exit
-        fileMenu.getItem(4).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_Q, ActionEvent.META_MASK)); 
-        
-
-        return fileMenu;
+        this.fileMenu.getItem(4).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_Q, ActionEvent.META_MASK));
     }
 
     /**
@@ -428,5 +435,6 @@ public class FileActions {
         }
 
     }
+    
 
 }

@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.*;
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+
+import cosc202.andie.ColourActions.ContrastAndBrightnessAction;
+import cosc202.andie.ColourActions.ConvertToGreyAction;
+import cosc202.andie.ColourActions.ConvertToInverseAction;
+import cosc202.andie.ColourActions.CycleColoursAction;
 
 /**
  * <p>
@@ -40,6 +39,9 @@ public class ColourActions {
     //needed for languages:
     private static ResourceBundle bundle;
 
+    /** The menu that will hold the ColourActions */
+    private JMenu colourMenu;
+
     /**
      * <p>
      * Create a set of Colour menu actions.
@@ -65,34 +67,39 @@ public class ColourActions {
      * @return The colour menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(bundle.getString("menu_colour"));
+        colourMenu = new JMenu(bundle.getString("menu_colour"));
 
 
         for(Action action: actions) {
 
-            fileMenu.add(new JMenuItem(action));
+            colourMenu.add(new JMenuItem(action));
 
         }
 
-        //Convert to grey
-        fileMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_G, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
         
-        //Invert
-        fileMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_I, ActionEvent.META_MASK));
-        
-        //Cycle colours
-        fileMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_C, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
-        
-        //Contrast and brightness
-        fileMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
-        
+        setShortcuts();
 
-        return fileMenu;
+        return colourMenu;
 
+    }
+
+    /** Sets the keyboard shortcuts for colourMenu */
+    private void setShortcuts(){
+         //Convert to grey
+         colourMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
+            KeyEvent.VK_G, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
+            
+            //Invert
+            colourMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
+            KeyEvent.VK_I, ActionEvent.META_MASK));
+            
+            //Cycle colours
+            colourMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+            KeyEvent.VK_C, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+            
+            //Contrast and brightness
+            colourMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
+            KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK));
     }
 
     /**

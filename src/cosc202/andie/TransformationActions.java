@@ -4,6 +4,14 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import cosc202.andie.TransformationActions.ImageFlipHAction;
+import cosc202.andie.TransformationActions.ImageFlipVAction;
+import cosc202.andie.TransformationActions.Resize150Action;
+import cosc202.andie.TransformationActions.Resize50Action;
+import cosc202.andie.TransformationActions.Rotate180Action;
+import cosc202.andie.TransformationActions.Rotate90LeftAction;
+import cosc202.andie.TransformationActions.Rotate90RightAction;
+
 /**
  * <p>
  * Actions provided by the Transformations menu.
@@ -31,6 +39,13 @@ public class TransformationActions {
     //needed for languages:
     private static ResourceBundle bundle;
 
+     /** The menu that will hold the TransformationActions */
+    private JMenu transformMenu;
+    /** The submenu that will hold the flip actions */
+    private JMenu flipsMenu;
+    /** The submenu that will hold the rotate actions */
+    private JMenu rotationsMenu;
+
     /**
      * <p>
      * Create a set of transformation menu actions.
@@ -55,23 +70,30 @@ public class TransformationActions {
      * @return The transformation menu UI element.
      */
     public JMenu createMenu() {
-        JMenu transformMenu = new JMenu(bundle.getString("menu_transform"));
+       this.transformMenu = new JMenu(bundle.getString("menu_transform"));
 
         for(Action action: actions) {
             transformMenu.add(new JMenuItem(action));
         }
 
-        JMenu flipsMenu= new JMenu(bundle.getString("menu_transform_flipMenu")); //add flipsMenu actions for horizontal and vertical flip
+        this.flipsMenu = new JMenu(bundle.getString("menu_transform_flipMenu")); //add flipsMenu actions for horizontal and vertical flip
         flipsMenu.add(new ImageFlipVAction(bundle.getString("menu_transform_flipVertical"),null, bundle.getString("menu_transform_flipVertical_desc"),null));
         flipsMenu.add(new ImageFlipHAction(bundle.getString("menu_transform_flipHorizontal"),null,bundle.getString("menu_transform_flipHorizontal_desc"),null));
         transformMenu.add(flipsMenu);
 
-        JMenu rotationsMenu= new JMenu(bundle.getString("menu_transform_rotate")); // add rotaions menu for rotaions
+        this.rotationsMenu = new JMenu(bundle.getString("menu_transform_rotate")); // add rotaions menu for rotaions
         rotationsMenu.add(new Rotate90LeftAction(bundle.getString("menu_transform_rotateLeft"),null, bundle.getString("menu_transform_rotateLeft_desc"),null));
         rotationsMenu.add(new Rotate90RightAction(bundle.getString("menu_transform_rotateRight"),null, bundle.getString("menu_transform_rotateRight_desc"),null));
         rotationsMenu.add(new Rotate180Action(bundle.getString("menu_transform_rotate180"),null, bundle.getString("menu_transform_rotate180_desc"),null));
         transformMenu.add(rotationsMenu);
 
+        setShortcuts();
+
+        return transformMenu;
+    }
+    
+    /** Sets the keyboard shortcuts for transformMenu */
+    private void setShortcuts(){
         //Resize 50
         transformMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_MINUS, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
@@ -99,10 +121,7 @@ public class TransformationActions {
         //rotate 180
         rotationsMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_SLASH, ActionEvent.META_MASK));
-
-        return transformMenu;
     }
-    
 
     /**
      * <p>
