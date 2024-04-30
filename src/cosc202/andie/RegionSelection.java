@@ -1,8 +1,5 @@
 package cosc202.andie;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -10,23 +7,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
-
 import javax.swing.*;
 
 public class RegionSelection extends ImageAction implements MouseListener, MouseMotionListener {
-    private int width;
-    private int height;
-    private int x;
-    private int x1;
-    private int y;
-    private int y1;
+    private int width, height, x, x1, y, y1;
     private boolean isInside;
-    private BufferedImage currentImage;
     private Graphics g;
-    private BufferedImage copied_target;
-    private BufferedImage selectedImage;
+    private BufferedImage copied_target, currentImage, selectedArea;
+  
 
     RegionSelection(String name, ImageIcon icon, String desc, Integer mnemonic) {
         super(name, icon, desc, mnemonic);
@@ -44,46 +32,24 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
         int xtemp = e.getX();
         int ytemp = e.getY();
 
-        if (xtemp >= 0 && xtemp < width && ytemp >= 0 && ytemp < height) {
+        if (xtemp >= 0 && xtemp < width && ytemp >= 0 && ytemp < height) {// check if the points are inside the image 
             x = xtemp;
             y = ytemp;
             isInside = true;
             target.addMouseMotionListener(this);
         } else {
-            System.out.println("out of image");
+           
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        int xtemp = e.getX();
-        int ytemp = e.getY();
-        drawRect(xtemp, ytemp);
-        changeColourOfSelectedArea();
-        // if (xtemp >= 0 && xtemp < width && ytemp >= 0 && ytemp < height && isInside)
-        // {
-        // x1 = xtemp;
-        // y1 = ytemp;
-        // ImagePanel ip = new ImagePanel();
-        // ip.setXY(x, y);
-        // ip.setX1Y1(x1, y1);
-        // ip.setOriginal(copied_target);
-        // ip.paintComponent(g);
-        // target.repaint();
-        // selectedImage = target.getImage().getCurrentImage().getSubimage(Math.min(x,
-        // x1), Math.min(y, y1),
-        // Math.abs(x - x1), Math.abs(y - y1));
-        // // Graphics colImage = currentImage.getGraphics();
-        // ConvertToGrey ctg = new ConvertToGrey();
-        // ctg.apply(selectedImage);
-        // target.repaint();
-
-        // } else {
-
-        // // does select inside the image
-
-        // }
-
+        if(Math.abs(x-e.getX())!=0&&  Math.abs(y-e.getY())!=0){// check if points are different from when it's clicked
+            drawRect(e.getX(),  e.getY());
+            changeColourOfSelectedArea();
+        }
+        target.removeMouseMotionListener(this);
+            isInside = false;
     }
 
     private void drawRect(int xtemp, int ytemp) {
@@ -105,32 +71,19 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
         ip.setOriginal(copied_target);
         ip.paintComponent(g);
         target.repaint();
-
     }
 
     private void changeColourOfSelectedArea() {
-        selectedImage = target.getImage().getCurrentImage().getSubimage(Math.min(x, x1), Math.min(y, y1),
+        selectedArea = target.getImage().getCurrentImage().getSubimage(Math.min(x, x1), Math.min(y, y1),
                 Math.abs(x - x1), Math.abs(y - y1));
         ConvertToGrey ctg = new ConvertToGrey();
-        ctg.apply(selectedImage);
+        ctg.apply(selectedArea);
         target.repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         drawRect(e.getX(), e.getY());
-        // x1 = e.getX();
-        // y1 = e.getY();
-        // // create graphics2d for the original image
-        // g = (Graphics2D) target.getImage().getCurrentImage().getGraphics();
-        // ImagePanel ip = new ImagePanel();
-        // ip.setXY(x, y);
-        // ip.setX1Y1(x1, y1);
-        // ip.setOriginal(copied_target);
-        // ip.paintComponent(g);
-        // target.repaint();
-        // target.getParent().revalidate();
-
     }
 
     @Override

@@ -14,8 +14,7 @@ public class CropImage implements ImageOperation, java.io.Serializable {
 
     @Override
     public BufferedImage apply(BufferedImage input) {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'apply'");
+    
         
         return input.getSubimage(getTopX(), getTopY(), width, height);
     }
