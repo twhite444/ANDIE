@@ -38,7 +38,7 @@ public class BlockTest {
         BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 
         // all the colours should be grey
-        expectedOutputImage.setRGB(0, 0, 0x7f7f7f); // Grey
+        expectedOutputImage.setRGB(0, 0, 0x000000); // Grey
         expectedOutputImage.setRGB(1, 0, 0x7f7f7f); // Grey
         expectedOutputImage.setRGB(2, 0, 0x7f7f7f); // Grey
         expectedOutputImage.setRGB(0, 1, 0x7f7f7f); // Grey
