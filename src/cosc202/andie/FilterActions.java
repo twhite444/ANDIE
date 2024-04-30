@@ -388,7 +388,7 @@ public class FilterActions {
 
                 null,
                 blockPanel,
-                "select egg size",
+                "select block size",
                 JOptionPane.OK_CANCEL_OPTION, 
                 JOptionPane.QUESTION_MESSAGE, 
                 null, 
