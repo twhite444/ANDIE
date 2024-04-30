@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
@@ -30,6 +31,7 @@ public class ImagePanel extends JPanel {
      */
     private EditableImage image;
     private int x, y, x1, y1;
+    private BufferedImage original;
 
     /**
      * <p>
@@ -187,6 +189,8 @@ public class ImagePanel extends JPanel {
        
         super.paintComponent(g);
 
+
+
         if (image.hasImage()&&x ==0) {
            
             Graphics2D g2 = (Graphics2D) g.create();
@@ -204,7 +208,9 @@ public class ImagePanel extends JPanel {
             int y = Math.min(this.y, this.y1);
             int width = Math.abs(this.x - this.x1);
             int height = Math.abs(this.y - this.y1);
-            System.out.println(x+" "+y+" "+width+" "+height);
+            //System.out.println(x+" "+y+" "+width+" "+height);
+            g2.drawImage(original, null, 0, 0);
+
             g2.drawRect(x, y, width, height);
             g2.dispose();
         }
@@ -220,6 +226,10 @@ public class ImagePanel extends JPanel {
     public void setX1Y1(int x1, int y1) {
         this.x1 = x1;
         this.y1 = y1;
+    }
+
+    public void setOriginal(BufferedImage bf){
+        original =bf;
     }
 
    

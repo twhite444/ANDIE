@@ -24,8 +24,8 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
     private int y1;
     private boolean isInside;
     private BufferedImage currentImage;
-    private BufferedImage image;
     private Graphics g;
+    private BufferedImage copied_target;
 
     RegionSelection(String name, ImageIcon icon, String desc, Integer mnemonic) {
         super(name, icon, desc, mnemonic);
@@ -34,6 +34,9 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
         height = currentImage.getHeight();
         target.addMouseListener(this);
         // target.addMouseMotionListener(this);
+
+        //create a copy of the original image
+         copied_target = EditableImage.deepCopy(currentImage);
     }
 
     @Override
@@ -59,7 +62,8 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
         if (xtemp >= 0 && xtemp < width && ytemp >= 0 && ytemp < height && isInside) {
             x1 = xtemp;
             y1 = ytemp;
-            //target.repaint();
+         
+
         } else {
             // does nothing because it's out of the image
 
@@ -68,13 +72,15 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
     }
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        
         x1 = e.getX();
         y1 = e.getY();
+        //create graphics2d for the original image
         g = (Graphics2D) target.getImage().getCurrentImage().getGraphics();  
         ImagePanel ip = new ImagePanel();
         ip.setXY(x, y);
         ip.setX1Y1(x1, y1);
+        ip.setOriginal(copied_target);
         ip.paintComponent(g);
         target.repaint();
         target.getParent().revalidate();
