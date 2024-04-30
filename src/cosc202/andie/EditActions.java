@@ -2,7 +2,12 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.nio.BufferUnderflowException;
+
 import javax.swing.*;
+import javax.swing.plaf.synth.Region;
 
 
  /**
@@ -44,7 +49,7 @@ public class EditActions {
         actions = new ArrayList<Action>();
         actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), Integer.valueOf(KeyEvent.VK_Z)));
         actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), Integer.valueOf(KeyEvent.VK_Y)));
-    
+        actions.add(new SelectImageAction(bundle.getString("menu_edit_select_image"),null, bundle.getString("menu_edit_select_image"),Integer.valueOf(KeyEvent.VK_R)));
     }
 
     /**
@@ -161,4 +166,31 @@ public class EditActions {
         }
     }
 
-}
+    public class SelectImageAction extends ImageAction{
+//          private int width;
+//          private int height;
+//          private int x1;
+//          private int x2;
+//          private int y1;
+//          private int y2;
+//          private boolean isInside;
+//          private BufferedImage currentImage;
+        
+         
+        SelectImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+          }
+        public void actionPerformed(ActionEvent e) {
+            try {
+                RegionSelection rs  = new RegionSelection(NAME, null, LONG_DESCRIPTION, null);
+                //target.getImage().redo();
+                //target.repaint();
+                //target.getParent().revalidate();
+    
+                } catch (Exception ex) {}
+               
+                
+           
+    }
+
+}}

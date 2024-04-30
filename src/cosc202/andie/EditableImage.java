@@ -270,6 +270,7 @@ class EditableImage {
      * </p>
      * 
      * @param op The operation to apply.
+     * @return 
      */
     public void apply(ImageOperation op) {
         current = op.apply(current);
