@@ -26,6 +26,7 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
     private BufferedImage currentImage;
     private Graphics g;
     private BufferedImage copied_target;
+    private BufferedImage selectedImage;
 
     RegionSelection(String name, ImageIcon icon, String desc, Integer mnemonic) {
         super(name, icon, desc, mnemonic);
@@ -33,10 +34,9 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
         width = currentImage.getWidth();
         height = currentImage.getHeight();
         target.addMouseListener(this);
-        // target.addMouseMotionListener(this);
 
-        //create a copy of the original image
-         copied_target = EditableImage.deepCopy(currentImage);
+        // create a copy of the original image
+        copied_target = EditableImage.deepCopy(currentImage);
     }
 
     @Override
@@ -49,9 +49,8 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
             y = ytemp;
             isInside = true;
             target.addMouseMotionListener(this);
-
         } else {
-
+            System.out.println("out of image");
         }
     }
 
@@ -59,33 +58,78 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
     public void mouseReleased(MouseEvent e) {
         int xtemp = e.getX();
         int ytemp = e.getY();
+        drawRect(xtemp, ytemp);
+        changeColourOfSelectedArea();
+        // if (xtemp >= 0 && xtemp < width && ytemp >= 0 && ytemp < height && isInside)
+        // {
+        // x1 = xtemp;
+        // y1 = ytemp;
+        // ImagePanel ip = new ImagePanel();
+        // ip.setXY(x, y);
+        // ip.setX1Y1(x1, y1);
+        // ip.setOriginal(copied_target);
+        // ip.paintComponent(g);
+        // target.repaint();
+        // selectedImage = target.getImage().getCurrentImage().getSubimage(Math.min(x,
+        // x1), Math.min(y, y1),
+        // Math.abs(x - x1), Math.abs(y - y1));
+        // // Graphics colImage = currentImage.getGraphics();
+        // ConvertToGrey ctg = new ConvertToGrey();
+        // ctg.apply(selectedImage);
+        // target.repaint();
+
+        // } else {
+
+        // // does select inside the image
+
+        // }
+
+    }
+
+    private void drawRect(int xtemp, int ytemp) {
+        g = (Graphics2D) target.getImage().getCurrentImage().getGraphics();
         if (xtemp >= 0 && xtemp < width && ytemp >= 0 && ytemp < height && isInside) {
             x1 = xtemp;
             y1 = ytemp;
-         
-
         } else {
-            // does nothing because it's out of the image
+            if (xtemp > width)
+                x1 = currentImage.getWidth();
+            if (ytemp > height)
+                y1 = currentImage.getHeight();
 
+            // does select inside the image
         }
-
-    }
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        
-        x1 = e.getX();
-        y1 = e.getY();
-        //create graphics2d for the original image
-        g = (Graphics2D) target.getImage().getCurrentImage().getGraphics();  
         ImagePanel ip = new ImagePanel();
         ip.setXY(x, y);
         ip.setX1Y1(x1, y1);
         ip.setOriginal(copied_target);
         ip.paintComponent(g);
         target.repaint();
-        target.getParent().revalidate();
-        
-       
+
+    }
+
+    private void changeColourOfSelectedArea() {
+        selectedImage = target.getImage().getCurrentImage().getSubimage(Math.min(x, x1), Math.min(y, y1),
+                Math.abs(x - x1), Math.abs(y - y1));
+        ConvertToGrey ctg = new ConvertToGrey();
+        ctg.apply(selectedImage);
+        target.repaint();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        drawRect(e.getX(), e.getY());
+        // x1 = e.getX();
+        // y1 = e.getY();
+        // // create graphics2d for the original image
+        // g = (Graphics2D) target.getImage().getCurrentImage().getGraphics();
+        // ImagePanel ip = new ImagePanel();
+        // ip.setXY(x, y);
+        // ip.setX1Y1(x1, y1);
+        // ip.setOriginal(copied_target);
+        // ip.paintComponent(g);
+        // target.repaint();
+        // target.getParent().revalidate();
 
     }
 
@@ -108,8 +152,6 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
     public void actionPerformed(ActionEvent e) {
 
     }
-
-   
 
     @Override
     public void mouseMoved(MouseEvent e) {
