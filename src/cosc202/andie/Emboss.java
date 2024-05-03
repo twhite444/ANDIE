@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+
 /**
  * Emboss Filter
  * @author Tommo White
@@ -10,6 +11,7 @@ public class Emboss  implements ImageOperation, java.io.Serializable {
 
     public static BufferedImage applyConvolution(BufferedImage input, Kernel kernel) {
         ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_CLAMP);
+
 
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
