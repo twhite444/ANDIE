@@ -38,7 +38,7 @@ public class EmbossFilterTest{
         
 
         // Create a BufferedImage with alpha channel
-        BufferedImage sampleInputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB);
+        sampleInputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB);
         for (int y = 0; y < redChannel.length; y++) {
             for (int x = 0; x < redChannel[y].length; x++) {
                 int alpha = 255; // Max alpha value (opaque)

@@ -9,13 +9,8 @@ import java.awt.image.*;
  */
 public class Emboss  implements ImageOperation, java.io.Serializable {
 
-    public static BufferedImage applyConvolution(BufferedImage input, Kernel kernel) {
-        ConvolveOp convOp = new ConvolveOp(kernel, ConvolveOp.EDGE_CLAMP);
-
-
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-
-        convOp.filter(input, output);
+    public static BufferedImage applyConvolution(BufferedImage input, float[] kernel) {
+        BufferedImage output = Convolution.convolve(input, kernel, 3, 3, true);
 
         return output;
     }
@@ -35,63 +30,64 @@ public class Emboss  implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
         String type = "1";
-        Kernel kernel = null;
+        //Kernel kernel = null;
+        float[] kernel = null;
         switch (type) {
             case "1":
-                kernel = new Kernel(3, 3, new float[]{
+                kernel = new float[]{
                     0, 0, 0,
                     1, 0, -1,
                     0, 0, 0
-                });
+                };
                 break;
             case "2":
-                kernel = new Kernel(3, 3, new float[]{
+                kernel = new float[]{
                     1, 0, 0,
                     0, 0, 0,
                     0, 0, -1
-                });
+                };
                 break;
             case "3":
-                kernel = new Kernel(3, 3, new float[]{
+                kernel = new float[]{
                     0, 1, 0,
                     0, 0, 0,
                     0, -1, 0
-                });
+                };
                 break;
             case "4":
-                kernel = new Kernel(3, 3, new float[]{
+                kernel = new float[]{
                     0, 0, 1,
                     0, 0, 0,
                     -1, 0, 0
-                });
+                };
                 break;
             case "5":
-                kernel = new Kernel(3, 3, new float[]{
+                kernel = new float[]{
                     0, 0, 0,
                     -1, 0, 1,
                     0, 0, 0
-                });
+                };
                 break;
             case "6":
-                kernel = new Kernel(3, 3, new float[]{
+                kernel = new float[]{
                     -1, 0, 0,
                     0, 0, 0,
                     0, 0, 1
-                });
+                };
                 break;
             case "7":
-                kernel = new Kernel(3, 3, new float[]{
+                kernel = new float[]{
                     0, -1, 0,
                     0, 0, 0,
                     0, 1, 0
-                });
+                };
                 break;
             case "8":
-                kernel = new Kernel(3, 3, new float[]{
+                kernel = new float[]{
                     0, 0, -1,
                     0, 0, 0,
                     1, 0, 0
-                });
+                };
                 break;
             default:
                 return input;
@@ -102,6 +98,7 @@ public class Emboss  implements ImageOperation, java.io.Serializable {
             return output;
         
         }
-        return input;
+    return input;
     }
+    
 }
