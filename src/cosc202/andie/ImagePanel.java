@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
@@ -30,9 +29,6 @@ public class ImagePanel extends JPanel {
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
-    private int x, y, x1, y1;
-    private BufferedImage original;
-    private BufferedImage selectedArea;
 
     /**
      * <p>
@@ -187,14 +183,12 @@ public class ImagePanel extends JPanel {
      */
     @Override
     public void paintComponent(Graphics g) {
-       
+
         super.paintComponent(g);
 
-        
-        
-        if (image.hasImage()&&x ==0) {
-           
-            Graphics2D g2 = (Graphics2D) g.create();
+        if (image.hasImage()) {
+
+            Graphics2D g2  = (Graphics2D) g.create();
 
             g2.scale(scale, scale);
 
@@ -203,52 +197,7 @@ public class ImagePanel extends JPanel {
             g2.dispose();
 
         }
-        if (x != 0 && x1 != 0) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            int x = Math.min(this.x, this.x1);
-            int y = Math.min(this.y, this.y1);
-            int width = Math.abs(this.x - this.x1);
-            int height = Math.abs(this.y - this.y1);
-            //System.out.println(x+" "+y+" "+width+" "+height);
-            g2.drawImage(original, null, 0, 0);
-
-            g2.drawRect(x, y, width, height);
-            g2.dispose();
-        }
-        
-        // if(selectedArea!=null){
-            
-        //     Graphics2D g2 = (Graphics2D) g.create();
-
-        //     g2.scale(scale, scale);
-
-        //     g2.drawImage(selectedArea, null, 0, 0);
-
-        //     g2.dispose();
-        // }
-        
 
     }
-
-    public void setXY(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public void setX1Y1(int x1, int y1) {
-        this.x1 = x1;
-        this.y1 = y1;
-    }
-
-    public void setOriginal(BufferedImage bf){
-        original =bf;
-    }
-
-    // public void setAreaForCrop(BufferedImage selectedArea){
-    //     this.selectedArea = selectedArea;
-               
-    // }
-
-   
 
 }

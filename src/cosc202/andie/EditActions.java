@@ -3,11 +3,9 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.nio.BufferUnderflowException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.synth.Region;
 
 /**
  * <p>
@@ -49,8 +47,6 @@ public class EditActions {
         actions = new ArrayList<Action>();
         actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), Integer.valueOf(KeyEvent.VK_Z)));
         actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), Integer.valueOf(KeyEvent.VK_Y)));
-        actions.add(new SelectImageAction(bundle.getString("menu_edit_select_image"), null, bundle.getString("menu_edit_select_image"), Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new CropImageAction(bundle.getString("menu_edit_crop_image"), null, bundle.getString("menu_edit_crop_image"), Integer.valueOf(KeyEvent.VK_C)));
         actions.add(new CropAction("crop or whatever", null, "lookit me!", null));
 
     }
@@ -184,7 +180,9 @@ public class EditActions {
         int cropWidth;
         int cropHeight;
 
-        
+        Image cropCursor = null;
+
+        JPanel cropCursorPanel = new JPanel();
 
         /**
          * <p>
@@ -215,6 +213,12 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
+            try {
+
+                cropCursor = ImageIO.read(Andie.class.getClassLoader().getResource("crop.png"));
+                
+            } catch(Exception ex) {}
 
             target.addMouseListener(this);
             target.addMouseMotionListener(this);
@@ -271,46 +275,4 @@ public class EditActions {
 
     }
 
-    public class SelectImageAction extends ImageAction {
-
-        SelectImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            try {
-                RegionSelection rs = new RegionSelection(NAME, null, LONG_DESCRIPTION, null);
-
-            } catch (Exception ex) {
-            }
-
-        }
-
-    }
-
-    public class CropImageAction extends ImageAction {
-
-        CropImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            try {
-                
-                target.getImage().apply(new CropImage(NAME, null, LONG_DESCRIPTION, null));
-               target.repaint();
-                target.getParent().revalidate();
-                
-               
-            
-            
-               // target.getParent().revalidate();
-           
-
-            } catch (Exception ex) {
-            }
-
-        }
-
-    }
 }
