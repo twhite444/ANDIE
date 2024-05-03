@@ -2,9 +2,14 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Toolkit;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -175,14 +180,12 @@ public class EditActions {
      */
     public class CropAction extends ImageAction implements MouseListener, MouseMotionListener {
 
-        int cropStartX;
-        int cropStartY;
-        int cropWidth;
-        int cropHeight;
+        int cropStartX = 0;
+        int cropStartY = 0;
+        int cropWidth = 1;
+        int cropHeight = 1;
 
-        Image cropCursor = null;
-
-        JPanel cropCursorPanel = new JPanel();
+        SelectionBoxPanel cropSelection = new SelectionBoxPanel(target);
 
         /**
          * <p>
@@ -214,25 +217,12 @@ public class EditActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            try {
-
-                cropCursor = ImageIO.read(Andie.class.getClassLoader().getResource("crop.png"));
-                
-            } catch(Exception ex) {}
-
             target.addMouseListener(this);
             target.addMouseMotionListener(this);
 
+            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
+
         }
-
-        @Override
-        public void mouseClicked(MouseEvent arg0) {}
-
-        @Override
-        public void mouseEntered(MouseEvent arg0) {}
-
-        @Override
-        public void mouseExited(MouseEvent arg0) {}
 
         @Override
         public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
@@ -252,8 +242,13 @@ public class EditActions {
             target.removeMouseListener(this); // removes the mouse listner so crops dont keep happeneing
             target.removeMouseMotionListener(this);
 
+            target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
+
             cropWidth = Math.abs(cropStartX - unclick.getX()); // gets the distance x & y between the click and the unclick
             cropHeight = Math.abs(cropStartY - unclick.getY());
+
+            cropStartX = Math.min(cropStartX, unclick.getX()); // gets the most top left x, y corner of the selected ractangle
+            cropStartY = Math.min(cropStartY, unclick.getY());
 
             target.getImage().apply(new Crop(cropStartX, cropStartY, cropWidth, cropHeight));
             target.repaint();
@@ -262,15 +257,62 @@ public class EditActions {
         }
 
         @Override
-        public void mouseDragged(MouseEvent arg0) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'mouseDragged'");
+        public void mouseDragged(MouseEvent drag) { // whenever the mouse is clicked and moved
+
+            cropSelection.draw(cropStartX, cropStartY, drag.getX(), drag.getY());
+
         }
 
         @Override
-        public void mouseMoved(MouseEvent arg0) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
+        public void mouseMoved(MouseEvent arg0) {}
+
+        @Override
+        public void mouseClicked(MouseEvent arg0) {}
+
+        @Override
+        public void mouseEntered(MouseEvent arg0) {}
+
+        @Override
+        public void mouseExited(MouseEvent arg0) {}
+
+    }
+
+    public class SelectionBoxPanel extends JPanel {// draws a selection box above the image
+
+        static BufferedImage selectionBoxImage;
+        static Graphics2D selectionBoxImageGraphics;
+        static ImageIcon selectionBoxIcon;
+        static JLabel selectionBoxLabel;
+        static JPanel SelectionBoxPanel;
+        static ImagePanel target;
+
+        public SelectionBoxPanel(ImagePanel target) { 
+
+            this.target = target;
+
+            selectionBoxImage = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
+            
+            selectionBoxImageGraphics = selectionBoxImage.createGraphics();
+
+            selectionBoxImageGraphics.setComposite(AlphaComposite.Clear);   // makes the image completley clear
+            selectionBoxImageGraphics.fillRect(0, 0, selectionBoxImage.getWidth(), selectionBoxImage.getHeight());
+
+            selectionBoxIcon = new ImageIcon(selectionBoxImage); // puts the image in an icon
+            selectionBoxLabel = new JLabel(selectionBoxIcon); // puts the icon in a label
+            SelectionBoxPanel = new JPanel();
+
+            SelectionBoxPanel.add(selectionBoxLabel);
+            target.add(SelectionBoxPanel); // adds the label to the panel
+
+        }
+
+        private static void draw( int x1, int y1, int x2, int y2) {
+
+            selectionBoxImageGraphics.setColor(Color.RED);
+            selectionBoxImageGraphics.fillRect(x1, y1, x2, y2);
+
+            System.out.println(x1 + " " + y1 + " " + x2 + " " + y2 + " " + selectionBoxImage.getWidth() + " " + selectionBoxImage.getHeight());
+
         }
 
     }
