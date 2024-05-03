@@ -324,7 +324,10 @@ class EditableImage {
     public BufferedImage getCurrentImage() {
         return current;
     }
-
+    // public static void update(BufferedImage bf){
+    //     BufferedImage  a = current;
+    //     a = bf; 
+    // }
     /**
      * <p>
      * Reapply the current list of operations to the original.

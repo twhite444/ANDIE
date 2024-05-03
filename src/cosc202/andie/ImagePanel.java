@@ -32,6 +32,7 @@ public class ImagePanel extends JPanel {
     private EditableImage image;
     private int x, y, x1, y1;
     private BufferedImage original;
+    private BufferedImage selectedArea;
 
     /**
      * <p>
@@ -189,8 +190,8 @@ public class ImagePanel extends JPanel {
        
         super.paintComponent(g);
 
-
-
+        
+        
         if (image.hasImage()&&x ==0) {
            
             Graphics2D g2 = (Graphics2D) g.create();
@@ -215,6 +216,17 @@ public class ImagePanel extends JPanel {
             g2.dispose();
         }
         
+        // if(selectedArea!=null){
+            
+        //     Graphics2D g2 = (Graphics2D) g.create();
+
+        //     g2.scale(scale, scale);
+
+        //     g2.drawImage(selectedArea, null, 0, 0);
+
+        //     g2.dispose();
+        // }
+        
 
     }
 
@@ -231,6 +243,11 @@ public class ImagePanel extends JPanel {
     public void setOriginal(BufferedImage bf){
         original =bf;
     }
+
+    // public void setAreaForCrop(BufferedImage selectedArea){
+    //     this.selectedArea = selectedArea;
+               
+    // }
 
    
 

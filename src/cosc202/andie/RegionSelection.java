@@ -14,6 +14,7 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
     private boolean isInside;
     private Graphics g;
     private BufferedImage copied_target, currentImage, selectedArea;
+    
   
 
     RegionSelection(String name, ImageIcon icon, String desc, Integer mnemonic) {
@@ -26,6 +27,7 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
         // create a copy of the original image
         copied_target = EditableImage.deepCopy(currentImage);
     }
+    
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -46,6 +48,7 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
     public void mouseReleased(MouseEvent e) {
         if(Math.abs(x-e.getX())!=0&&  Math.abs(y-e.getY())!=0){// check if points are different from when it's clicked
             drawRect(e.getX(),  e.getY());
+            setSelectedArea();
             changeColourOfSelectedArea();
         }
         target.removeMouseMotionListener(this);
@@ -74,11 +77,21 @@ public class RegionSelection extends ImageAction implements MouseListener, Mouse
     }
 
     private void changeColourOfSelectedArea() {
-        selectedArea = target.getImage().getCurrentImage().getSubimage(Math.min(x, x1), Math.min(y, y1),
-                Math.abs(x - x1), Math.abs(y - y1));
+        // selectedArea = target.getImage().getCurrentImage().getSubimage(Math.min(x, x1), Math.min(y, y1),
+        //         Math.abs(x - x1), Math.abs(y - y1));
         ConvertToGrey ctg = new ConvertToGrey();
         ctg.apply(selectedArea);
         target.repaint();
+    }
+
+    public void setSelectedArea(){
+        selectedArea = target.getImage().getCurrentImage().getSubimage(Math.min(x, x1), Math.min(y, y1),
+                Math.abs(x - x1), Math.abs(y - y1));
+               
+    }
+    public BufferedImage getSelectedArea(){
+      
+        return selectedArea;
     }
 
     @Override

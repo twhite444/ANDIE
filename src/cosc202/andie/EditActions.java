@@ -53,6 +53,8 @@ public class EditActions {
                 Integer.valueOf(KeyEvent.VK_Y)));
         actions.add(new SelectImageAction(bundle.getString("menu_edit_select_image"), null,
                 bundle.getString("menu_edit_select_image"), Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new CropImageAction(bundle.getString("menu_edit_crop_image"), null,
+                bundle.getString("menu_edit_crop_image"), Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -171,7 +173,6 @@ public class EditActions {
     }
 
     public class SelectImageAction extends ImageAction {
-    
 
         SelectImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -180,6 +181,32 @@ public class EditActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 RegionSelection rs = new RegionSelection(NAME, null, LONG_DESCRIPTION, null);
+
+            } catch (Exception ex) {
+            }
+
+        }
+
+    }
+
+    public class CropImageAction extends ImageAction {
+
+        CropImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            try {
+                
+                target.getImage().apply(new CropImage(NAME, null, LONG_DESCRIPTION, null));
+               // target.repaint();
+                target.getParent().revalidate();
+                
+               
+            
+            
+               // target.getParent().revalidate();
+           
 
             } catch (Exception ex) {
             }
