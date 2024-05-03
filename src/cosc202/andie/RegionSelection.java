@@ -10,93 +10,129 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 public class RegionSelection extends ImageAction implements MouseListener, MouseMotionListener {
-    private int width, height, x, x1, y, y1;
+
+    private int imageWidth, imageHeight, cropStartX, cropStartY, cropEndX, cropEndY;
     private boolean isInside;
-    private Graphics g;
-    private BufferedImage copied_target, currentImage, selectedArea;
-    
-  
+    private Graphics graphics;
+    private BufferedImage imageCopy, currentImage, selecetdImage;
+
 
     RegionSelection(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
         super(name, icon, desc, mnemonic);
+
         currentImage = target.getImage().getCurrentImage();
-        width = currentImage.getWidth();
-        height = currentImage.getHeight();
+        imageWidth = currentImage.getWidth();
+        imageHeight = currentImage.getHeight();
         target.addMouseListener(this);
 
         // create a copy of the original image
-        copied_target = EditableImage.deepCopy(currentImage);
+        imageCopy = EditableImage.deepCopy(currentImage);
+
     }
     
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        int xtemp = e.getX();
-        int ytemp = e.getY();
+    public void mousePressed(MouseEvent mouseEvent) {
 
-        if (xtemp >= 0 && xtemp < width && ytemp >= 0 && ytemp < height) {// check if the points are inside the image 
-            x = xtemp;
-            y = ytemp;
+        int xtemp = mouseEvent.getX();
+        int ytemp = mouseEvent.getY();
+
+        if (xtemp >= 0 && xtemp < imageWidth && ytemp >= 0 && ytemp < imageHeight) {// check if the points are inside the image 
+
+            cropStartX = xtemp;
+            cropStartY = ytemp;
             isInside = true;
+
             target.addMouseMotionListener(this);
+
         } else {
            
         }
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        if(Math.abs(x-e.getX())!=0&&  Math.abs(y-e.getY())!=0){// check if points are different from when it's clicked
-            drawRect(e.getX(),  e.getY());
-            setSelectedArea();
-            changeColourOfSelectedArea();
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+        if (mouseEvent.getX() != cropStartX || mouseEvent.getY() != cropStartY) {// if the point (where the mouse is released) is not the same as the starting point (mouse entered)
+
+            drawRect(mouseEvent.getX(), mouseEvent.getY());
+            setSelecetdImage();
+            changeColourOfSelecetdImage();
+
+        } else {
+
+            System.out.println("mouse not moved");
+
         }
+
         target.removeMouseMotionListener(this);
-            isInside = false;
+
+        isInside = false;
+
     }
 
     private void drawRect(int xtemp, int ytemp) {
-        g = (Graphics2D) target.getImage().getCurrentImage().getGraphics();
-        if (xtemp >= 0 && xtemp < width && ytemp >= 0 && ytemp < height && isInside) {
-            x1 = xtemp;
-            y1 = ytemp;
-        } else {
-            if (xtemp > width)
-                x1 = currentImage.getWidth();
-            if (ytemp > height)
-                y1 = currentImage.getHeight();
 
-            // does select inside the image
+        graphics = (Graphics2D) target.getImage().getCurrentImage().getGraphics();
+
+        if (xtemp >= 0 && xtemp < imageWidth && ytemp >= 0 && ytemp < imageHeight && isInside) { // if xtemp and ytemp are insde the image
+
+            cropEndX = xtemp;
+            cropEndY = ytemp;
+
+        } else { // otherwise force them inside the image
+
+            if (xtemp > imageWidth) { 
+
+                cropEndX = currentImage.getWidth();
+
+            }
+            if (ytemp > imageHeight) {
+
+                cropEndY = currentImage.getHeight();
+
+            }
+
         }
-        ImagePanel ip = new ImagePanel();
-        ip.setXY(x, y);
-        ip.setX1Y1(x1, y1);
-        ip.setOriginal(copied_target);
-        ip.paintComponent(g);
+
+        ImagePanel imagePanel = new ImagePanel();
+
+        imagePanel.setXY(cropStartX, cropStartY);
+        imagePanel.setX1Y1(cropEndX, cropEndY);
+        imagePanel.setOriginal(imageCopy);
+        imagePanel.paintComponent(graphics);
+
         target.repaint();
+
     }
 
-    private void changeColourOfSelectedArea() {
-        // selectedArea = target.getImage().getCurrentImage().getSubimage(Math.min(x, x1), Math.min(y, y1),
-        //         Math.abs(x - x1), Math.abs(y - y1));
-        ConvertToGrey ctg = new ConvertToGrey();
-        ctg.apply(selectedArea);
+    private void changeColourOfSelecetdImage() { // converts a selected area to greyscale, for testing
+
+        new ConvertToGrey().apply(selecetdImage);
         target.repaint();
+
     }
 
-    public void setSelectedArea(){
-        selectedArea = target.getImage().getCurrentImage().getSubimage(Math.min(x, x1), Math.min(y, y1),
-                Math.abs(x - x1), Math.abs(y - y1));
+    public void setSelecetdImage(){ // sets the selected area to 
+
+        
+
+        selecetdImage = target.getImage().getCurrentImage().getSubimage(Math.min(cropStartX, cropEndX), Math.min(cropStartY, cropEndY), Math.abs(cropStartX - cropEndX), Math.abs(cropStartY - cropEndY));
                
     }
-    public BufferedImage getSelectedArea(){
+
+    public BufferedImage getselecetdImage(){
       
-        return selectedArea;
+        return selecetdImage;
+
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
+
         drawRect(e.getX(), e.getY());
+
     }
 
     @Override
