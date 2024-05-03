@@ -47,14 +47,12 @@ public class EditActions {
         bundle = Andie.LanguageSettings.getMessageBundle();
 
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"),
-                Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"),
-                Integer.valueOf(KeyEvent.VK_Y)));
-        actions.add(new SelectImageAction(bundle.getString("menu_edit_select_image"), null,
-                bundle.getString("menu_edit_select_image"), Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new CropImageAction(bundle.getString("menu_edit_crop_image"), null,
-                bundle.getString("menu_edit_crop_image"), Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), Integer.valueOf(KeyEvent.VK_Z)));
+        actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), Integer.valueOf(KeyEvent.VK_Y)));
+        actions.add(new SelectImageAction(bundle.getString("menu_edit_select_image"), null, bundle.getString("menu_edit_select_image"), Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new CropImageAction(bundle.getString("menu_edit_crop_image"), null, bundle.getString("menu_edit_crop_image"), Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new CropAction("crop or whatever", null, "lookit me!", null));
+
     }
 
     /**
@@ -172,6 +170,107 @@ public class EditActions {
         }
     }
 
+        /**
+     * <p>
+     * Action to crop an image.
+     * </p>
+     * 
+     * @see Crop
+     */
+    public class CropAction extends ImageAction implements MouseListener, MouseMotionListener {
+
+        int cropStartX;
+        int cropStartY;
+        int cropWidth;
+        int cropHeight;
+
+        
+
+        /**
+         * <p>
+         * Create a new crop action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the crop action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the CropAction is triggered.
+         * It crops the image
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            target.addMouseListener(this);
+            target.addMouseMotionListener(this);
+
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent arg0) {}
+
+        @Override
+        public void mouseEntered(MouseEvent arg0) {}
+
+        @Override
+        public void mouseExited(MouseEvent arg0) {}
+
+        @Override
+        public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
+
+            //System.out.println("clicky");
+
+            cropStartX = click.getX(); 
+            cropStartY = click.getY();
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent unclick) {
+
+            //System.out.println("un-clicky");
+
+            target.removeMouseListener(this); // removes the mouse listner so crops dont keep happeneing
+            target.removeMouseMotionListener(this);
+
+            cropWidth = Math.abs(cropStartX - unclick.getX()); // gets the distance x & y between the click and the unclick
+            cropHeight = Math.abs(cropStartY - unclick.getY());
+
+            target.getImage().apply(new Crop(cropStartX, cropStartY, cropWidth, cropHeight));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent arg0) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'mouseDragged'");
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent arg0) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
+        }
+
+    }
+
     public class SelectImageAction extends ImageAction {
 
         SelectImageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
@@ -199,7 +298,7 @@ public class EditActions {
             try {
                 
                 target.getImage().apply(new CropImage(NAME, null, LONG_DESCRIPTION, null));
-               // target.repaint();
+               target.repaint();
                 target.getParent().revalidate();
                 
                
