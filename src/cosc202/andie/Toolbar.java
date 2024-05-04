@@ -4,6 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import cosc202.andie.ColourActions.ConvertToGreyAction;
 import cosc202.andie.ColourActions.ConvertToInverseAction;
 import cosc202.andie.TransformationActions.ImageFlipHAction;
 import cosc202.andie.TransformationActions.ImageFlipVAction;
@@ -104,6 +105,7 @@ public class Toolbar {
         ImageIcon resize50Icon = makeIcon("resize50.png");
         ImageIcon resize150Icon = makeIcon("resize150.png");
         ImageIcon invertIcon = makeIcon("invertColours.png");
+        ImageIcon greyscaleIcon = makeIcon("makeGreyscale.png");
 
             //Create and add buttons for each toolbar section 
             fileActionSection.add(fileActions.new FileSaveAction(null, saveIcon,bundle.getString("menu_file_save_desc"), null));
@@ -119,7 +121,7 @@ public class Toolbar {
             //TODO: Icons for Rotate actions
             
             colourActionSection.add(colourActions.new ConvertToInverseAction(null, invertIcon, bundle.getString("menu_colour_imageInversion_desc"), null));
-            //TODO: Icon for ConvertToGreyAction
+            colourActionSection.add(colourActions.new ConvertToGreyAction(null, greyscaleIcon, bundle.getString("menu_colour_greyscale_desc"), null));
 
             //Other:
             //TODO: update resize description in language files  
