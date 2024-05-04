@@ -35,6 +35,7 @@ import cosc202.andie.TransformationActions.Resize50Action;
  * <p>/cosc202/andie/images/resize50.png</p>
  * <p>/cosc202/andie/images/resize150.png</p>
  * <p>/cosc202/andie/images/invertColours.png (modified from image.png)</p>
+ * <p>/cosc202/andie/images/makeGreyscale.png (modified from image.png)</p>
  * 
  * @author Charlotte Cook
  */
