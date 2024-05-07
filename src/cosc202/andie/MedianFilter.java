@@ -1,6 +1,5 @@
 package cosc202.andie;
 
-import java.awt.Color; 
 import java.util.*;
 import java.awt.image.BufferedImage;
 
@@ -19,7 +18,9 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
+    
 
+  
     /**
      * <p>
      * Construct a median filter with the given size.

@@ -10,19 +10,21 @@ import javax.swing.*;
  * </p>
  * 
  * <p>
- * This class extends {@link JPanel} to allow for rendering of an image, as well as zooming
- * in and out. 
+ * This class extends {@link JPanel} to allow for rendering of an image, as well
+ * as zooming
+ * in and out.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
  * @version 1.0
  */
 public class ImagePanel extends JPanel {
-    
+
     /**
      * The image to display in the ImagePanel.
      */
@@ -31,11 +33,13 @@ public class ImagePanel extends JPanel {
     /**
      * <p>
      * The zoom-level of the current view.
-     * A scale of 1.0 represents actual size; 0.5 is zoomed out to half size; 1.5 is zoomed in to one-and-a-half size; and so forth.
+     * A scale of 1.0 represents actual size; 0.5 is zoomed out to half size; 1.5 is
+     * zoomed in to one-and-a-half size; and so forth.
      * </p>
      * 
      * <p>
-     * Note that the scale is internally represented as a multiplier, but externally as a percentage.
+     * Note that the scale is internally represented as a multiplier, but externally
+     * as a percentage.
      * </p>
      */
     private double scale;
@@ -68,7 +72,9 @@ public class ImagePanel extends JPanel {
 
         if (!image.hasImage()) { // check if an image exsists
 
-            JOptionPane.showMessageDialog(null, "Error: image does not seem to exist, probably because no image is open", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                    "Error: image does not seem to exist, probably because no image is open", "Error",
+                    JOptionPane.ERROR_MESSAGE);
 
             throw new RuntimeException("no image");
 
@@ -97,13 +103,15 @@ public class ImagePanel extends JPanel {
      * </p>
      * 
      * <p>
-     * The percentage zoom is used for the external interface, where 100% is the original size, 50% is half-size, etc. 
+     * The percentage zoom is used for the external interface, where 100% is the
+     * original size, 50% is half-size, etc.
      * </p>
+     * 
      * @return The current zoom level as a percentage.
      */
     public double getZoom() {
 
-        return 100*scale;
+        return 100 * scale;
 
     }
 
@@ -113,9 +121,11 @@ public class ImagePanel extends JPanel {
      * </p>
      * 
      * <p>
-     * The percentage zoom is used for the external interface, where 100% is the original size, 50% is half-size, etc. 
+     * The percentage zoom is used for the external interface, where 100% is the
+     * original size, 50% is half-size, etc.
      * The zoom level is restricted to the range [50, 200].
      * </p>
+     * 
      * @param zoomPercent The new zoom level as a percentage.
      */
     public void setZoom(double zoomPercent) {
@@ -136,14 +146,14 @@ public class ImagePanel extends JPanel {
 
     }
 
-
     /**
      * <p>
      * Gets the preferred size of this component for UI layout.
      * </p>
      * 
      * <p>
-     * The preferred size is the size of the image (scaled by zoom level), or a default size if no image is present.
+     * The preferred size is the size of the image (scaled by zoom level), or a
+     * default size if no image is present.
      * </p>
      * 
      * @return The preferred size of this component.
@@ -153,8 +163,8 @@ public class ImagePanel extends JPanel {
 
         if (image.hasImage()) {
 
-            return new Dimension((int) Math.round(image.getCurrentImage().getWidth()*scale), 
-                                 (int) Math.round(image.getCurrentImage().getHeight()*scale));
+            return new Dimension((int) Math.round(image.getCurrentImage().getWidth() * scale),
+                    (int) Math.round(image.getCurrentImage().getHeight() * scale));
 
         } else {
 
@@ -189,5 +199,5 @@ public class ImagePanel extends JPanel {
         }
 
     }
-    
+
 }
