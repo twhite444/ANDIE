@@ -81,10 +81,10 @@ public BufferedImage apply(BufferedImage input) {
                     int moveX = x + dx;
                     if (moveY >= 0 && moveY < input.getHeight() && moveX >= 0 && moveX < input.getWidth()) {
                         int pixel = input.getRGB(moveX, moveY);
-                        alpha[i] = (pixel >> 24) & 0xFF;
-                        red[i] = (pixel >> 16) & 0xFF;
-                        green[i] = (pixel >> 8) & 0xFF;
-                        blue[i] = pixel & 0xFF;
+                        alpha[i] = (pixel & 0xFF000000) >>> 24;
+                        red[i] = (pixel & 0x00FF0000) >> 16;
+                        green[i] = (pixel & 0x0000FF00) >> 8;
+                        blue[i]  = (pixel & 0x000000FF);
                     } else {
                         int tempX = moveX;
                         int tempY = moveY;
@@ -101,10 +101,15 @@ public BufferedImage apply(BufferedImage input) {
                             tempY = input.getHeight() - 1;
                         }
                         int pixel = input.getRGB(tempX, tempY);
-                        alpha[i] = (pixel >> 24) & 0xFF;
-                        red[i] = (pixel >> 16) & 0xFF;
-                        green[i] = (pixel >> 8) & 0xFF;
-                        blue[i] = pixel & 0xFF;
+                        // alpha[i] = (pixel >> 24) & 0xFF;
+                        // red[i] = (pixel >> 16) & 0xFF;
+                        // green[i] = (pixel >> 8) & 0xFF;
+                        // blue[i] = pixel & 0xFF;
+
+                        alpha[i] = (pixel & 0xFF000000) >>> 24;
+                        red[i] = (pixel & 0x00FF0000) >> 16;
+                        green[i] = (pixel & 0x0000FF00) >> 8;
+                        blue[i]  = (pixel & 0x000000FF);
                    }
                     i++;
                 }
@@ -126,6 +131,9 @@ public BufferedImage apply(BufferedImage input) {
         int[] finall = values.clone();
         //sort array of values 
         Arrays.sort(finall);
-        return finall[length / 2 + 1]; //return new array 
+        System.out.println(Arrays.toString(values));
+        int result = finall[length / 2];
+        result = Math.max(0, Math.min(255, result));
+        return result; //return new array 
     }
 }

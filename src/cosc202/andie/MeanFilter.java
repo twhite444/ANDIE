@@ -103,7 +103,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
 
                         if (moveY >= 0 && moveY < input.getHeight() && moveX >= 0 && moveX < input.getWidth()) {
                             argb = input.getRGB(moveX, moveY);
-                            a[i] = (argb & 0xFF000000) >> 24;
+                            a[i] = (argb & 0xFF000000) >>> 24;
                             r[i] = (argb & 0x00FF0000) >> 16;
                             g[i] = (argb & 0x0000FF00) >> 8;
                             b[i] = (argb & 0x000000FF);
@@ -124,7 +124,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
                             }
                             argb = input.getRGB(tempX, tempY);
                             
-                            a[i] = (argb & 0xFF000000) >> 24;
+                            a[i] = (argb & 0xFF000000) >>> 24;
                             r[i] = (argb & 0x00FF0000) >> 16;
                             g[i] = (argb & 0x0000FF00) >> 8;
                             b[i] = (argb & 0x000000FF);
