@@ -225,7 +225,7 @@ public class EditActions {
             rectStartY = click.getY();
 
             // draw a rectangle, this acts as the selection box
-            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - click.getX()), Math.abs(rectStartY - click.getY())));
+            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - Math.max(click.getX(), 0)), Math.abs(rectStartY - Math.max(click.getY(), 0))));
             target.repaint();
             target.getParent().revalidate();
 
@@ -244,8 +244,8 @@ public class EditActions {
 
             target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
 
-            rectWidth = Math.abs(rectStartX - unclick.getX()); // gets the distance x & y between the click and the unclick
-            rectHeight = Math.abs(rectStartY - unclick.getY());
+            rectWidth = Math.abs(rectStartX - Math.max(unclick.getX(), 0)); // gets the distance x & y between the click and the unclick, clamping for left and up
+            rectHeight = Math.abs(rectStartY - Math.max(unclick.getY(), 0));
 
             rectStartX = Math.min(rectStartX, unclick.getX()); // gets the most top left x, y corner of the selected rectangle
             rectStartY = Math.min(rectStartY, unclick.getY());
@@ -260,7 +260,7 @@ public class EditActions {
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
             target.getImage().undo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(Math.min(rectStartX, drag.getX()), Math.min(rectStartY, drag.getY()), Math.abs(rectStartX - drag.getX()), Math.abs(rectStartY - drag.getY())));
+            target.getImage().apply(new DrawRectangle(Math.min(rectStartX, drag.getX()), Math.min(rectStartY, drag.getY()), Math.abs(rectStartX - Math.max(drag.getX(), 0)), Math.abs(rectStartY - Math.max(drag.getY(), 0))));
             target.repaint();
             target.getParent().revalidate();
 
@@ -340,7 +340,7 @@ public class EditActions {
             cropStartY = click.getY();
 
             // draw a rectangle, this acts as the selection box
-            target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - click.getX()), Math.abs(cropStartY - click.getY())));
+            target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - Math.max(click.getX(), 0)), Math.abs(cropStartY - Math.max(click.getY(), 0))));
             target.repaint();
             target.getParent().revalidate();
 
@@ -359,8 +359,8 @@ public class EditActions {
 
             target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
 
-            cropWidth = Math.abs(cropStartX - unclick.getX()); // gets the distance x & y between the click and the unclick
-            cropHeight = Math.abs(cropStartY - unclick.getY());
+            cropWidth = Math.abs(cropStartX - Math.max(unclick.getX(), 0)); // gets the distance x & y between the click and the unclick
+            cropHeight = Math.abs(cropStartY - Math.max(unclick.getY(), 0));
 
             cropStartX = Math.min(cropStartX, unclick.getX()); // gets the most top left x, y corner of the selected ractangle
             cropStartY = Math.min(cropStartY, unclick.getY());
@@ -375,7 +375,7 @@ public class EditActions {
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
             target.getImage().undo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(Math.min(cropStartX, drag.getX()), Math.min(cropStartY, drag.getY()), Math.abs(cropStartX - drag.getX()), Math.abs(cropStartY - drag.getY())));
+            target.getImage().apply(new DrawRectangle(Math.min(cropStartX, drag.getX()), Math.min(cropStartY, drag.getY()), Math.abs(cropStartX - Math.max(drag.getX(), 0)), Math.abs(cropStartY - Math.max(drag.getY(), 0))));
             target.repaint();
             target.getParent().revalidate();
 
