@@ -38,7 +38,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
      */
     BlockAverage() {
 
-        this(0, 0);
+        this(1, 1);
 
     }
 
@@ -53,7 +53,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
 
-        System.out.println(xDist + " " + yDist);
+        //System.out.println(xDist + " " + yDist);
 
         int width = input.getWidth();
         int height = input.getHeight();
@@ -97,10 +97,10 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
 
                 }
 
-                a /= pixelsInBlock; // divide by the number of pixels in the block
-                r /= pixelsInBlock;
-                g /= pixelsInBlock;
-                b /= pixelsInBlock;
+                a /= Math.max(pixelsInBlock, 1); // divide by the number of pixels in the block
+                r /= Math.max(pixelsInBlock, 1);
+                g /= Math.max(pixelsInBlock, 1);
+                b /= Math.max(pixelsInBlock, 1);
 
                 argb = (a << 24) | (r << 16) | (g << 8) | b;
 
