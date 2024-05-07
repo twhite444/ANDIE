@@ -38,7 +38,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
      */
     BlockAverage() {
 
-        this(0, 0);
+        this(1, 1);
 
     }
 
