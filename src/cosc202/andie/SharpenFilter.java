@@ -55,7 +55,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
                         int moveX = x + dx;
                         if (moveY >= 0 && moveY < input.getHeight() && moveX >= 0 && moveX < input.getWidth()) {
                             int pixel = input.getRGB(moveX, moveY);
-                            alpha[i] = (pixel >> 24) & 0xFF;
+                            alpha[i] = (pixel >>> 24) & 0xFF;
                             red[i] = (pixel >> 16) & 0xFF;
                             green[i] = (pixel >> 8) & 0xFF;
                             blue[i] = pixel & 0xFF;
@@ -75,7 +75,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable {
                                 tempY = input.getHeight() - 1;
                             }
                             int pixel = input.getRGB(tempX, tempY);
-                            alpha[i] = (pixel >> 24) & 0xFF;
+                            alpha[i] = (pixel >>> 24) & 0xFF;
                             red[i] = (pixel >> 16) & 0xFF;
                             green[i] = (pixel >> 8) & 0xFF;
                             blue[i] = pixel & 0xFF;

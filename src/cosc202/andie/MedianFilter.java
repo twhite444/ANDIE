@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
  * a median filter to a BufferedImage.
  *
  *
- * @author Cushla Bridges
+ * @author Yusei Tokito
  * @version 1.0
  */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
@@ -127,14 +127,14 @@ public BufferedImage apply(BufferedImage input) {
      * @param int[] values
      * @return int[] 
      */
-    private static int getMedianColor(int[] values) {
+    private static int getMedianValue(int[] values) {
 
         int length = values.length;
         int[] finall = values.clone();
 
         //sort array of values 
         Arrays.sort(finall);
-        System.out.println(Arrays.toString(values));
+       
         int result = finall[length / 2];
         result = Math.max(0, Math.min(255, result));
         return result; //return new array 
