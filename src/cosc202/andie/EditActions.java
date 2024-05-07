@@ -260,7 +260,7 @@ public class EditActions {
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
             target.getImage().undo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - drag.getX()), Math.abs(rectStartY - drag.getY())));
+            target.getImage().apply(new DrawRectangle(Math.min(rectStartX, drag.getX()), Math.min(rectStartY, drag.getY()), Math.abs(rectStartX - drag.getX()), Math.abs(rectStartY - drag.getY())));
             target.repaint();
             target.getParent().revalidate();
 
@@ -375,7 +375,7 @@ public class EditActions {
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
             target.getImage().undo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - drag.getX()), Math.abs(cropStartY - drag.getY())));
+            target.getImage().apply(new DrawRectangle(Math.min(cropStartX, drag.getX()), Math.min(cropStartY, drag.getY()), Math.abs(cropStartX - drag.getX()), Math.abs(cropStartY - drag.getY())));
             target.repaint();
             target.getParent().revalidate();
 
