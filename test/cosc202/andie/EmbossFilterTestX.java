@@ -88,7 +88,7 @@ public class EmbossFilterTestX{
 
 
         // Apply Rotate90Left
-        BufferedImage outputImage = new Emboss().apply(sampleInputImage);
+        BufferedImage outputImage = new Emboss("1").apply(sampleInputImage);
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);

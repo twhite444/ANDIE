@@ -9,6 +9,20 @@ import java.awt.image.*;
  */
 public class Emboss  implements ImageOperation, java.io.Serializable {
 
+    private String direction; // Scaling factor: 0.5 for 50%, 1.5 for 150%
+
+    /**
+     * <p>
+     * Create a new Resize operation with the specified scaling factor.
+     * </p>
+     * 
+     * @param direction The scaling factor. 0.5 for 50%, 1.5 for 150%.
+     * @return 
+     */
+    Emboss(String direction) {
+        this.direction = direction;
+    }
+
     public static BufferedImage applyConvolution(BufferedImage input, float[] kernel) {
         BufferedImage output = Convolution.convolve(input, kernel, 3, 3, true);
 
@@ -29,10 +43,10 @@ public class Emboss  implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
-        String type = "1";
+        //String type = "1";
         //Kernel kernel = null;
         float[] kernel = null;
-        switch (type) {
+        switch (direction) {
             case "1":
                 kernel = new float[]{
                     0, 0, 0,

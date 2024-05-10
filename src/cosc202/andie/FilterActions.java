@@ -367,7 +367,7 @@ public class FilterActions {
 
             }
 
-            target.getImage().apply(new CycleColours(direction));
+            target.getImage().apply(new Emboss(direction));
             target.repaint();
             target.getParent().revalidate();
 
