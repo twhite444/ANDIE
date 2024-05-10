@@ -15,15 +15,11 @@ public class Convolution {
         int k=0;
         for (int i = 0; i < kernelHeight; ++i) {
             for (int j = 0; j < kernelWidth; ++j) {
-                // Calculate the coordinates of the corresponding pixel in the input image
                 int pixelX = x + j - kernelWidth / 2;
                 int pixelY = y + i - kernelHeight / 2;
-                // Check if the pixel coordinates are within the bounds of the input image
                 if (pixelX >= 0 && pixelX < input[0].length && pixelY >= 0 && pixelY < input.length) {
-                    // Apply the convolution operation
                     output += input[pixelY][pixelX] * kernel[k];
                 } else {
-                    // If the pixel coordinates are outside the image boundaries, use the nearest pixel value
                     int nearestX = Math.min(Math.max(pixelX, 0), input[0].length - 1);
                     int nearestY = Math.min(Math.max(pixelY, 0), input.length - 1);
                     output += input[nearestY][nearestX] * kernel[k];
@@ -37,10 +33,8 @@ public class Convolution {
     private static double[][] applyConvolution(int width, int height, double[][] image, float[] kernel, int kernelWidth, int kernelHeight) {
         double[][] result = new double[height][width];
         
-        // Iterate over each pixel in the image
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                // Apply the convolution operation to the current pixel
                 result[y][x] = singlePixelConvolution(image, x, y, kernel, kernelWidth, kernelHeight);
             }
         }
@@ -55,7 +49,6 @@ public class Convolution {
 
         BufferedImage output = new BufferedImage(width, height, input.getType());
 
-        // Separate each color channel for color images
         int numChannels = input.getType() == BufferedImage.TYPE_BYTE_GRAY ? 1 : 3;
         double[][][] imageArray= new double[numChannels][height][width];
         for (int i = 0; i < height; i++) {
@@ -68,16 +61,30 @@ public class Convolution {
         }
 
         for (int channel = 0; channel < numChannels; channel++) {
-            // Apply convolution to the current color channel
             double[][] convResult = applyConvolution(width, height, imageArray[channel], kernel, kernelWidth, kernelHeight);
-            
-            // Set the RGB values of the output image using the convolution result
+            int outputValue=0;
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    convResult[y][x]+=127;
-                    int outputValue = (int) Math.min(255, Math.max(0, convResult[y][x]));
-                    // Set the RGB value of the output image
-                    output.setRGB(x, y, new Color(outputValue, outputValue, outputValue).getRGB());
+                    if (offset) {
+                        convResult[y][x]+=127;
+                        outputValue = (int) Math.min(255, Math.max(0, convResult[y][x]));
+                    } else {
+                        outputValue = (int) Math.min(255, Math.max(0, convResult[y][x]));
+                    }
+                    
+                    switch (channel) {
+                        case 0: // Red channel
+                            output.setRGB(x, y, (output.getRGB(x, y) & 0xFF00FFFF) | (outputValue << 16));
+                            break;
+                        case 1: // Green channel
+                            output.setRGB(x, y, (output.getRGB(x, y) & 0xFFFF00FF) | (outputValue << 8));
+                            break;
+                        case 2: // Blue channel
+                            output.setRGB(x, y, (output.getRGB(x, y) & 0xFFFFFF00) | outputValue);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }

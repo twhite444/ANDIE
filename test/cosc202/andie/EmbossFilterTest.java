@@ -51,25 +51,25 @@ public class EmbossFilterTest{
     @Test
     void testEmboss1() {
         int[][] redChannel = {
-            {38, 81, 43},
-            {18, 81, 63},
-            {43, 0, 0}
+            {38, 81, 170},
+            {18, 81, 190},
+            {170, 0, 0}
         };
         
         
         
 
         int[][] greenChannel = {
-            {0, 0, 34},
-            {108, 38, 57},
-            {0, 9, 201}
+            {0, 0, 161},
+            {235, 165, 57},
+            {0, 136, 255}
         };
         
         
         int[][] blueChannel = {
-            {24, 41, 17},
-            {169, 168, 126},
-            {60, 123, 63}
+            {24, 41, 144},
+            {255, 255, 126},
+            {187, 250, 190}
         };
         
         
@@ -90,11 +90,23 @@ public class EmbossFilterTest{
         BufferedImage outputImage = new Emboss("1").apply(sampleInputImage);
 
         // Compare output with expected output
-        System.out.println("hello");
         for (int y = 0; y < outputImage.getHeight(); y++) {
             for (int x = 0; x < outputImage.getWidth(); x++) {
                 // Get the RGB value of the pixel
                 int rgb = outputImage.getRGB(x, y);
+                // Extract individual color components
+                int red = (rgb >> 16) & 0xFF;
+                int green = (rgb >> 8) & 0xFF;
+                int blue = rgb & 0xFF;
+                // Print the RGB values
+                System.out.println("Pixel at (" + x + "," + y + "): Red = " + red + ", Green = " + green + ", Blue = " + blue);
+            }
+        }
+        // Compare output with expected output
+        for (int y = 0; y < expectedOutputImage.getHeight(); y++) {
+            for (int x = 0; x < expectedOutputImage.getWidth(); x++) {
+                // Get the RGB value of the pixel
+                int rgb = expectedOutputImage.getRGB(x, y);
                 // Extract individual color components
                 int red = (rgb >> 16) & 0xFF;
                 int green = (rgb >> 8) & 0xFF;

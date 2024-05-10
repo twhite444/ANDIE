@@ -107,12 +107,9 @@ public class Emboss  implements ImageOperation, java.io.Serializable {
                 return input;
         }
         
-        if (kernel != null) {
-            BufferedImage output = applyConvolution(input, kernel);
-            return output;
-        
-        }
-    return input;
+    
+        BufferedImage output = applyConvolution(input, kernel);
+        return output;
     }
     
 }
