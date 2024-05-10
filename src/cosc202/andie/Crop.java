@@ -54,8 +54,8 @@ public class Crop implements ImageOperation, java.io.Serializable {
      * Apply Crop to an image.
      * </p>
      * 
-     * @param input The image to be converted to greyscale
-     * @return The resulting greyscale image.
+     * @param input The image to be cropped
+     * @return The resulting cropped image.
      */
     public BufferedImage apply(BufferedImage input) {
         

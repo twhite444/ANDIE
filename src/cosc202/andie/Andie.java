@@ -102,10 +102,10 @@ public class Andie {
         LanguageActions languageActions = new LanguageActions();
         menuBar.add(languageActions.createMenu());
 
-        Toolbar toolbar = new Toolbar();
+        //Toolbar toolbar = new Toolbar();
 
         frame.setJMenuBar(menuBar);
-        frame.add(toolbar.createToolbar(),BorderLayout.PAGE_START);
+        //frame.add(toolbar.createToolbar(),BorderLayout.PAGE_START);
         frame.pack();
         frame.setVisible(true);
     }

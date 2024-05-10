@@ -55,6 +55,8 @@ public class EditActions {
         actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), Integer.valueOf(KeyEvent.VK_Y)));
         actions.add(new CropAction(bundle.getString("menu_edit_crop_image"), null, "Click and drag to crop image", null));
         actions.add(new DrawRectangleAction(bundle.getString("menu_edit_drawRectangle"), null, bundle.getString("menu_edit_drawRectangle_desc"), null));
+        actions.add(new DrawOvalAction(bundle.getString("menu_edit_drawOval"), null, bundle.getString("menu_edit_drawOval_desc"), null));
+        actions.add(new DrawLineAction("Draw Line", null, "Click and drag to draw line", null));
 
     }
 
@@ -186,7 +188,122 @@ public class EditActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to crop an image.
+     * </p>
+     * 
+     * @see Crop
+     */
+    public class CropAction extends ImageAction implements MouseListener, MouseMotionListener {
+
+        int cropStartX = 0;
+        int cropStartY = 0;
+        int cropWidth = 1;
+        int cropHeight = 1;
+
         /**
+         * <p>
+         * Create a new crop action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the crop action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the CropAction is triggered.
+         * It crops the image
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            target.addMouseListener(this);
+            target.addMouseMotionListener(this);
+
+            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
+
+            //System.out.println("clicky");
+
+            cropStartX = click.getX(); 
+            cropStartY = click.getY();
+
+            // draw a rectangle, this acts as the selection box
+            target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - Math.max(click.getX(), 0)), Math.abs(cropStartY - Math.max(click.getY(), 0))));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent unclick) {
+
+            //System.out.println("un-clicky");
+
+            // remove the selection box
+            target.getImage().undo();
+
+            target.removeMouseListener(this); // removes the mouse listner so crops dont keep happeneing
+            target.removeMouseMotionListener(this);
+
+            target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
+
+            cropWidth = Math.abs(cropStartX - Math.max(unclick.getX(), 0)); // gets the distance x & y between the click and the unclick
+            cropHeight = Math.abs(cropStartY - Math.max(unclick.getY(), 0));
+
+            cropStartX = Math.min(cropStartX, unclick.getX()); // gets the most top left x, y corner of the selected ractangle
+            cropStartY = Math.min(cropStartY, unclick.getY());
+
+            target.getImage().apply(new Crop(cropStartX, cropStartY, cropWidth, cropHeight));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
+
+            target.getImage().undo(); // remove the preivious selection box and draw a new one
+            target.getImage().apply(new DrawRectangle(Math.min(cropStartX, drag.getX()), Math.min(cropStartY, drag.getY()), Math.abs(cropStartX - Math.max(drag.getX(), 0)), Math.abs(cropStartY - Math.max(drag.getY(), 0))));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent arg0) {}
+
+        @Override
+        public void mouseClicked(MouseEvent arg0) {}
+
+        @Override
+        public void mouseEntered(MouseEvent arg0) {}
+
+        @Override
+        public void mouseExited(MouseEvent arg0) {}
+
+    }
+
+    /**
      * <p>
      * Action to draw a rectangle on an image.
      * </p>
@@ -303,21 +420,21 @@ public class EditActions {
 
     /**
      * <p>
-     * Action to crop an image.
+     * Action to draw an oval on an image.
      * </p>
      * 
-     * @see Crop
+     * @see DrawOval
      */
-    public class CropAction extends ImageAction implements MouseListener, MouseMotionListener {
+    public class DrawOvalAction extends ImageAction implements MouseListener, MouseMotionListener {
 
-        int cropStartX = 0;
-        int cropStartY = 0;
-        int cropWidth = 1;
-        int cropHeight = 1;
+        int ovalStartX = 0;
+        int ovalStartY = 0;
+        int ovalWidth = 1;
+        int ovalHeight = 1;
 
         /**
          * <p>
-         * Create a new crop action.
+         * Create a new DrawOvalAction.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -325,7 +442,7 @@ public class EditActions {
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
-        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        DrawOvalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
 
             super(name, icon, desc, mnemonic);
 
@@ -333,12 +450,12 @@ public class EditActions {
 
         /**
          * <p>
-         * Callback for when the crop action is triggered.
+         * Callback for when the DrawOvalAction is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the CropAction is triggered.
-         * It crops the image
+         * This method is called whenever the DrawOvalAction is triggered.
+         * It draws an oval
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -357,36 +474,36 @@ public class EditActions {
 
             //System.out.println("clicky");
 
-            cropStartX = click.getX(); 
-            cropStartY = click.getY();
+            ovalStartX = click.getX(); 
+            ovalStartY = click.getY();
 
-            // draw a rectangle, this acts as the selection box
-            target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - Math.max(click.getX(), 0)), Math.abs(cropStartY - Math.max(click.getY(), 0))));
+            // draw an oval, this acts as the preview of where the oval will be drawn
+            target.getImage().apply(new DrawRectangle(ovalStartX, ovalStartY, Math.abs(ovalStartX - Math.max(click.getX(), 0)), Math.abs(ovalStartY - Math.max(click.getY(), 0))));
             target.repaint();
             target.getParent().revalidate();
 
         }
 
         @Override
-        public void mouseReleased(MouseEvent unclick) {
+        public void mouseReleased(MouseEvent unclick) { // when the mouse is released
 
             //System.out.println("un-clicky");
 
-            // remove the selection box
+            // remove the preview oval
             target.getImage().undo();
 
-            target.removeMouseListener(this); // removes the mouse listner so crops dont keep happeneing
+            target.removeMouseListener(this); // removes the mouse listner
             target.removeMouseMotionListener(this);
 
             target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
 
-            cropWidth = Math.abs(cropStartX - Math.max(unclick.getX(), 0)); // gets the distance x & y between the click and the unclick
-            cropHeight = Math.abs(cropStartY - Math.max(unclick.getY(), 0));
+            ovalWidth = Math.abs(ovalStartX - Math.max(unclick.getX(), 0)); // gets the distance x & y between the click and the unclick, clamping for left and up
+            ovalHeight = Math.abs(ovalStartY - Math.max(unclick.getY(), 0));
 
-            cropStartX = Math.min(cropStartX, unclick.getX()); // gets the most top left x, y corner of the selected ractangle
-            cropStartY = Math.min(cropStartY, unclick.getY());
+            ovalStartX = Math.min(ovalStartX, unclick.getX()); // gets the most top left x, y corner of the selected area
+            ovalStartY = Math.min(ovalStartY, unclick.getY());
 
-            target.getImage().apply(new Crop(cropStartX, cropStartY, cropWidth, cropHeight));
+            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight)); // draw the final oval
             target.repaint();
             target.getParent().revalidate();
 
@@ -395,8 +512,8 @@ public class EditActions {
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
-            target.getImage().undo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(Math.min(cropStartX, drag.getX()), Math.min(cropStartY, drag.getY()), Math.abs(cropStartX - Math.max(drag.getX(), 0)), Math.abs(cropStartY - Math.max(drag.getY(), 0))));
+            target.getImage().undo(); // remove the preivious previwe oval and draw a new one
+            target.getImage().apply(new DrawOval(Math.min(ovalStartX, drag.getX()), Math.min(ovalStartY, drag.getY()), Math.abs(ovalStartX - Math.max(drag.getX(), 0)), Math.abs(ovalStartY - Math.max(drag.getY(), 0))));
             target.repaint();
             target.getParent().revalidate();
 
@@ -416,4 +533,116 @@ public class EditActions {
 
     }
 
+    /**
+     * <p>
+     * Action to draw a line on an image.
+     * </p>
+     * 
+     * @see DrawLine
+     */
+    public class DrawLineAction extends ImageAction implements MouseListener, MouseMotionListener {
+
+        int lineStartX = 0;
+        int lineStartY = 0;
+        int lineEndX = 1;
+        int lineEndY = 1;
+
+        /**
+         * <p>
+         * Create a new DrawLineAction.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        DrawLineAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the DrawLineAction is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the DrawLineAction is triggered.
+         * It draws a line
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            target.addMouseListener(this);
+            target.addMouseMotionListener(this);
+
+            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
+
+            //System.out.println("clicky");
+
+            lineStartX = click.getX(); 
+            lineStartY = click.getY();
+
+            // draw a line, this acts as a preview of where the line will be drawn
+            target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineStartX, lineStartY));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent unclick) { // when the mouse is released
+
+            //System.out.println("un-clicky");
+
+            // remove the preview line
+            target.getImage().undo();
+
+            target.removeMouseListener(this); // removes the mouse listner
+            target.removeMouseMotionListener(this);
+
+            target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
+
+            lineEndX = unclick.getX();
+            lineEndY = unclick.getY();
+
+            target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineEndX, lineEndY)); // draw the final line
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
+
+            target.getImage().undo(); // remove the preivious preview line and draw a new one
+            target.getImage().apply(new DrawLine(lineStartX, lineStartY, drag.getX(), drag.getY()));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent arg0) {}
+
+        @Override
+        public void mouseClicked(MouseEvent arg0) {}
+
+        @Override
+        public void mouseEntered(MouseEvent arg0) {}
+
+        @Override
+        public void mouseExited(MouseEvent arg0) {}
+
+    }
+    
 }
