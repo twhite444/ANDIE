@@ -59,11 +59,11 @@ public class DrawOval implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
         
-        ovalStartX = Math.max(Math.min(input.getWidth(), ovalStartX), 0); // clamping for going out of bounds left or up
-        ovalStartY = Math.max(Math.min(input.getHeight(), ovalStartY), 0);
+        ovalStartX = Math.max(Math.min(input.getWidth() - 1, ovalStartX), 0); // clamping for going out of bounds left or up
+        ovalStartY = Math.max(Math.min(input.getHeight() - 1, ovalStartY), 0);
 
-        ovalWidth = Math.min(Math.abs(input.getWidth()) - ovalStartX - 1, ovalWidth); // clampng for going out of bounds right or down
-        ovalHeight = Math.min(Math.abs(input.getHeight()) - ovalStartY - 1, ovalHeight);
+        ovalWidth = Math.min(input.getWidth() - ovalStartX - 1, ovalWidth); // clampng for going out of bounds right or down
+        ovalHeight = Math.min(input.getHeight() - ovalStartY - 1, ovalHeight);
 
         input.getGraphics().drawOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight);
 

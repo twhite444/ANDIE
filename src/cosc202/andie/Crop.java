@@ -59,11 +59,11 @@ public class Crop implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
         
-        cropStartX = Math.max(Math.min(input.getWidth(), cropStartX), 0); // clamping for going out of bounds left or up
-        cropStartY = Math.max(Math.min(input.getHeight(), cropStartY), 0);
+        cropStartX = Math.max(Math.min(input.getWidth() - 1, cropStartX), 0); // clamping for going out of bounds left or up
+        cropStartY = Math.max(Math.min(input.getHeight() - 1, cropStartY), 0);
 
-        cropWidth = Math.min(Math.abs(input.getWidth()) - cropStartX, cropWidth); // clampng for going out of bounds right or down
-        cropHeight = Math.min(Math.abs(input.getHeight()) - cropStartY, cropHeight);
+        cropWidth = Math.max(Math.min(Math.abs(input.getWidth()) - cropStartX, cropWidth), 1); // clampng for going out of bounds right or down
+        cropHeight = Math.max(Math.min(Math.abs(input.getHeight()) - cropStartY, cropHeight), 1);
 
         return input.getSubimage(cropStartX, cropStartY, cropWidth, cropHeight);
         

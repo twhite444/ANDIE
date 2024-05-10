@@ -59,11 +59,11 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
         
-        rectStartX = Math.max(Math.min(input.getWidth(), rectStartX), 0); // clamping for going out of bounds left or up
-        rectStartY = Math.max(Math.min(input.getHeight(), rectStartY), 0);
+        rectStartX = Math.max(Math.min(input.getWidth() - 1, rectStartX), 0); // clamping for going out of bounds left or up
+        rectStartY = Math.max(Math.min(input.getHeight() - 1, rectStartY), 0);
 
-        rectWidth = Math.min(Math.abs(input.getWidth()) - rectStartX - 1, rectWidth); // clampng for going out of bounds right or down
-        rectHeight = Math.min(Math.abs(input.getHeight()) - rectStartY - 1, rectHeight);
+        rectWidth = Math.min(input.getWidth() - rectStartX - 1, rectWidth); // clampng for going out of bounds right or down
+        rectHeight = Math.min(input.getHeight() - rectStartY - 1, rectHeight);
 
         input.getGraphics().drawRect(rectStartX, rectStartY, rectWidth, rectHeight);
 

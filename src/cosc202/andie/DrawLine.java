@@ -59,11 +59,11 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
         
-        lineStartX = Math.max(Math.min(input.getWidth(), lineStartX), 0); // clamping for going out of bounds for the start
-        lineStartY = Math.max(Math.min(input.getHeight(), lineStartY), 0);
+        lineStartX = Math.max(Math.min(input.getWidth() - 1, lineStartX), 0); // clamping for going out of bounds for the start
+        lineStartY = Math.max(Math.min(input.getHeight() - 1, lineStartY), 0);
 
-        lineEndX = Math.max(Math.min(input.getWidth(), lineEndX), 0); // clamping for going out of bounds for the end
-        lineEndY = Math.max(Math.min(input.getHeight(), lineEndY), 0);
+        lineEndX = Math.max(Math.min(input.getWidth() - 1, lineEndX), 0); // clamping for going out of bounds for the end
+        lineEndY = Math.max(Math.min(input.getHeight() - 1, lineEndY), 0);
 
         input.getGraphics().drawLine(lineStartX, lineStartY, lineEndX, lineEndY);
 
