@@ -4,6 +4,13 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import cosc202.andie.FilterActions.BlockAverageAction;
+import cosc202.andie.FilterActions.GaussianFilterAction;
+import cosc202.andie.FilterActions.MeanFilterAction;
+import cosc202.andie.FilterActions.MedianFilterAction;
+import cosc202.andie.FilterActions.SharpenFilterAction;
+import cosc202.andie.FilterActions.SoftBlurAction;
+
 
 /**
  * <p>
@@ -30,6 +37,9 @@ public class FilterActions {
 
     //needed for languages:
     private static ResourceBundle bundle;
+
+    /** The menu that will hold the FilterActions */
+    private JMenu filterMenu;
 
     /**
      * <p>
@@ -59,13 +69,42 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu(bundle.getString("menu_filter"));
+        filterMenu = new JMenu(bundle.getString("menu_filter"));
 
         for(Action action: actions) {
-            fileMenu.add(new JMenuItem(action));
+            filterMenu.add(new JMenuItem(action));
         }
 
-        return fileMenu;
+        setShortcuts();
+
+        return filterMenu;
+    }
+
+    /** Sets the keyboard shortcuts for filterMenu */
+    private void setShortcuts(){
+        //Mean filter
+        filterMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_M, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        
+        //Soft blur
+        filterMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_F, ActionEvent.META_MASK | ActionEvent.CTRL_MASK));
+        
+        //Sharpen
+        filterMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_S, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        
+        //Median
+        filterMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_A, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        
+        //Gaussian filter
+        filterMenu.getItem(4).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_G, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+
+        //Block average
+        filterMenu.getItem(5).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
     }
 
     public class GaussianFilterAction extends ImageAction {

@@ -125,7 +125,7 @@ class EditableImage {
      * @param bi The BufferedImage to copy.
      * @return A deep copy of the input.
      */
-    private static BufferedImage deepCopy(BufferedImage bi) {
+    public static BufferedImage deepCopy(BufferedImage bi) {
         ColorModel cm = bi.getColorModel();
         boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
         WritableRaster raster = bi.copyData(null);
@@ -270,6 +270,7 @@ class EditableImage {
      * </p>
      * 
      * @param op The operation to apply.
+     * @return 
      */
     public void apply(ImageOperation op) {
         current = op.apply(current);
@@ -323,7 +324,10 @@ class EditableImage {
     public BufferedImage getCurrentImage() {
         return current;
     }
-
+    // public static void update(BufferedImage bf){
+    //     BufferedImage  a = current;
+    //     a = bf; 
+    // }
     /**
      * <p>
      * Reapply the current list of operations to the original.

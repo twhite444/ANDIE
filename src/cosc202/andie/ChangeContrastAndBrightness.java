@@ -4,7 +4,7 @@ import java.awt.image.*;
 
 /**
  * <p>
- * ImageOperation to cycle colours.
+ * ImageOperation to change contrast and brightness.
  * </p>
  * 
  * <p>
@@ -21,7 +21,7 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
 
     /**
      * <p>
-     * Create a new CycleColours operation of a specified type.
+     * Create a new ChangeContrastAndBrightness operation of a specified type.
      * </p>
      */
     ChangeContrastAndBrightness(int brightness, int contrast) {
@@ -33,7 +33,7 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
 
         /**
      * <p>
-     * Create a new CycleColours operation of default type.
+     * Create a new ChangeContrastAndBrightness operation of default type.
      * </p>
      */
     ChangeContrastAndBrightness() {
@@ -44,7 +44,7 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
 
     /**
      * <p>
-     * Apply colour cycing to an image.
+     * Apply ChangeContrastAndBrightness to an image.
      * </p>
      * 
      * 
@@ -66,9 +66,9 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
                 double g = (argb & 0x0000FF00) >> 8;
                 double b = (argb & 0x000000FF);
 
-                r = ((1 + ((double)contrast / 100)) * (r - 127.5)) + (127.5 * (1 + ((double)brightness / 100))); // fromula for recolouring pixels based on a percent change of contrast and brightness
-                g = ((1 + ((double)contrast / 100)) * (g - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
-                b = ((1 + ((double)contrast / 100)) * (b - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
+                r = ((1 + ((double)contrast / 100)) * ((double)r - 127.5)) + (127.5 * (1 + ((double)brightness / 100))); // fromula for recolouring pixels based on a percent change of contrast and brightness
+                g = ((1 + ((double)contrast / 100)) * ((double)g - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
+                b = ((1 + ((double)contrast / 100)) * ((double)b - 127.5)) + (127.5 * (1 + ((double)brightness / 100)));
 
                 if (r > 255) { r = 255;} // clamping for values ovr 255
                 if (g > 255) { g = 255;}
@@ -77,6 +77,8 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
                 if (r < 0) { r = 0;} // clamping for values below 0
                 if (g < 0) { g = 0;}
                 if (b < 0) { b = 0;}
+
+                System.out.println((int)a + ", " + (int)r + ", " + (int)g + ", " + (int)b);
 
                 argb = ((int)a << 24) | ((int)r << 16) | ((int)g << 8) | (int)b;
 
