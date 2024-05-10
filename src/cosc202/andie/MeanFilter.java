@@ -85,11 +85,10 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         int height = input.getHeight();
         int width = input.getWidth();
         int size = (2 * radius + 1) * (2 * radius + 1);
-        BufferedImage outputImage= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage outputImage= new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         int argb =0;
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
-
                 // Kernel
                 int i = 0;
                 int[] a = new int[size];
