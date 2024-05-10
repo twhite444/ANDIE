@@ -53,7 +53,7 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
      */
     public BufferedImage apply(BufferedImage input) {
 
-        System.out.println(brightness + " " + contrast);
+        //System.out.println(brightness + " " + contrast);
 
         for (int y = 0; y < input.getHeight(); ++y) {
 
@@ -78,7 +78,7 @@ public class ChangeContrastAndBrightness implements ImageOperation, java.io.Seri
                 if (g < 0) { g = 0;}
                 if (b < 0) { b = 0;}
 
-                System.out.println((int)a + ", " + (int)r + ", " + (int)g + ", " + (int)b);
+                //System.out.println((int)a + ", " + (int)r + ", " + (int)g + ", " + (int)b);
 
                 argb = ((int)a << 24) | ((int)r << 16) | ((int)g << 8) | (int)b;
 

@@ -2,7 +2,12 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.ConvolveOp;
+import java.io.File;
 import java.awt.Cursor;
+import java.awt.Image;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import cosc202.andie.EditActions.RedoAction;
@@ -57,6 +62,7 @@ public class EditActions {
         actions.add(new DrawRectangleAction(bundle.getString("menu_edit_drawRectangle"), null, bundle.getString("menu_edit_drawRectangle_desc"), null));
         actions.add(new DrawOvalAction(bundle.getString("menu_edit_drawOval"), null, bundle.getString("menu_edit_drawOval_desc"), null));
         actions.add(new DrawLineAction("Draw Line", null, "Click and drag to draw line", null));
+        actions.add(new TestAction("clicky", null, ":O", null));
 
     }
 
@@ -88,6 +94,47 @@ public class EditActions {
         //Redo
         editMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_Y, ActionEvent.META_MASK)); 
+    }
+
+    public class TestAction extends ImageAction {
+
+
+        /**
+         * <p>
+         * Create a new DrawRectangleAction.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        TestAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the DrawRectangleAction is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the DrawRectangleAction is triggered.
+         * It draws a rectangle 
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            target.getGraphics().drawImage(new ConvertToGrey().apply(target.getImage().getCurrentImage().getSubimage(0, 0, 100, 100)), 0, 0, null);
+            //target.repaint();
+            //target.getParent().revalidate();
+
+        }
+
     }
 
     /**
@@ -282,10 +329,20 @@ public class EditActions {
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
+            int currentX = Math.min(Math.max(drag.getX(), 0), target.getWidth()); // the position of the mouse, clamped to inside the image
+            int currentY = Math.min(Math.max(drag.getY(), 0), target.getHeight());
+
+            int topLeftX  = Math.min(cropStartX, currentX); // the top left corner
+            int topLeftY = Math.min(cropStartY, currentY);
+
             target.getImage().undo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(Math.min(cropStartX, drag.getX()), Math.min(cropStartY, drag.getY()), Math.abs(cropStartX - Math.max(drag.getX(), 0)), Math.abs(cropStartY - Math.max(drag.getY(), 0))));
+            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, Math.abs(cropStartX - currentX), Math.abs(cropStartY - currentY)));
             target.repaint();
             target.getParent().revalidate();
+
+            // cool
+            target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(
+                Math.min(cropStartX, drag.getX()), Math.min(cropStartY, drag.getY()), Math.abs(cropStartX - Math.max(drag.getX(), 0)), Math.abs(cropStartY - Math.max(drag.getY(), 0)))), Math.min(cropStartX, drag.getX()), Math.min(cropStartY, drag.getY()), null);
 
         }
 
@@ -401,6 +458,8 @@ public class EditActions {
             target.getImage().apply(new DrawRectangle(Math.min(rectStartX, drag.getX()), Math.min(rectStartY, drag.getY()), Math.abs(rectStartX - Math.max(drag.getX(), 0)), Math.abs(rectStartY - Math.max(drag.getY(), 0))));
             target.repaint();
             target.getParent().revalidate();
+
+            System.out.println(drag.getX() + " <- x " + drag.getY() + " <- y");
 
         }
 
