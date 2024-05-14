@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import java.awt.*;
 import java.util.*;
-import java.util.Locale.*;
 import java.util.prefs.Preferences;
 
 import javax.swing.*;
@@ -103,7 +102,10 @@ public class Andie {
         LanguageActions languageActions = new LanguageActions();
         menuBar.add(languageActions.createMenu());
 
+        //Toolbar toolbar = new Toolbar();
+
         frame.setJMenuBar(menuBar);
+        //frame.add(toolbar.createToolbar(),BorderLayout.PAGE_START);
         frame.pack();
         frame.setVisible(true);
     }
@@ -156,10 +158,20 @@ public class Andie {
             bundle = ResourceBundle.getBundle("MessageBundle");
         }
 
+        /**
+        * Method to retrieve the message bundle for language settings.
+        * 
+        * @return The ResourceBundle containing the language messages.
+        */
         public static ResourceBundle getMessageBundle() {
             return bundle;
         }
 
+        /**
+         * Method to retrieve the preferences for language settings.
+         * 
+         * @return The Preferences object containing language preferences.
+         */
         public static Preferences getPrefs() {
             return prefs;
         }

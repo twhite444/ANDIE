@@ -42,9 +42,9 @@ public class ViewActions {
         bundle = Andie.LanguageSettings.getMessageBundle();
 
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction(bundle.getString("menu_view_zoomIn"), null, bundle.getString("menu_view_zoomIn_desc"), Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction(bundle.getString("menu_view_zoomOut"), null, bundle.getString("menu_view_zoomOut_desc"), Integer.valueOf(KeyEvent.VK_MINUS)));
-        actions.add(new ZoomFullAction(bundle.getString("menu_view_zoomFull"), null, bundle.getString("menu_view_zoomFull_desc"), Integer.valueOf(KeyEvent.VK_1)));
+        actions.add(new ZoomInAction(bundle.getString("menu_view_zoomIn"), null, bundle.getString("menu_view_zoomIn_desc"), null));
+        actions.add(new ZoomOutAction(bundle.getString("menu_view_zoomOut"), null, bundle.getString("menu_view_zoomOut_desc"), null));
+        actions.add(new ZoomFullAction(bundle.getString("menu_view_zoomFull"), null, bundle.getString("menu_view_zoomFull_desc"), null));
     }
 
     /**
@@ -60,6 +60,18 @@ public class ViewActions {
         for (Action action: actions) {
             viewMenu.add(new JMenuItem(action));
         }
+
+        //Zoom in
+        viewMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_PLUS, ActionEvent.META_MASK)); 
+        
+        //Zoom out
+        viewMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_MINUS, ActionEvent.META_MASK));
+
+        //Zoom full
+        viewMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_0, ActionEvent.META_MASK));
 
         return viewMenu;
     }
