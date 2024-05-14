@@ -133,6 +133,36 @@ public class FiltersTest {
         assertImagesEqual(expectedOutput, appliedInput);
 
     }
+    @Test
+    void testGaussianFilter() {
+        BufferedImage input = new BufferedImage(3, 3, 2);
+
+        input.setRGB(0, 0, -1);
+        input.setRGB(1, 0, 2021161080);
+        input.setRGB(2, 0, 0);
+        input.setRGB(0, 1, -1);
+        input.setRGB(1, 1, 2021161080);
+        input.setRGB(2, 1, 0);
+        input.setRGB(0, 2, -1);
+        input.setRGB(1, 2, 2021161080);
+        input.setRGB(2, 2, 0);
+
+        BufferedImage expectedOutput = new BufferedImage(3, 3, 2);
+        expectedOutput.setRGB(0, 0, -50529028);
+        expectedOutput.setRGB(1, 0, 2021161080);
+        expectedOutput.setRGB(2, 0, 16843009);
+        expectedOutput.setRGB(0, 1, -50529028);
+        expectedOutput.setRGB(1, 1, 2021161080);
+        expectedOutput.setRGB(2, 1, 16843009);
+        expectedOutput.setRGB(0, 2, -50529028);
+        expectedOutput.setRGB(1, 2, 2021161080);
+        expectedOutput.setRGB(2, 2, 16843009);
+
+        BufferedImage appliedInput = new GaussianFilter().apply(input);
+
+        assertImagesEqual(expectedOutput, appliedInput);
+
+    }
 
 
     private void assertImagesEqual(BufferedImage expectedOutput, BufferedImage appliedInput) {
