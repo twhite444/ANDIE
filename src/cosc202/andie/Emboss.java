@@ -5,46 +5,31 @@ import java.awt.image.*;
 
 /**
  * Emboss Filter
+ * This class implements an emboss filter to apply an emboss effect to images.
+ * The filter operates by convolving the image with a specified kernel.
+ * 
  * @author Tommo White
  */
 public class Emboss  implements ImageOperation, java.io.Serializable {
 
-    private String direction; // Scaling factor: 0.5 for 50%, 1.5 for 150%
+    private String direction; // Direction of emboss effect: "1" to "8"
 
     /**
-     * <p>
-     * Create a new Resize operation with the specified scaling factor.
-     * </p>
+     * Create a new Emboss operation with the specified direction.
      * 
-     * @param direction The scaling factor. 0.5 for 50%, 1.5 for 150%.
-     * @return 
+     * @param direction The direction of the emboss effect ("1" to "8").
      */
     Emboss(String direction) {
         this.direction = direction;
     }
 
-    public static BufferedImage applyConvolution(BufferedImage input, float[] kernel) {
-        BufferedImage output = Convolution.convolve(input, kernel, 3, 3, true);
-
-        return output;
-    }
     /**
-     * <p>
-     * Apply a Gaussian filter to an image.
-     * </p>
+     * Apply the emboss effect to an image using a convolution class based on the specified direction.
      * 
-     * <p>
-     * As with many filters, the Gaussian filter is implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.  
-     * Larger radii lead to stronger blurring.
-     * </p>
-     * 
-     * @param input The image to apply the Gaussian filter to.
-     * @return The resulting (blurred)) image.
+     * @param input The input image to apply the emboss effect to.
+     * @return The resulting embossed image.
      */
     public BufferedImage apply(BufferedImage input) {
-        //String type = "1";
-        //Kernel kernel = null;
         float[] kernel = null;
         switch (direction) {
             case "1":
@@ -108,7 +93,7 @@ public class Emboss  implements ImageOperation, java.io.Serializable {
         }
         
     
-        BufferedImage output = applyConvolution(input, kernel);
+        BufferedImage output = Convolution.convolve(input, kernel, 3, 3, true);
         return output;
     }
     

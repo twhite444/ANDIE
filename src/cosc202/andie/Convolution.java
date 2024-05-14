@@ -2,15 +2,42 @@
 package cosc202.andie;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-//import java.awt.image.Kernel;
-import java.awt.image.BufferedImage;
 
+/**
+ * <p>
+ * Class for performing image convolution operations.
+ * </p>
+ * 
+ * <p>
+ * This class provides methods for applying convolution operations to images.
+ * Convolution is a mathematical operation used for various image processing
+ * tasks such as blurring, sharpening, edge detection, etc.
+ * </p>
+ * 
+ * @author Tommo White
+ * @version 1.0
+ */
 public class Convolution {
-    public static double singlePixelConvolution(double[][] input,
-                                                int x, int y,
-                                                float[] kernel,
-                                                int kernelWidth,
-                                                int kernelHeight) {
+    /**
+     * <p>
+     * Apply a single pixel convolution operation.
+     * </p>
+     * 
+     * <p>
+     * This method applies a single pixel convolution operation using the given kernel
+     * to the specified position in the input matrix.
+     * </p>
+     * 
+     * @param input       The input matrix representing the image.
+     * @param x           The x-coordinate of the pixel.
+     * @param y           The y-coordinate of the pixel.
+     * @param kernel      The convolution kernel.
+     * @param kernelWidth The width of the kernel.
+     * @param kernelHeight The height of the kernel.
+     * @return The result of the convolution operation on the specified pixel.
+     */
+    public static double singlePixelConvolution(double[][] input, int x, int y, float[] kernel, int kernelWidth, int kernelHeight) {
+
         double output = 0;
         int k=0;
         for (int i = 0; i < kernelHeight; ++i) {
@@ -30,7 +57,26 @@ public class Convolution {
         return output;
     }
 
+    /**
+     * <p>
+     * Apply convolution operation to an image.
+     * </p>
+     * 
+     * <p>
+     * This method applies the convolution operation to the entire image using the
+     * specified kernel.
+     * </p>
+     * 
+     * @param width        The width of the image.
+     * @param height       The height of the image.
+     * @param image        The image matrix.
+     * @param kernel       The convolution kernel.
+     * @param kernelWidth  The width of the kernel.
+     * @param kernelHeight The height of the kernel.
+     * @return The resulting image after convolution.
+     */
     private static double[][] applyConvolution(int width, int height, double[][] image, float[] kernel, int kernelWidth, int kernelHeight) {
+
         double[][] result = new double[height][width];
         
         for (int y = 0; y < height; y++) {
@@ -42,15 +88,30 @@ public class Convolution {
         return result;
     }
 
+    /**
+     * <p>
+     * Apply convolution to an input image.
+     * </p>
+     * 
+     * <p>
+     * This method applies convolution to the input image using the specified
+     * kernel. It supports offsetting the output values.
+     * </p>
+     * 
+     * @param input        The input image.
+     * @param kernel       The convolution kernel.
+     * @param kernelWidth  The width of the kernel.
+     * @param kernelHeight The height of the kernel.
+     * @param offset       Flag indicating whether to offset the output values.
+     * @return The convolved image.
+     */
     public static BufferedImage convolve(BufferedImage input, float[] kernel, int kernelWidth, int kernelHeight, boolean offset) {
         int height = input.getHeight();
         int width = input.getWidth();
 
-
         BufferedImage output = new BufferedImage(width, height, input.getType());
 
-        int numChannels = input.getType() == BufferedImage.TYPE_BYTE_GRAY ? 1 : 3;
-        double[][][] imageArray= new double[numChannels+1][height][width];
+        double[][][] imageArray= new double[4][height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 Color color = new Color(input.getRGB(j, i));
@@ -61,14 +122,12 @@ public class Convolution {
             }
         }
 
-        for (int channel = 0; channel < numChannels+1; channel++) {
+        for (int channel = 0; channel < 4; channel++) {
             double[][] convResult = applyConvolution(width, height, imageArray[channel], kernel, kernelWidth, kernelHeight);
             int outputValue=0;
-            double convResultxy=0;
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     if (offset) {
-                        convResultxy=convResult[y][x];
                         convResult[y][x]+=127;
                         outputValue = (int) Math.min(255, Math.max(0, convResult[y][x]));
                     } else {
@@ -94,20 +153,6 @@ public class Convolution {
                 }
             }
         }
-
-
-        // for (int y = 0; y < output.getHeight(); y++) {
-        //     for (int x = 0; x < output.getWidth(); x++) {
-        //         // Get the RGB value of the pixel
-        //         int rgb = output.getRGB(x, y);
-        //         // Extract individual color components
-        //         int red = (rgb >> 16) & 0xFF;
-        //         int green = (rgb >> 8) & 0xFF;
-        //         int blue = rgb & 0xFF;
-        //         // Print the RGB values
-        //         System.out.println("Pixel at (" + x + "," + y + "): Red = " + red + ", Green = " + green + ", Blue = " + blue);
-        //     }
-        // }
 
         return output;
     }
