@@ -8,8 +8,8 @@ import java.awt.Image;
 
 import javax.swing.*;
 
-import cosc202.andie.EditActions.RedoAction;
-import cosc202.andie.EditActions.UndoAction;
+//import cosc202.andie.EditActions.RedoAction;
+//import cosc202.andie.EditActions.UndoAction;
 
 
 /**
