@@ -50,22 +50,25 @@ public class Convolution {
         BufferedImage output = new BufferedImage(width, height, input.getType());
 
         int numChannels = input.getType() == BufferedImage.TYPE_BYTE_GRAY ? 1 : 3;
-        double[][][] imageArray= new double[numChannels][height][width];
+        double[][][] imageArray= new double[numChannels+1][height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 Color color = new Color(input.getRGB(j, i));
                 imageArray[0][i][j] = color.getRed();
                 imageArray[1][i][j] = color.getGreen();
                 imageArray[2][i][j] = color.getBlue();
+                imageArray[3][i][j] = color.getAlpha();
             }
         }
 
-        for (int channel = 0; channel < numChannels; channel++) {
+        for (int channel = 0; channel < numChannels+1; channel++) {
             double[][] convResult = applyConvolution(width, height, imageArray[channel], kernel, kernelWidth, kernelHeight);
             int outputValue=0;
+            double convResultxy=0;
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     if (offset) {
+                        convResultxy=convResult[y][x];
                         convResult[y][x]+=127;
                         outputValue = (int) Math.min(255, Math.max(0, convResult[y][x]));
                     } else {
@@ -81,6 +84,9 @@ public class Convolution {
                             break;
                         case 2: // Blue channel
                             output.setRGB(x, y, (output.getRGB(x, y) & 0xFFFFFF00) | outputValue);
+                            break;
+                        case 3: // Alpha channel
+                            output.setRGB(x, y, (output.getRGB(x, y) & 0x00FFFFFF) | outputValue << 24);
                             break;
                         default:
                             break;
