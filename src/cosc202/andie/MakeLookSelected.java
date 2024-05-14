@@ -10,8 +10,7 @@ import java.awt.image.BufferedImage;
  * <p>
  * The only thing this does is make an image a little bluer and a little brighter,
  * as is the traditional way to indicate it is being selected.
- * Only used in
- * @Crop so far
+ * Only used in @Crop so far
  * </p>
  * 
  * 
