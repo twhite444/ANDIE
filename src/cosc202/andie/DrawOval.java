@@ -1,5 +1,7 @@
 package cosc202.andie;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 /**
@@ -20,6 +22,8 @@ public class DrawOval implements ImageOperation, java.io.Serializable {
     int ovalStartY;
     int ovalWidth;
     int ovalHeight;
+    Color fillColor;
+    Color lineColor;
 
     /**
      * <p>
@@ -32,6 +36,8 @@ public class DrawOval implements ImageOperation, java.io.Serializable {
         this.ovalStartY = 1;
         this.ovalWidth = 1;
         this.ovalHeight = 1;
+        this.fillColor = Color.black;
+        this.lineColor = Color.black;
 
     }
 
@@ -40,12 +46,14 @@ public class DrawOval implements ImageOperation, java.io.Serializable {
      * Create a new DrawOval operation of specified type.
      * </p>
      */
-    DrawOval(int ovalStartX, int ovalStartY, int ovalWidth, int ovalHeight) {
+    DrawOval(int ovalStartX, int ovalStartY, int ovalWidth, int ovalHeight,Color lineColor, Color fillColor) {
 
         this.ovalStartX = ovalStartX;
         this.ovalStartY = ovalStartY;
         this.ovalWidth = ovalWidth;
         this.ovalHeight = ovalHeight;
+        this.lineColor = lineColor;
+        this.fillColor = fillColor;
 
     }
 
@@ -64,11 +72,20 @@ public class DrawOval implements ImageOperation, java.io.Serializable {
 
         ovalWidth = Math.min(input.getWidth() - ovalStartX - 1, ovalWidth); // clampng for going out of bounds right or down
         ovalHeight = Math.min(input.getHeight() - ovalStartY - 1, ovalHeight);
-
-        input.getGraphics().drawOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight);
-
+        
+        //input.getGraphics().setColor(Color.blue);
+        //input.getGraphics().fillOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight);
+        paint(input.getGraphics());
         return input;
         
+    }
+
+    public void paint(Graphics g){
+        g.setColor(lineColor);
+        g.drawOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight);
+        g.setColor(fillColor);
+        g.fillOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight);
+
     }
 
 }

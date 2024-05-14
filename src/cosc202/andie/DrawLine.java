@@ -1,5 +1,7 @@
 package cosc202.andie;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 /**
@@ -20,6 +22,7 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
     int lineStartY;
     int lineEndX;
     int lineEndY;
+    Color lineColor;
 
     /**
      * <p>
@@ -32,6 +35,7 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
         this.lineStartY = 1;
         this.lineEndX = 1;
         this.lineEndY = 1;
+        this.lineColor = Color.black;
 
     }
 
@@ -40,12 +44,13 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
      * Create a new DrawLine operation of specified type.
      * </p>
      */
-    DrawLine(int lineStartX, int lineStartY, int lineEndX, int lineEndY) {
+    DrawLine(int lineStartX, int lineStartY, int lineEndX, int lineEndY,Color lineColor) {
 
         this.lineStartX = lineStartX;
         this.lineStartY = lineStartY;
         this.lineEndX = lineEndX;
         this.lineEndY = lineEndY;
+        this.lineColor = lineColor;
 
     }
 
@@ -65,10 +70,19 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
         lineEndX = Math.max(Math.min(input.getWidth() - 1, lineEndX), 0); // clamping for going out of bounds for the end
         lineEndY = Math.max(Math.min(input.getHeight() - 1, lineEndY), 0);
 
-        input.getGraphics().drawLine(lineStartX, lineStartY, lineEndX, lineEndY);
+       // input.getGraphics().drawLine(lineStartX, lineStartY, lineEndX, lineEndY);
+       paint(input.getGraphics());
 
         return input;
         
     }
+
+    
+    public void paint(Graphics g){
+        g.setColor(lineColor);
+        g.drawLine(lineStartX, lineStartY, lineEndX, lineEndY);
+
+    }
+
 
 }
