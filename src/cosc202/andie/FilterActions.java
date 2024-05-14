@@ -4,12 +4,12 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import cosc202.andie.FilterActions.BlockAverageAction;
-import cosc202.andie.FilterActions.GaussianFilterAction;
-import cosc202.andie.FilterActions.MeanFilterAction;
-import cosc202.andie.FilterActions.MedianFilterAction;
-import cosc202.andie.FilterActions.SharpenFilterAction;
-import cosc202.andie.FilterActions.SoftBlurAction;
+// import cosc202.andie.FilterActions.BlockAverageAction;
+// import cosc202.andie.FilterActions.GaussianFilterAction;
+// import cosc202.andie.FilterActions.MeanFilterAction;
+// import cosc202.andie.FilterActions.MedianFilterAction;
+// import cosc202.andie.FilterActions.SharpenFilterAction;
+// import cosc202.andie.FilterActions.SoftBlurAction;
 
 
 /**
@@ -107,6 +107,13 @@ public class FilterActions {
         KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
     }
 
+    /**
+     * <p>
+     * Action to blur an image with a gaussian filter.
+     * </p>
+     * 
+     * @see GaussianFilter
+     */
     public class GaussianFilterAction extends ImageAction {
 
         /**
@@ -238,11 +245,40 @@ public class FilterActions {
 
     }
 
+    /**
+     * Action to apply a soft blur filter to an image.
+     * 
+     * <p>
+     * This action applies a soft blur filter to an image when triggered. 
+     * </p>
+     * 
+     * @see SoftBlur
+     * @see ImageAction
+     */
     public class SoftBlurAction extends ImageAction {
+        
+        /**
+         * Creates a new SoftBlurAction.
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
 
         SoftBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name,icon,desc, mnemonic);
         }
+        /**
+         * Callback for when the soft blur action is triggered.
+         * 
+         * <p>
+         * This method is called whenever the SoftBlurAction is triggered.
+         * It applies a soft blur filter to the image.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e){
             target.getImage().apply(new SoftBlur());
             target.repaint();
@@ -251,11 +287,40 @@ public class FilterActions {
 
     }
 
+    /**
+     * Action to apply a sharpen filter to an image.
+     * 
+     * <p>
+     * This action applies a sharpen filter to an image when triggered. 
+     * </p>
+     * 
+     * @see SharpenFilter
+     * @see ImageAction
+     */
     public class SharpenFilterAction extends ImageAction {
 
+    	/**
+         * Creates a new SharpenFilterAction.
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         SharpenFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name,icon,desc, mnemonic);
         }
+        
+        /**
+         * Callback for when the sharpen filter action is triggered.
+         * 
+         * <p>
+         * This method is called whenever the SharpenFilterAction is triggered.
+         * It applies a sharpen filter to the image.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e){
             target.getImage().apply(new SharpenFilter());
             target.repaint();
@@ -417,6 +482,16 @@ public class FilterActions {
     }
 
 
+    /**
+     * Action to apply a block average filter to an image.
+     * 
+     * <p>
+     * This action applies a block average filter to an image when triggered. 
+     * </p>
+     * 
+     * @see BlockAverage
+     * @see ImageAction
+     */
     public class BlockAverageAction extends ImageAction {
 
         /**

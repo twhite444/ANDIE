@@ -95,6 +95,12 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
         return input;
         
     }
+
+    /**
+     * Paints the rectangle onto the given Graphics context.
+     * 
+     * @param g The Graphics context to paint on.
+     */
     public void paint(Graphics g){
         g.setColor(lineColor);
         g.drawRect(rectStartX, rectStartY, rectWidth, rectHeight);

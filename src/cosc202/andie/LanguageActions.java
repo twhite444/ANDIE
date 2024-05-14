@@ -14,7 +14,9 @@ import javax.swing.*;
 public class LanguageActions {
     /** A list of actions for the Edit menu. */
     protected ArrayList<Action> actions;
+    /** The user preferences for storing language settings. */
     protected static Preferences prefs;
+    /** The resource bundle for retrieving language-specific messages. */
     protected static ResourceBundle bundle;
 
 
@@ -50,17 +52,32 @@ public class LanguageActions {
         return languageMenu;
     }
 
-
+    /**
+     * Action to set the language of the application to New Zealand English.
+     * 
+     * <p>
+     * This action sets the language of the application to New Zealand English when triggered. 
+     * </p>
+     */
     public class English_NZ_Action extends AbstractAction {
         private static Locale en_nz_locale;
 
+        /**
+         * Constructs a new English_NZ_Action.
+         */
         English_NZ_Action(){
             super(bundle.getString("menu_language_en_NZ"));
             en_nz_locale = new Builder().setLanguage("en").setRegion("NZ").build();
         }
 
         /**
-         * Sets the language of the app to New Zealand English
+         * Sets the language of the app to New Zealand English.
+         * 
+         * <p>
+         * This method sets the language of the application to New Zealand English.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
          */
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -72,16 +89,32 @@ public class LanguageActions {
         }
     }
 
+        /**
+     * Action to set the language of the application to Russian.
+     * 
+     * <p>
+     * This action sets the language of the application to Russian when triggered. 
+     * </p>
+     */
     public class Russian_Action extends AbstractAction {
         private static Locale ru_RU_locale;
 
+        /**
+         * Constructs a new Russian_Action.
+         */
         Russian_Action(){
             super(bundle.getString("menu_language_ru_RU"));
             ru_RU_locale = new Builder().setLanguage("ru").setRegion("RU").build();
         }
         
         /**
-         * Sets the language of the app to Russian
+         * Sets the language of the app to Russian.
+         * 
+         * <p>
+         * This method sets the language of the application to Russian.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
          */
         @Override
         public void actionPerformed(ActionEvent e) {

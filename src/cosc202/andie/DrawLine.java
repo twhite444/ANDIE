@@ -77,7 +77,11 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
         
     }
 
-    
+    /**
+     * Paints the line onto the given Graphics context.
+     * 
+     * @param g The Graphics context to paint on.
+     */
     public void paint(Graphics g){
         g.setColor(lineColor);
         g.drawLine(lineStartX, lineStartY, lineEndX, lineEndY);

@@ -8,10 +8,10 @@ import java.util.ResourceBundle;
 
 import javax.swing.*;
 
-import cosc202.andie.ColourActions.ContrastAndBrightnessAction;
-import cosc202.andie.ColourActions.ConvertToGreyAction;
-import cosc202.andie.ColourActions.ConvertToInverseAction;
-import cosc202.andie.ColourActions.CycleColoursAction;
+//import cosc202.andie.ColourActions.ContrastAndBrightnessAction;
+//import cosc202.andie.ColourActions.ConvertToGreyAction;
+//import cosc202.andie.ColourActions.ConvertToInverseAction;
+//import cosc202.andie.ColourActions.CycleColoursAction;
 
 /**
  * <p>

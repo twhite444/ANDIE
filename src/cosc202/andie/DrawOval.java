@@ -79,7 +79,12 @@ public class DrawOval implements ImageOperation, java.io.Serializable {
         return input;
         
     }
-
+    
+    /**
+     * Paints the oval onto the given Graphics context.
+     * 
+     * @param g The Graphics context to paint on.
+     */
     public void paint(Graphics g){
         g.setColor(lineColor);
         g.drawOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight);
