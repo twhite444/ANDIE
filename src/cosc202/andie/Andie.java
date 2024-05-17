@@ -158,10 +158,20 @@ public class Andie {
             bundle = ResourceBundle.getBundle("MessageBundle");
         }
 
+        /**
+        * Method to retrieve the message bundle for language settings.
+        * 
+        * @return The ResourceBundle containing the language messages.
+        */
         public static ResourceBundle getMessageBundle() {
             return bundle;
         }
 
+        /**
+         * Method to retrieve the preferences for language settings.
+         * 
+         * @return The Preferences object containing language preferences.
+         */
         public static Preferences getPrefs() {
             return prefs;
         }
