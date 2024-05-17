@@ -58,7 +58,8 @@ public class FilterActions {
         actions.add(new GaussianFilterAction(bundle.getString("menu_filter_gaussianFilter"), null, bundle.getString("menu_filter_gaussianFilter_desc"), null));
         actions.add(new BlockAverageAction( "Block Average", null, "Replaces blocks on a regular grid with the average pixel value within that region", null));
         
-        actions.add(new EmbossFilterAction("emboss filter", null, "menu_filter_embossFilter_desc", null));
+        actions.add(new EmbossFilterAction("Emboss Filter", null, "menu_filter_embossFilter_desc", null));
+        actions.add(new SobelFilterAction("Sobel Filter", null, "menu_filter_sobelFilter_desc", null));
     }
 
     /**
@@ -403,7 +404,7 @@ public class FilterActions {
 
     /**
      * <p>
-     * Action to cycle colours from RGB to BGR.
+     * Action to apply an emboss filter in a user inputted direction.
      * </p>
      * 
      * @see Emboss
@@ -412,7 +413,7 @@ public class FilterActions {
 
         /**
          * <p>
-         * Create a new CycleColoursBGR action.
+         * Create a new EmbossFilter action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -440,18 +441,19 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            String direction = "1";
+            String direction = "Middle Left";
 
             // Pop-up dialog box to ask for the cycle type.
 
-            String[] directionOptions = {   "1",
-                                        "2",
-                                        "3",
-                                        "4",
-                                        "5",
-                                        "6",
-                                        "7",
-                                        "8" }; // different options for cycle type
+            String[] directionOptions = {   "Middle Left",
+                                        "Top Left",
+                                        "Top Middle",
+                                        "Top Right",
+                                        "Middle Right",
+                                        "Bottom Right",
+                                        "Bottom Middle",
+                                        "Bottom Left",
+                                        }; // different options for direction
 
             JComboBox<String> comboBox = new JComboBox<String>(); // drop down menu for options
 
@@ -462,6 +464,80 @@ public class FilterActions {
             }
 
             int option = JOptionPane.showOptionDialog(null, comboBox, "Select direction of embossment:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
+
+                return;
+
+            } else if (option == JOptionPane.OK_OPTION) {
+
+                direction = (String) comboBox.getSelectedItem(); // convert to string array
+
+            }
+
+            target.getImage().apply(new Emboss(direction));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to apply a sobel filter in a user inputted direction.
+     * </p>
+     * 
+     * @see Emboss
+     */
+    public class SobelFilterAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new EmbossFilter action for the emboss filters.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+
+            super(name, icon, desc, mnemonic);
+
+        }
+
+        /**
+         * <p>
+         * Callback for when the Sobel Filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the SobelFilterAction is triggered.
+         * It embosses in a certain direction depending on user input.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            String direction = "Vertical Sobel";
+
+            // Pop-up dialog box to ask for the cycle type.
+
+            String[] directionOptions = {"Vertical Sobel",
+                                        "Horizontal Sobel" }; // different options for direciton
+
+            JComboBox<String> comboBox = new JComboBox<String>(); // drop down menu for options
+
+            for (String i: directionOptions) { // add each option to the menu
+
+                comboBox.addItem(i);
+
+            }
+
+            int option = JOptionPane.showOptionDialog(null, comboBox, "Select direction of sobel filter:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
 
             if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
 

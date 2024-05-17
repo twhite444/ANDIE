@@ -32,60 +32,74 @@ public class Emboss  implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
         float[] kernel = null;
         switch (direction) {
-            case "1":
+            case "Middle Left":
                 kernel = new float[]{
                     0, 0, 0,
                     1, 0, -1,
                     0, 0, 0
                 };
                 break;
-            case "2":
+            case "Top Left":
                 kernel = new float[]{
                     1, 0, 0,
                     0, 0, 0,
                     0, 0, -1
                 };
                 break;
-            case "3":
+            case "Top Middle":
                 kernel = new float[]{
                     0, 1, 0,
                     0, 0, 0,
                     0, -1, 0
                 };
                 break;
-            case "4":
+            case "Top Right":
                 kernel = new float[]{
                     0, 0, 1,
                     0, 0, 0,
                     -1, 0, 0
                 };
                 break;
-            case "5":
+            case "Middle Right":
                 kernel = new float[]{
                     0, 0, 0,
                     -1, 0, 1,
                     0, 0, 0
                 };
                 break;
-            case "6":
+            case "Bottom Right":
                 kernel = new float[]{
                     -1, 0, 0,
                     0, 0, 0,
                     0, 0, 1
                 };
                 break;
-            case "7":
+            case "Bottom Middle":
                 kernel = new float[]{
                     0, -1, 0,
                     0, 0, 0,
                     0, 1, 0
                 };
                 break;
-            case "8":
+            case "Bottom Left":
                 kernel = new float[]{
                     0, 0, -1,
                     0, 0, 0,
                     1, 0, 0
+                };
+                break;
+            case "Vertical Sobel":
+                kernel = new float[]{
+                    (float) -0.5, -1, (float)-.5,
+                    0, 0, 0,
+                    (float) 0.5, 1, (float) .5
+                };
+                break;
+            case "Horizontal Sobel":
+                kernel = new float[]{
+                    (float) -0.5, 0, (float).5,
+                    -1, 0, 1,
+                    (float) -0.5, 0, (float) .5
                 };
                 break;
             default:
