@@ -74,11 +74,13 @@ public class ImagePanel extends JPanel {
      */
     public EditableImage getImage() {
 
+        bundle = Andie.LanguageSettings.getMessageBundle();
+
         if (!image.hasImage()) { // check if an image doesnt exsist
 
-            JOptionPane.showMessageDialog(null, bundle.getString("error_generic"), bundle.getString("error_imagePanel_noImage"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, bundle.getString("error_imagePanel_noImage"), bundle.getString("error_generic"), JOptionPane.ERROR_MESSAGE);
 
-            throw new RuntimeException("no image");
+            throw new RuntimeException("no image fonud");
 
         }
 

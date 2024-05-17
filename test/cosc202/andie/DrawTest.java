@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import cosc202.andie.Crop;
 
-public class CropTest {
+public class DrawTest {
     private BufferedImage sampleInputImage;
 
     @BeforeEach
@@ -18,16 +18,29 @@ public class CropTest {
         // Create a sample input image (3x3)
         sampleInputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 
+        // Set some pixels
+        sampleInputImage.setRGB(0, 0, 0xFF0000); // Red
+        sampleInputImage.setRGB(1, 0, 0x00FF00); // Green
+        sampleInputImage.setRGB(2, 0, 0x0000FF); // Blue
+        sampleInputImage.setRGB(0, 1, 0xFFFF00); // Yellow
+        sampleInputImage.setRGB(1, 1, 0xFF00FF); // Magenta
+        sampleInputImage.setRGB(2, 1, 0x00FFFF); // Cyan
+        sampleInputImage.setRGB(0, 2, 0xFFFFFF); // White
+        sampleInputImage.setRGB(1, 2, 0x000000); // Black
+        sampleInputImage.setRGB(2, 2, 0x808080); // Gray
+
     }
 
     @Test
-    void testCrop() {
+    void testChangeContrastAndBrightness() {
 
         // Expected output image after ChangeContrastAndBrightness
-        BufferedImage expectedOutputImage = new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB);
+        BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
+
+
 
         // Apply ChangeContrastAndBrightness
-        BufferedImage outputImage = new Crop(0, 0, 2, 2).apply(sampleInputImage);
+        BufferedImage outputImage = new DrawRectangle().apply(sampleInputImage);
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);

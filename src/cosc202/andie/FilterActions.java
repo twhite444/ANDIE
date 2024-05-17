@@ -57,7 +57,7 @@ public class FilterActions {
         actions.add(new MedianFilterAction(bundle.getString("menu_filter_medianFilter"), null, bundle.getString("menu_filter_medianFilter_desc"), null));
         actions.add(new GaussianFilterAction(bundle.getString("menu_filter_gaussianFilter"), null, bundle.getString("menu_filter_gaussianFilter_desc"), null));
         actions.add(new BlockAverageAction( "Block Average", null, "Replaces blocks on a regular grid with the average pixel value within that region", null));
-        actions.add(new RandomScatteringAction(bundle.getString("menu_filter_randomScattering"), null, "menu_filter_randomScattering_desc", null));
+        actions.add(new RandomScatteringAction( "menu_filter_randomScattering"/**bundle.getString("menu_filter_randomScattering")*/, null, "menu_filter_randomScattering_desc", null));
         
         actions.add(new EmbossFilterAction("emboss filter", null, "menu_filter_embossFilter_desc", null));
     }
