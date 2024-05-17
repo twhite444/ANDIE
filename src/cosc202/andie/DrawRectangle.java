@@ -49,7 +49,7 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
      * Create a new DrawRectangle operation of specified type.
      * </p>
      */
-    DrawRectangle(int rectStartX, int rectStartY, int rectWidth, int rectHeight,Color lineColor, Color fillColor) {
+    DrawRectangle(int rectStartX, int rectStartY, int rectWidth, int rectHeight, Color lineColor, Color fillColor) {
 
         this.rectStartX = rectStartX;
         this.rectStartY = rectStartY;
@@ -85,9 +85,9 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
         rectWidth = Math.min(input.getWidth() - rectStartX - 1, rectWidth); // clampng for going out of bounds right or down
         rectHeight = Math.min(input.getHeight() - rectStartY - 1, rectHeight);
 
-        if(isCrop){
+        if(isCrop) {
             input.getGraphics().drawRect(rectStartX, rectStartY, rectWidth, rectHeight);
-        }else{
+        } else {
             paint(input.getGraphics());
         }
         
@@ -102,10 +102,11 @@ public class DrawRectangle implements ImageOperation, java.io.Serializable {
      * @param g The Graphics context to paint on.
      */
     public void paint(Graphics g){
-        g.setColor(lineColor);
-        g.drawRect(rectStartX, rectStartY, rectWidth, rectHeight);
+        
         g.setColor(fillColor);
         g.fillRect(rectStartX, rectStartY, rectWidth, rectHeight);
+        g.setColor(lineColor);
+        g.drawRect(rectStartX, rectStartY, rectWidth, rectHeight);
 
     }
 

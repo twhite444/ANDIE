@@ -57,6 +57,7 @@ public class FilterActions {
         actions.add(new MedianFilterAction(bundle.getString("menu_filter_medianFilter"), null, bundle.getString("menu_filter_medianFilter_desc"), null));
         actions.add(new GaussianFilterAction(bundle.getString("menu_filter_gaussianFilter"), null, bundle.getString("menu_filter_gaussianFilter_desc"), null));
         actions.add(new BlockAverageAction( "Block Average", null, "Replaces blocks on a regular grid with the average pixel value within that region", null));
+        actions.add(new RandomScatteringAction( "menu_filter_randomScattering"/**bundle.getString("menu_filter_randomScattering")*/, null, "menu_filter_randomScattering_desc", null));
         
         actions.add(new EmbossFilterAction("Emboss Filter", null, "menu_filter_embossFilter_desc", null));
         actions.add(new SobelFilterAction("Sobel Filter", null, "menu_filter_sobelFilter_desc", null));
@@ -648,5 +649,76 @@ public class FilterActions {
         }
 
     }
+
+    /**
+     * <p>
+     * Action to blur an image with a median filter.
+     * </p>
+     * 
+     * @see RandomScattering
+     */
+    public class RandomScatteringAction extends ImageAction {
+
+        /**
+         * <p>
+         * Create a new median-filter action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            
+            super(name, icon, desc, mnemonic);
+            
+        }
+
+        /**
+         * <p>
+         * Callback for when the median action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the MedianFilterAction is triggered.
+         * It prompts the user for a filter radius, then applies an appropriately sized {@link MedianFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+            // Determine the radius - ask the user.
+            int radius = 1;
+
+            // Pop-up dialog box to ask for the radius value.
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner radiusSpinner = new JSpinner(radiusModel);
+            int option = JOptionPane.showOptionDialog(
+                null,
+                radiusSpinner,
+                bundle.getString("menu_filter_enterFilterRadius1to10px"), 
+                JOptionPane.OK_CANCEL_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
+                null);
+
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                radius = radiusModel.getNumber().intValue();
+            }
+
+            // Create and apply the filter
+            target.getImage().apply(new RandomScattering(radius));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
 
 }

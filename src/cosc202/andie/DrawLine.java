@@ -44,7 +44,7 @@ public class DrawLine implements ImageOperation, java.io.Serializable {
      * Create a new DrawLine operation of specified type.
      * </p>
      */
-    DrawLine(int lineStartX, int lineStartY, int lineEndX, int lineEndY,Color lineColor) {
+    DrawLine(int lineStartX, int lineStartY, int lineEndX, int lineEndY, Color lineColor) {
 
         this.lineStartX = lineStartX;
         this.lineStartY = lineStartY;

@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.util.ResourceBundle;
 
 import javax.swing.*;
 
@@ -29,6 +30,9 @@ public class ImagePanel extends JPanel {
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
+
+    //needed for languages:
+    private static ResourceBundle bundle;
 
     /**
      * <p>
@@ -70,13 +74,13 @@ public class ImagePanel extends JPanel {
      */
     public EditableImage getImage() {
 
-        if (!image.hasImage()) { // check if an image exsists
+        bundle = Andie.LanguageSettings.getMessageBundle();
 
-            JOptionPane.showMessageDialog(null,
-                    "Error: image does not seem to exist, probably because no image is open", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+        if (!image.hasImage()) { // check if an image doesnt exsist
 
-            throw new RuntimeException("no image");
+            JOptionPane.showMessageDialog(null, bundle.getString("error_imagePanel_noImage"), bundle.getString("error_generic"), JOptionPane.ERROR_MESSAGE);
+
+            throw new RuntimeException("no image fonud");
 
         }
 
