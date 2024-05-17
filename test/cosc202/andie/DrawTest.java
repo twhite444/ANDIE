@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -37,10 +38,19 @@ public class DrawTest {
         // Expected output image after ChangeContrastAndBrightness
         BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 
-
+        // the outside pixels should be red while the centre pixel should be blue
+        expectedOutputImage.setRGB(0, 0, 0xFF0000); // Red
+        expectedOutputImage.setRGB(1, 0, 0xFF0000); // Red
+        expectedOutputImage.setRGB(2, 0, 0xFF0000); // Red
+        expectedOutputImage.setRGB(0, 1, 0xFF0000); // Red
+        expectedOutputImage.setRGB(1, 1, 0x0000FF); // Blue
+        expectedOutputImage.setRGB(2, 1, 0xFF0000); // Red
+        expectedOutputImage.setRGB(0, 2, 0xFF0000); // Red
+        expectedOutputImage.setRGB(1, 2, 0xFF0000); // Red
+        expectedOutputImage.setRGB(2, 2, 0xFF0000); // Red
 
         // Apply ChangeContrastAndBrightness
-        BufferedImage outputImage = new DrawRectangle().apply(sampleInputImage);
+        BufferedImage outputImage = new DrawRectangle(0, 0, 3, 3, Color.RED, Color.BLUE).apply(sampleInputImage);
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);
