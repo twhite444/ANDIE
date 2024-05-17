@@ -46,7 +46,7 @@ public class DrawOval implements ImageOperation, java.io.Serializable {
      * Create a new DrawOval operation of specified type.
      * </p>
      */
-    DrawOval(int ovalStartX, int ovalStartY, int ovalWidth, int ovalHeight,Color lineColor, Color fillColor) {
+    DrawOval(int ovalStartX, int ovalStartY, int ovalWidth, int ovalHeight, Color lineColor, Color fillColor) {
 
         this.ovalStartX = ovalStartX;
         this.ovalStartY = ovalStartY;

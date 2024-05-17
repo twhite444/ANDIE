@@ -20,20 +20,20 @@ public class DrawTest {
         sampleInputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 
         // Set some pixels
-        sampleInputImage.setRGB(0, 0, 0xFF0000); // Red
+        sampleInputImage.setRGB(0, 0, 0x00FF00); // Green
         sampleInputImage.setRGB(1, 0, 0x00FF00); // Green
-        sampleInputImage.setRGB(2, 0, 0x0000FF); // Blue
-        sampleInputImage.setRGB(0, 1, 0xFFFF00); // Yellow
-        sampleInputImage.setRGB(1, 1, 0xFF00FF); // Magenta
-        sampleInputImage.setRGB(2, 1, 0x00FFFF); // Cyan
-        sampleInputImage.setRGB(0, 2, 0xFFFFFF); // White
-        sampleInputImage.setRGB(1, 2, 0x000000); // Black
-        sampleInputImage.setRGB(2, 2, 0x808080); // Gray
+        sampleInputImage.setRGB(2, 0, 0x00FF00); // Green
+        sampleInputImage.setRGB(0, 1, 0x00FF00); // Green
+        sampleInputImage.setRGB(1, 1, 0x00FF00); // Green
+        sampleInputImage.setRGB(2, 1, 0x00FF00); // Green
+        sampleInputImage.setRGB(0, 2, 0x00FF00); // Green
+        sampleInputImage.setRGB(1, 2, 0x00FF00); // Green
+        sampleInputImage.setRGB(2, 2, 0x00FF00); // Green
 
     }
 
     @Test
-    void testChangeContrastAndBrightness() {
+    void testDrawRectangle() {
 
         // Expected output image after ChangeContrastAndBrightness
         BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
@@ -51,6 +51,66 @@ public class DrawTest {
 
         // Apply ChangeContrastAndBrightness
         BufferedImage outputImage = new DrawRectangle(0, 0, 3, 3, Color.RED, Color.BLUE).apply(sampleInputImage);
+
+        // Compare output with expected output
+        assertImagesEqual(expectedOutputImage, outputImage);
+        
+    }
+
+    @Test
+    void testDrawOval() {
+
+        // Expected output image after ChangeContrastAndBrightness
+        BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
+
+        /**
+         * should look like this VV
+         *                      GRG
+         *                      RBR
+         *                      GRG
+         */
+        expectedOutputImage.setRGB(0, 0, 0x00FF00); // Green
+        expectedOutputImage.setRGB(1, 0, 0xFF0000); // Red
+        expectedOutputImage.setRGB(2, 0, 0x00FF00); // Green
+        expectedOutputImage.setRGB(0, 1, 0xFF0000); // Red
+        expectedOutputImage.setRGB(1, 1, 0x0000FF); // Blue
+        expectedOutputImage.setRGB(2, 1, 0xFF0000); // Red
+        expectedOutputImage.setRGB(0, 2, 0x00FF00); // Green
+        expectedOutputImage.setRGB(1, 2, 0xFF0000); // Red
+        expectedOutputImage.setRGB(2, 2, 0x00FF00); // Green
+
+        // Apply ChangeContrastAndBrightness
+        BufferedImage outputImage = new DrawOval(0, 0, 3, 3, Color.RED, Color.BLUE).apply(sampleInputImage);
+
+        // Compare output with expected output
+        assertImagesEqual(expectedOutputImage, outputImage);
+        
+    }
+
+    @Test
+    void testDrawLine() {
+
+        // Expected output image after ChangeContrastAndBrightness
+        BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
+
+        /**
+         * should look like this VV
+         *                      RGG
+         *                      GRG
+         *                      GGR
+         */
+        expectedOutputImage.setRGB(0, 0, 0xFF0000); // Red
+        expectedOutputImage.setRGB(1, 0, 0x00FF00); // Green
+        expectedOutputImage.setRGB(2, 0, 0x00FF00); // Green
+        expectedOutputImage.setRGB(0, 1, 0x00FF00); // Green
+        expectedOutputImage.setRGB(1, 1, 0xFF0000); // Red
+        expectedOutputImage.setRGB(2, 1, 0x00FF00); // Green
+        expectedOutputImage.setRGB(0, 2, 0x00FF00); // Green
+        expectedOutputImage.setRGB(1, 2, 0x00FF00); // Green
+        expectedOutputImage.setRGB(2, 2, 0xFF0000); // Red
+
+        // Apply ChangeContrastAndBrightness
+        BufferedImage outputImage = new DrawLine(0, 0, 2, 2, Color.RED).apply(sampleInputImage);
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);
