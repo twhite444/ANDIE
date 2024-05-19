@@ -33,6 +33,11 @@ public class ImagePanel extends JPanel {
 
     //needed for languages:
     private static ResourceBundle bundle;
+    
+    static {
+        bundle = Andie.LanguageSettings.getMessageBundle();
+
+    }
 
     /**
      * <p>
@@ -74,13 +79,11 @@ public class ImagePanel extends JPanel {
      */
     public EditableImage getImage() {
 
-        bundle = Andie.LanguageSettings.getMessageBundle();
-
-        if (!image.hasImage()) { // check if an image doesnt exsist
+        if (!image.hasImage()) { // check if an image is loaded
 
             JOptionPane.showMessageDialog(null, bundle.getString("error_imagePanel_noImage"), bundle.getString("error_generic"), JOptionPane.ERROR_MESSAGE);
 
-            throw new RuntimeException("no image fonud");
+            throw new RuntimeException("no image found");
 
         }
 

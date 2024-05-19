@@ -43,6 +43,9 @@ public class EditActions {
     /** The menu that will hold the FileActions */
     private JMenu editMenu;
     
+    static {
+        bundle = Andie.LanguageSettings.getMessageBundle();
+    }
 
     /**
      * <p>
@@ -50,8 +53,6 @@ public class EditActions {
      * </p>
      */
     public EditActions() {
-        // needed for multilingual support:
-        bundle = Andie.LanguageSettings.getMessageBundle();
 
         actions = new ArrayList<Action>();
         actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), Integer.valueOf(KeyEvent.VK_Z)));
@@ -80,12 +81,16 @@ public class EditActions {
             editMenu.add(new JMenuItem(action));
         }
         
+        MacroActions macroActions = new MacroActions();
+        JMenu macrosMenu = macroActions.createMacrosMenu();
+        editMenu.add(macrosMenu);
+
         setShortcuts();
 
         return editMenu;
     }
 
-    /** Sets the keyboard shortcuts for filterMenu */
+    /** Sets the keyboard shortcuts for editMenu */
     private void setShortcuts(){
         //Undo
         editMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
@@ -382,7 +387,7 @@ public class EditActions {
             target.addMouseMotionListener(this);
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
-            JColorChooser colorChooser = new JColorChooser();
+            //JColorChooser colorChooser = new JColorChooser();
             lineColor = JColorChooser.showDialog(null, "Pick a color of line", Color.black);
             fillColor = JColorChooser.showDialog(null, "Pick a color of fill", Color.black);
 
@@ -503,9 +508,9 @@ public class EditActions {
             target.addMouseMotionListener(this);
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
-            JColorChooser colorChooser = new JColorChooser();
-             lineColor = JColorChooser.showDialog(null, "Pick a color of line", Color.black);
-             fillColor = JColorChooser.showDialog(null, "Pick a color of fill", Color.black);
+            //JColorChooser colorChooser = new JColorChooser();
+            lineColor = JColorChooser.showDialog(null, "Pick a color of line", Color.black);
+            fillColor = JColorChooser.showDialog(null, "Pick a color of fill", Color.black);
 
         }
 
@@ -623,7 +628,7 @@ public class EditActions {
             target.addMouseMotionListener(this);
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
-            JColorChooser colorChooser = new JColorChooser();
+            //JColorChooser colorChooser = new JColorChooser();
             lineColor = JColorChooser.showDialog(null, "Pick a color of line", Color.black);
 
         }

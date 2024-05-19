@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
+import javax.management.RuntimeErrorException;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,6 +49,10 @@ class EditableImage {
     /** The file where the operation sequence is stored. */
     private String opsFilename;
 
+    private Stack<ImageOperation> macro;
+    private Stack<ImageOperation> macroOpsRedo;
+    private boolean recordingMacro;
+
     /**
      * <p>
      * Create a new EditableImage.
@@ -65,6 +70,10 @@ class EditableImage {
         redoOps = new Stack<ImageOperation>();
         imageFilename = null;
         opsFilename = null;
+        recordingMacro = false;
+        macro = new Stack<ImageOperation>();
+        macroOpsRedo = new Stack<ImageOperation>();
+
     }
 
     /**
@@ -125,7 +134,7 @@ class EditableImage {
      * @param bi The BufferedImage to copy.
      * @return A deep copy of the input.
      */
-    public static BufferedImage deepCopy(BufferedImage bi) {
+    private static BufferedImage deepCopy(BufferedImage bi) {
         ColorModel cm = bi.getColorModel();
         boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
         WritableRaster raster = bi.copyData(null);
@@ -270,11 +279,145 @@ class EditableImage {
      * </p>
      * 
      * @param op The operation to apply.
-     * @return 
      */
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+        if(recordingMacro){
+            macro.add(op);
+        }
+    }
+
+    /**
+     * <p>
+     * Starts recording a new macro.
+     * </p>
+     * 
+     * <p>
+     * Starts recording a new macro.
+     * Creates a new Stack of ImageOperations to later be saved to file by {@link #saveMacro(String)}.
+     * 
+     * </p>
+     * 
+     * @author Charlotte Cook
+     * 
+     * @throws Exception If something goes wrong.
+     */
+    public void recordMacro() throws Exception{
+        if(!macro.isEmpty()){
+            macro.clear();
+        }
+        macro = new Stack<ImageOperation>();
+        recordingMacro = true;
+        
+    }
+    
+/**
+     * <p>
+     * Ends the recording of a macro and saves it to a specified file.
+     * </p>
+     * 
+     * <p>
+     * Ends recording of operations to a new macro file, and saves it 
+     * to the file specified by the user
+     * </p>
+     * 
+     * @author Charlotte Cook
+     * 
+     * @param macroFilename The file location to save the macro to.
+     * @throws Exception If something goes wrong.
+     */
+    public void saveMacro(String macroFilename) throws Exception{
+        if(!recordingMacro){
+            throw new RuntimeException("Cannot save macro if operations were not being recorded");
+        } 
+        if(macro.isEmpty()){
+            throw new Exception("Cannot save empty macro");
+        }
+        recordingMacro = false;
+        if(!macroFilename.contains(".ops")){
+            macroFilename = macroFilename.concat(".ops");
+        }
+        FileOutputStream fileOut = new FileOutputStream(macroFilename);
+        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+        objOut.writeObject(this.macro);
+
+        objOut.writeObject(current.getWidth()); //
+        objOut.writeObject(current.getHeight()); //
+
+        objOut.close();
+        fileOut.close();
+        macro.clear();
+        
+    }
+
+    /**
+     * <p>
+     * Applies a macro to an image from a file.
+     * </p>
+     * 
+     * <p>
+     * Applies a macro (a series of operations) to an image, from the specified file.
+     * </p>
+     * 
+     * @param filePath The file to open the macro from.
+     * @throws Exception If something goes wrong.
+     */
+    public void applyMacro(String filePath) throws Exception{
+        // boolean sameSize = false;
+        try {
+            // FileInputStream fileIn = new FileInputStream(this.opsFilename);
+            FileInputStream fileIn = new FileInputStream(filePath);
+            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+
+            // Silence the Java compiler warning about type casting.
+            // Understanding the cause of the warning is way beyond
+            // the scope of COSC202, but if you're interested, it has
+            // to do with "type erasure" in Java: the compiler cannot
+            // produce code that fails at this point in all cases in
+            // which there is actually a type mismatch for one of the
+            // elements within the Stack, i.e., a non-ImageOperation.
+            @SuppressWarnings("unchecked")
+            Stack<ImageOperation> opsFromMacro = (Stack<ImageOperation>) objIn.readObject();
+            // int originalMacroWidth = (int) objIn.readObject();
+            // int originalMacroHeight = (int) objIn.readObject();
+            
+            // if(original.getWidth() == originalMacroWidth && original.getHeight() == originalMacroHeight){
+                
+                
+                while(!opsFromMacro.isEmpty()){
+                    //ops.push(opsFromMacro.remove(0));
+                    apply(opsFromMacro.remove(0));
+                }
+
+                for(ImageOperation op: opsFromMacro){
+                    apply(op);
+                }
+                // sameSize = true;
+            // } else { // doesn't do anything I think...
+            //     int thisImageWidth = current.getWidth();
+            //     int thisImageHeight = current.getHeight();
+
+            //     this.current = new Resize().apply(current, originalMacroWidth, originalMacroHeight);
+
+            //     while(!opsFromMacro.isEmpty()){
+            //         ops.push(opsFromMacro.remove(0));
+            //     }
+            //     this.refresh();
+            //     this.current = new Resize().apply(current, thisImageWidth, thisImageHeight);
+                
+            // }
+            redoOps.clear();
+            objIn.close();
+            fileIn.close();
+        } catch (Exception ex) {
+            // Could be no file or something else. Carry on for now.
+            ops.clear();
+            redoOps.clear();
+        }
+        //if(sameSize == true){
+            this.refresh();
+        //}
     }
 
     /**
@@ -293,6 +436,9 @@ class EditableImage {
         }
 
         redoOps.push(ops.pop());
+        if(recordingMacro){
+            macroOpsRedo.push(macro.pop());
+        }
         refresh();
     }
 
@@ -312,6 +458,9 @@ class EditableImage {
         }
 
         apply(redoOps.pop());
+        if(recordingMacro){
+            macro.push(macroOpsRedo.pop());
+        }
     }
 
     /**
@@ -324,10 +473,7 @@ class EditableImage {
     public BufferedImage getCurrentImage() {
         return current;
     }
-    // public static void update(BufferedImage bf){
-    //     BufferedImage  a = current;
-    //     a = bf; 
-    // }
+
     /**
      * <p>
      * Reapply the current list of operations to the original.
