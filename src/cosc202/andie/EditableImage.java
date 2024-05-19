@@ -390,9 +390,9 @@ class EditableImage {
                     apply(opsFromMacro.remove(0));
                 }
 
-                for(ImageOperation op: opsFromMacro){
-                    apply(op);
-                }
+                // for(ImageOperation op: opsFromMacro){
+                //     apply(op);
+                // }
                 // sameSize = true;
             // } else { // doesn't do anything I think...
             //     int thisImageWidth = current.getWidth();
