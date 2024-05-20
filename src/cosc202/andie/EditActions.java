@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.RasterFormatException;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -60,9 +61,6 @@ public class EditActions {
         actions.add(new DrawRectangleAction(bundle.getString("menu_edit_drawRectangle"), null, bundle.getString("menu_edit_drawRectangle_desc"), null));
         actions.add(new DrawOvalAction(bundle.getString("menu_edit_drawOval"), null, bundle.getString("menu_edit_drawOval_desc"), null));
         actions.add(new DrawLineAction("Draw Line", null, "Click and drag to draw line", null));
-
-
-    
         
     }
 
@@ -313,7 +311,11 @@ public class EditActions {
             target.getParent().revalidate();
 
             // draws the blueish selection box
-            target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
+            if (width > 1 && height > 1) {
+
+                target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
+
+            }
 
         }
 
@@ -395,7 +397,7 @@ public class EditActions {
             rectStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
             // draw a rectangle, this acts as the selection box
-            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - Math.max(click.getX(), 0)), Math.abs(rectStartY - Math.max(click.getY(), 0)), lineColor, fillColor));
+            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - Math.max(rectStartX, 0)), Math.abs(rectStartY - Math.max(rectStartY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
 
@@ -520,7 +522,7 @@ public class EditActions {
 
 
             // draw an oval, this acts as the preview of where the oval will be drawn
-            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, Math.abs(ovalStartX - Math.max(click.getX(), 0)), Math.abs(ovalStartY - Math.max(click.getY(), 0)), lineColor, fillColor));
+            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, Math.abs(ovalStartX - Math.max(ovalStartX, 0)), Math.abs(ovalStartY - Math.max(ovalStartY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
 
