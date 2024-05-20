@@ -4,13 +4,6 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import cosc202.andie.TransformationActions.ImageFlipHAction;
-import cosc202.andie.TransformationActions.ImageFlipVAction;
-import cosc202.andie.TransformationActions.Resize150Action;
-import cosc202.andie.TransformationActions.Resize50Action;
-import cosc202.andie.TransformationActions.Rotate180Action;
-import cosc202.andie.TransformationActions.Rotate90LeftAction;
-import cosc202.andie.TransformationActions.Rotate90RightAction;
 
 /**
  * <p>
@@ -166,6 +159,7 @@ public class TransformationActions {
 
     }
 
+    /** Action to rotate an image 90 degrees to the right. */
     public class Rotate90RightAction extends ImageAction {
 
         /**
@@ -202,6 +196,7 @@ public class TransformationActions {
 
     }
 
+    /** Action to rotate an image 180 degrees. */
     public class Rotate180Action extends ImageAction {
 
         /**
@@ -239,6 +234,7 @@ public class TransformationActions {
     
     }
 
+    /** Action to flip an image vertically. */
     public class ImageFlipVAction extends ImageAction {
 
         /**
@@ -275,6 +271,7 @@ public class TransformationActions {
 
     }
 
+    /** Action to flip an image horizontally. */
     public class ImageFlipHAction extends ImageAction {
 
         /**
@@ -311,6 +308,7 @@ public class TransformationActions {
 
     }
 
+    /** Action to resize an image to 150% of its original size. */
     public class Resize150Action extends ImageAction {
 
         /**
@@ -348,6 +346,7 @@ public class TransformationActions {
 
     }
 
+    /** Action to resize an image to 50% of its original size. */
     public class Resize50Action extends ImageAction {
 
         /**

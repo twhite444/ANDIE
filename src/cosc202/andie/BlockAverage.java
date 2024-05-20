@@ -16,13 +16,18 @@ import java.awt.image.*;
  */
 public class BlockAverage implements ImageOperation, java.io.Serializable {
 
+    /** The horizontal distance between block boundaries. */
     private int xDist;
+    //vertical distance between block boundaries
     private int yDist;
 
     /**
      * <p>
-     * Create a new BlockAverage operation of a specified type.
+     * Constructs a new BlockAverage operation with specified block dimensions.
      * </p>
+     * 
+     * @param xDist The horizontal distance between block boundaries.
+     * @param yDist The vertical distance between block boundaries.
      */
     BlockAverage(int xDist, int yDist) {
 
@@ -31,7 +36,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
 
     }
 
-        /**
+    /**
      * <p>
      * Create a new BlockAverage operation of default type.
      * </p>
