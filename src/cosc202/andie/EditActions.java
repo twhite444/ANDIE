@@ -305,7 +305,7 @@ public class EditActions {
             int width = Math.max(Math.abs(initialX - currentX), 1); // size of the selection, clamped to at least one
             int height = Math.max(Math.abs(initialY - currentY), 1);
 
-            //System.out.println(currentX + ", " + currentY + ",     " + topLeftX + ", " + topLeftY + ",     " + width + ", " + height);
+            System.out.println(currentX + ", " + currentY + ",     " + topLeftX + ", " + topLeftY + ",     " + width + ", " + height);
 
             target.getImage().undo(); // remove the preivious selection box and draw a new one
             target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
@@ -395,7 +395,7 @@ public class EditActions {
             rectStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
             // draw a rectangle, this acts as the selection box
-            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - Math.max(click.getX(), 0)), Math.abs(rectStartY - Math.max(click.getY(), 0)), lineColor, fillColor));
+            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - Math.max(rectStartX, 0)), Math.abs(rectStartY - Math.max(rectStartY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
 
@@ -520,7 +520,7 @@ public class EditActions {
 
 
             // draw an oval, this acts as the preview of where the oval will be drawn
-            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, Math.abs(ovalStartX - Math.max(click.getX(), 0)), Math.abs(ovalStartY - Math.max(click.getY(), 0)), lineColor, fillColor));
+            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, Math.abs(ovalStartX - Math.max(ovalStartX, 0)), Math.abs(ovalStartY - Math.max(ovalStartY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
 
