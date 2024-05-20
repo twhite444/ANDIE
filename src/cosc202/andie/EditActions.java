@@ -2,10 +2,8 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.image.RasterFormatException;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Image;
 
 import javax.swing.*;
 
@@ -306,12 +304,12 @@ public class EditActions {
             //System.out.println(currentX + ", " + currentY + ",     " + topLeftX + ", " + topLeftY + ",     " + width + ", " + height);
 
             target.getImage().undo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
+            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height, true));
             target.repaint();
             target.getParent().revalidate();
 
             // draws the blueish selection box
-            if (width > 1 && height > 1) {
+            if (width > 1 && height > 1) { // makes the selection box only show up if there is some area to highlight, conviently this also stops it from trying to highlight things when the entire elected area is outside the image
 
                 target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
 
