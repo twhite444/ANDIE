@@ -59,9 +59,6 @@ public class EditActions {
         actions.add(new DrawRectangleAction(bundle.getString("menu_edit_drawRectangle"), null, bundle.getString("menu_edit_drawRectangle_desc"), null));
         actions.add(new DrawOvalAction(bundle.getString("menu_edit_drawOval"), null, bundle.getString("menu_edit_drawOval_desc"), null));
         actions.add(new DrawLineAction("Draw Line", null, "Click and drag to draw line", null));
-
-
-    
         
     }
 
@@ -292,11 +289,11 @@ public class EditActions {
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
-            int initialX = Math.min(Math.max(cropStartX, 0), target.getImage().getCurrentImage().getWidth());  // start point of the selection, clamped inside the image
-            int initialY = Math.min(Math.max(cropStartY, 0), target.getImage().getCurrentImage().getHeight());
-
             int currentX = Math.min(Math.max((int)(drag.getX() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getWidth()); // the position of the mouse, clamped to inside the image
             int currentY = Math.min(Math.max((int)(drag.getY() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getHeight());
+
+            int initialX = Math.min(Math.max(cropStartX, 0), (target.getImage().getCurrentImage().getWidth()));  // start point of the selection, clamped inside the image
+            int initialY = Math.min(Math.max(cropStartY, 0), (target.getImage().getCurrentImage().getHeight()));
 
             int topLeftX  = Math.min(initialX, currentX); // the top left corner of the selection x & y
             int topLeftY = Math.min(initialY, currentY);
@@ -307,12 +304,16 @@ public class EditActions {
             //System.out.println(currentX + ", " + currentY + ",     " + topLeftX + ", " + topLeftY + ",     " + width + ", " + height);
 
             target.getImage().undo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
+            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height, true));
             target.repaint();
             target.getParent().revalidate();
 
             // draws the blueish selection box
-            target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
+            if (width > 1 && height > 1) { // makes the selection box only show up if there is some area to highlight, conviently this also stops it from trying to highlight things when the entire elected area is outside the image
+
+                target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
+
+            }
 
         }
 
@@ -394,7 +395,7 @@ public class EditActions {
             rectStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
             // draw a rectangle, this acts as the selection box
-            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - Math.max(click.getX(), 0)), Math.abs(rectStartY - Math.max(click.getY(), 0)), lineColor, fillColor));
+            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - Math.max(rectStartX, 0)), Math.abs(rectStartY - Math.max(rectStartY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
 
@@ -519,7 +520,7 @@ public class EditActions {
 
 
             // draw an oval, this acts as the preview of where the oval will be drawn
-            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, Math.abs(ovalStartX - Math.max(click.getX(), 0)), Math.abs(ovalStartY - Math.max(click.getY(), 0)), lineColor, fillColor));
+            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, Math.abs(ovalStartX - Math.max(ovalStartX, 0)), Math.abs(ovalStartY - Math.max(ovalStartY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
 
