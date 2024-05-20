@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cosc202.andie.ChangeContrastAndBrightness;
+import cosc202.andie.BlockAverage;
 
 public class BlockTest {
     private BufferedImage sampleInputImage;
@@ -37,7 +37,7 @@ public class BlockTest {
         // Expected output image after BlockAverage
         BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 
-        // all the colours should be grey
+        // all the colours should be grey, each with r, g and b values of 127
         expectedOutputImage.setRGB(0, 0, 0x7f7f7f); // Grey
         expectedOutputImage.setRGB(1, 0, 0x7f7f7f); // Grey
         expectedOutputImage.setRGB(2, 0, 0x7f7f7f); // Grey

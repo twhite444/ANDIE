@@ -74,7 +74,7 @@ public class CycleColours implements ImageOperation, java.io.Serializable {
 
                     case "gbr":
 
-                        argb = (a << 24) | (b << 16) | (r << 8) | g; // why
+                        argb = (a << 24) | (b << 16) | (r << 8) | g;
                         break;
 
                     case "grb":
@@ -84,7 +84,7 @@ public class CycleColours implements ImageOperation, java.io.Serializable {
 
                     case "brg":
 
-                        argb = (a << 24) | (g << 16) | (b << 8) | r; // ??????
+                        argb = (a << 24) | (g << 16) | (b << 8) | r;
                         break;
 
                     case "rbg":
