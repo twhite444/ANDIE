@@ -6,7 +6,7 @@ import java.awt.image.*;
  * Gaussian Filter
  * 
  * @author Charlotte Cook
- * @modifed Tommo White
+ * 
  */
 public class GaussianFilter implements ImageOperation, java.io.Serializable {
 

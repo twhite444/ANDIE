@@ -21,7 +21,6 @@ import java.awt.image.*;
  * 
  * @see java.awt.image.ConvolveOp
  * @author Yusei
- * @modified Tommo White
  * @version 1.0
  */
 public class MeanFilter implements ImageOperation, java.io.Serializable {
