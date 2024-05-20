@@ -293,11 +293,11 @@ public class EditActions {
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
-            int initialX = Math.min(Math.max(cropStartX, 0), target.getImage().getCurrentImage().getWidth());  // start point of the selection, clamped inside the image
-            int initialY = Math.min(Math.max(cropStartY, 0), target.getImage().getCurrentImage().getHeight());
-
             int currentX = Math.min(Math.max((int)(drag.getX() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getWidth()); // the position of the mouse, clamped to inside the image
             int currentY = Math.min(Math.max((int)(drag.getY() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getHeight());
+
+            int initialX = Math.min(Math.max(cropStartX, 0), (target.getImage().getCurrentImage().getWidth()));  // start point of the selection, clamped inside the image
+            int initialY = Math.min(Math.max(cropStartY, 0), (target.getImage().getCurrentImage().getHeight()));
 
             int topLeftX  = Math.min(initialX, currentX); // the top left corner of the selection x & y
             int topLeftY = Math.min(initialY, currentY);
