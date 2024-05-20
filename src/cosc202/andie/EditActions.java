@@ -199,9 +199,13 @@ public class EditActions {
      */
     public class CropAction extends ImageAction implements MouseListener, MouseMotionListener {
 
+        /** The starting X coordinate of the crop area */
         int cropStartX = 0;
+        /** The starting Y coordinate of the crop area */
         int cropStartY = 0;
+        /** The width of the cropped area */
         int cropWidth = 1;
+        /** The height of the cropped area */
         int cropHeight = 1;
 
         /**
@@ -340,11 +344,17 @@ public class EditActions {
      */
     public class DrawRectangleAction extends ImageAction implements MouseListener, MouseMotionListener {
 
+        /** The starting X coordinate of the rectangle. */
         int rectStartX = 0;
+        /** The starting Y coordinate of the rectangle. */
         int rectStartY = 0;
+        /** The width of the rectangle. */
         int rectWidth = 1;
+        /** The height of the rectangle. */
         int rectHeight = 1;
+        /** The color of the line of the rectangle. */
         Color lineColor = Color.black;
+        /** The fill color of the rectangle. */
         Color fillColor = Color.black;
 
         /**
@@ -463,11 +473,17 @@ public class EditActions {
      */
     public class DrawOvalAction extends ImageAction implements MouseListener, MouseMotionListener {
 
+        /** The starting X coordinate of the oval. */
         int ovalStartX = 0;
+        /** The starting Y coordinate of the oval. */
         int ovalStartY = 0;
+        /** The width of the oval. */
         int ovalWidth = 1;
+        /** The height of the oval. */
         int ovalHeight = 1;
+        /** The color of the line of the oval. */
         Color lineColor = Color.black;
+        /** The fill color of the oval. */
         Color fillColor = Color.black;
 
         /**
@@ -590,10 +606,15 @@ public class EditActions {
      */
     public class DrawLineAction extends ImageAction implements MouseListener, MouseMotionListener {
 
+        /** The starting X coordinate of the line. */
         int lineStartX = 0;
+        /** The starting Y coordinate of the line. */
         int lineStartY = 0;
+        /** The ending X coordinate of the line. */
         int lineEndX = 1;
+        /** The ending Y coordinate of the line. */
         int lineEndY = 1;
+        /** The color of the line. */
         Color lineColor = Color.black;
 
         /**
