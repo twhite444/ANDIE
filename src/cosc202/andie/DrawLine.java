@@ -17,11 +17,15 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public class DrawLine implements ImageOperation, java.io.Serializable {
-
+    /** The starting X coordinate of the line */
     int lineStartX;
+    /** The starting Y coordinate of the line */
     int lineStartY;
+    /** The ending X coordinate of the line */
     int lineEndX;
+    /** The ending Y coordinate of the line */
     int lineEndY;
+    /** The color of the line */
     Color lineColor;
 
     /**

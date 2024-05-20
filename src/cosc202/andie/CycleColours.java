@@ -15,7 +15,7 @@ import java.awt.image.*;
  * @version 1.0
  */
 public class CycleColours implements ImageOperation, java.io.Serializable {
-
+    /** The type of color cycling to be done */
     private String type;
 
     /**

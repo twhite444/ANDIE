@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cosc202.andie.ChangeContrastAndBrightness;
 
 public class BlockTest {
     private BufferedImage sampleInputImage;

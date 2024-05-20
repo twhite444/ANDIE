@@ -15,14 +15,18 @@ import java.awt.image.*;
  * @version 1.0
  */
 public class ChangeContrastAndBrightness implements ImageOperation, java.io.Serializable {
-
+    /** The brightness value */
     private int brightness;
+    /** The contrast  value */
     private int contrast;
 
     /**
      * <p>
-     * Create a new ChangeContrastAndBrightness operation of a specified type.
+     * Create a new ChangeContrastAndBrightness operation with specified brightness and contrast values.
      * </p>
+     *
+     * @param brightness The brightness value.
+     * @param contrast The contrast value.
      */
     ChangeContrastAndBrightness(int brightness, int contrast) {
 

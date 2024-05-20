@@ -2,12 +2,9 @@ package cosc202.andie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 
 //all values are calculated with using excel 

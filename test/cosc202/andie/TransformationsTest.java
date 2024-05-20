@@ -7,11 +7,6 @@ import java.awt.image.BufferedImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cosc202.andie.Rotate180;
-import cosc202.andie.Rotate90Right;
-import cosc202.andie.Rotate90Left;
-import cosc202.andie.ImageFlipH;
-import cosc202.andie.ImageFlipV;
 
 public class TransformationsTest {
     private BufferedImage sampleInputImage;

@@ -15,10 +15,13 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public class Crop implements ImageOperation, java.io.Serializable {
-
+    /** The starting X coordinate of the crop area */
     int cropStartX;
+    /** The starting Y coordinate of the crop area */
     int cropStartY;
+    /** The width of the cropped area */
     int cropWidth;
+    /** The height of the cropped area */
     int cropHeight;
 
     /**
