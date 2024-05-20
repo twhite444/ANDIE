@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.awt.image.RasterFormatException;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -60,9 +61,6 @@ public class EditActions {
         actions.add(new DrawRectangleAction(bundle.getString("menu_edit_drawRectangle"), null, bundle.getString("menu_edit_drawRectangle_desc"), null));
         actions.add(new DrawOvalAction(bundle.getString("menu_edit_drawOval"), null, bundle.getString("menu_edit_drawOval_desc"), null));
         actions.add(new DrawLineAction("Draw Line", null, "Click and drag to draw line", null));
-
-
-    
         
     }
 
@@ -305,7 +303,7 @@ public class EditActions {
             int width = Math.max(Math.abs(initialX - currentX), 1); // size of the selection, clamped to at least one
             int height = Math.max(Math.abs(initialY - currentY), 1);
 
-            System.out.println(currentX + ", " + currentY + ",     " + topLeftX + ", " + topLeftY + ",     " + width + ", " + height);
+            //System.out.println(currentX + ", " + currentY + ",     " + topLeftX + ", " + topLeftY + ",     " + width + ", " + height);
 
             target.getImage().undo(); // remove the preivious selection box and draw a new one
             target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
@@ -313,7 +311,11 @@ public class EditActions {
             target.getParent().revalidate();
 
             // draws the blueish selection box
-            target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
+            if (width > 1 && height > 1) {
+
+                target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
+
+            }
 
         }
 
