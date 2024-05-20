@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 /**

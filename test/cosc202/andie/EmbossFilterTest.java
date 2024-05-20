@@ -102,7 +102,7 @@ public class EmbossFilterTest{
 
 
         // Apply Rotate90Left
-        BufferedImage outputImage = new Emboss("1").apply(sampleInputImage);
+        BufferedImage outputImage = new Emboss("Middle Left").apply(sampleInputImage);
 
         // Compare output with output image
         for (int y = 0; y < outputImage.getHeight(); y++) {
