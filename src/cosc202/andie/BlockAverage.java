@@ -18,7 +18,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
 
     /** The horizontal distance between block boundaries. */
     private int xDist;
-    private int yDist; //vertical distance between block boundaries
+    private int yDist; //yDist: vertical distance between block boundaries
 
     /**
      * <p>
