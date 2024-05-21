@@ -114,7 +114,7 @@ public class MacroActions{
                 
                 JFileChooser fileChooser = new JFileChooser();
                 FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "Macro files", "ops");
+                    bundle.getString("menu_macro_macroFiles"), bundle.getString("menu_macro_ops"));
                 fileChooser.setFileFilter(filter);
 
                 int result = fileChooser.showOpenDialog(target);
