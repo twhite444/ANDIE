@@ -463,7 +463,7 @@ public class FilterActions {
 
             }
 
-            int option = JOptionPane.showOptionDialog(null, comboBox, "Select direction of embossment:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
+            int option = JOptionPane.showOptionDialog(null, comboBox, bundle.getString("menu_filter_embossFilter_selectDirection"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
 
             if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
 
