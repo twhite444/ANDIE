@@ -22,12 +22,6 @@ stages:          # List of stages for jobs, and their order of execution
   - package
   - deploy
 
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
-  script:
-    - echo "Compiling the code..."
-    - echo "Compile complete."
-
 build-javadoc:  # creates the documentation from javadoc comments
   stage: build
   script:
@@ -38,15 +32,15 @@ build-javadoc:  # creates the documentation from javadoc comments
     paths:
       - build/docs
 
-compile-code: # complies the code into a set of class files
-  stage: build
-  script:
-    - echo 'Attempting to compile the code...'
-    - gradle -Dorg.gradle.welcome=never --no-daemon compileJava
-    - echo 'Done.'
-  artifacts:
-    paths:
-      - build
+#compile-code: # complies the code into a set of class files
+#  stage: build
+#  script:
+#    - echo 'Attempting to compile the code...'
+#    - gradle -Dorg.gradle.welcome=never --no-daemon compileJava
+#    - echo 'Done.'
+#  artifacts:
+#    paths:
+#      - build
 
 unit-test-job:   # This job runs the gradle tests
   tags:
@@ -56,6 +50,7 @@ unit-test-job:   # This job runs the gradle tests
   script:
     - echo "Running unit tests..."
     - gradle --no-daemon test
+    - echo "Tests finished"
 
 lint-test-job:   # This job doesnt do anyhting yet
   stage: test    
@@ -67,7 +62,6 @@ create-jar:     # packages the class files made in compile-code into a single ja
   script:
     - echo 'Attempting to create JAR file...'
     - gradle -Dorg.gradle.welcome=never --no-daemon jar
-    - tree
     - echo 'Done.'
   artifacts:
     paths:
