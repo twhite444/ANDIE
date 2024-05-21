@@ -306,6 +306,7 @@ class EditableImage {
     public void recordMacro() throws Exception{
         if(!macro.isEmpty()){
             macro.clear();
+            macroOpsRedo.clear();
         }
         macro = new Stack<ImageOperation>();
         recordingMacro = true;
@@ -379,34 +380,38 @@ class EditableImage {
             // elements within the Stack, i.e., a non-ImageOperation.
             @SuppressWarnings("unchecked")
             Stack<ImageOperation> opsFromMacro = (Stack<ImageOperation>) objIn.readObject();
-            // int originalMacroWidth = (int) objIn.readObject();
-            // int originalMacroHeight = (int) objIn.readObject();
+            //int originalMacroWidth = (int) objIn.readObject();
+            //int originalMacroHeight = (int) objIn.readObject();
             
-            // if(original.getWidth() == originalMacroWidth && original.getHeight() == originalMacroHeight){
+            // if(current.getWidth() == originalMacroWidth && current.getHeight() == originalMacroHeight){
                 
                 
-                while(!opsFromMacro.isEmpty()){
-                    //ops.push(opsFromMacro.remove(0));
-                    apply(opsFromMacro.remove(0));
-                }
+            //     while(!opsFromMacro.isEmpty()){
+            //         //ops.push(opsFromMacro.remove(0));
+            //         apply(opsFromMacro.remove(0));
+            //     }
 
-                // for(ImageOperation op: opsFromMacro){
-                //     apply(op);
-                // }
-                // sameSize = true;
+            //     // for(ImageOperation op: opsFromMacro){
+            //     //     apply(op);
+            //     // }
+            //     sameSize = true;
+
             // } else { // doesn't do anything I think...
             //     int thisImageWidth = current.getWidth();
             //     int thisImageHeight = current.getHeight();
 
-            //     this.current = new Resize().apply(current, originalMacroWidth, originalMacroHeight);
+                //this.current = new Resize().apply(current, originalMacroWidth, originalMacroHeight);
 
-            //     while(!opsFromMacro.isEmpty()){
-            //         ops.push(opsFromMacro.remove(0));
-            //     }
-            //     this.refresh();
-            //     this.current = new Resize().apply(current, thisImageWidth, thisImageHeight);
-                
-            // }
+                //this.current = new Resize().apply(current, originalMacroWidth, originalMacroHeight);
+
+                while(!opsFromMacro.isEmpty()){
+                    ops.push(opsFromMacro.remove(0));
+                }
+                //this.refresh();
+                //this.current = new Resize().apply(current, thisImageWidth, thisImageHeight);
+                //new Resize().apply(current, thisImageWidth, thisImageHeight);
+
+            //}
             redoOps.clear();
             objIn.close();
             fileIn.close();
@@ -419,6 +424,46 @@ class EditableImage {
             this.refresh();
         //}
     }
+
+    // /**
+    //  * 
+    //  * @param filePath
+    //  * @return an int array where [0] is the width of the macro, and [1] is the height
+    //  * @throws Exception
+    //  */
+    // public int[] getMacroSize(String filePath) throws Exception{
+    //     int[] macroSize = new int[2];
+    //     try{
+    //     FileInputStream fileIn = new FileInputStream(filePath);
+    //     ObjectInputStream objIn = new ObjectInputStream(fileIn);
+
+    //     // Silence the Java compiler warning about type casting.
+    //     @SuppressWarnings("unchecked")
+        
+    //     //Ignore this:
+    //     Stack<ImageOperation> opsFromMacro = (Stack<ImageOperation>) objIn.readObject();
+        
+    //     int macroWidth = objIn.readInt();
+    //     int macroHeight = objIn.readInt();
+    //     macroSize[0] = macroWidth;
+    //     macroSize[1] = macroHeight;
+    //     objIn.close();
+    //     fileIn.close();
+    //     return macroSize;
+        
+    // } catch (Exception ex) {
+    //         // Could be no file or something else. Carry on for now.
+    //         return macroSize;
+    //     }
+    // }
+
+    // public int getCurrentHeight(){
+    //     return current.getHeight();
+    // }
+
+    // public int getCurrentWidth(){
+    //     return current.getHeight();
+    // }
 
     /**
      * <p>
@@ -438,6 +483,29 @@ class EditableImage {
         redoOps.push(ops.pop());
         if(recordingMacro){
             macroOpsRedo.push(macro.pop());
+        }
+        refresh();
+    }
+
+    /**
+     * <p>
+     * Undo the last {@link ImageOperation} applied to the image, without adding it to RedoOps stack
+     * (to use with draw tools).
+     * </p>
+     */
+    public void undoNoRedo() {
+
+        if(ops.empty()) { // checks if there is anything to undo
+
+            JOptionPane.showMessageDialog(null, "Error: nothing to undo", "Error", JOptionPane.ERROR_MESSAGE);
+
+            throw new RuntimeException();
+
+        }
+
+        ops.pop();
+        if(recordingMacro){
+            macro.pop();
         }
         refresh();
     }

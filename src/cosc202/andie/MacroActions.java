@@ -4,6 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
+
 /**
  * <p>
  * Actions provided by the Macros menu.
@@ -120,8 +121,19 @@ public class MacroActions{
 
                 if (result == JFileChooser.APPROVE_OPTION) {
 
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().applyMacro(imageFilepath);
+                    String macroFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    // int[] macroSize = target.getImage().getMacroSize(macroFilepath);
+                    // int macroWidth = macroSize[0];
+                    // int macroHeight = macroSize[1];
+                    // int imageWidth = target.getImage().getCurrentWidth();
+                    // int imageHeight= target.getImage().getCurrentHeight();
+                    // if(imageWidth == macroWidth && imageHeight == macroHeight){
+                        target.getImage().applyMacro(macroFilepath);
+                    // } else{
+                    //     Resize resize = new Resize();
+                        // target.getImage() = new Resize().apply(current, originalMacroWidth, originalMacroHeight);  
+                    // }
+                    
                 }
                 target.repaint();
                 target.getParent().revalidate();
