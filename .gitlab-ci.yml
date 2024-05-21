@@ -82,6 +82,7 @@ pages:            # publish everything to the website and create a zip file of t
     - cp build/libs/andie.jar public/
     - cp ci-site-index.html public/index.html
     - cd public
+    - ls -l
     - zip -r ANDIE.zip andie.jar docs/
     - cd ..
     - trap '' PIPE # suppress the occasional weird exit code when using pipes
