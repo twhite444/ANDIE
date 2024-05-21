@@ -61,6 +61,12 @@ public class Crop implements ImageOperation, java.io.Serializable {
      * @return The resulting cropped image.
      */
     public BufferedImage apply(BufferedImage input) {
+
+        if (cropStartX > input.getWidth() || cropStartY > input.getHeight()) {
+
+            throw new RuntimeException("crop attempted entierly outside image");
+
+        }
         
         cropStartX = Math.max(Math.min(input.getWidth() - 1, cropStartX), 0); // clamping for going out of bounds left or up
         cropStartY = Math.max(Math.min(input.getHeight() - 1, cropStartY), 0);

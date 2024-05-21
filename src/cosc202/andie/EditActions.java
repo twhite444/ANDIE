@@ -248,7 +248,7 @@ public class EditActions {
         @Override
         public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
 
-            cropStartX = (int)(click.getX() * 1 / (target.getZoom() / 100)); 
+            cropStartX = (int)(click.getX() * 1 / (target.getZoom() / 100)); // accounts for the zoom of the image to find the clicked position 
             cropStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
             // draw a rectangle, this acts as the selection box
