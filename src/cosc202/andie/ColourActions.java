@@ -55,7 +55,7 @@ public class ColourActions {
         actions.add(new ConvertToGreyAction(bundle.getString("menu_colour_greyscale"), null, bundle.getString("menu_colour_greyscale_desc"), Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ConvertToInverseAction(bundle.getString("menu_colour_imageInversion"), null, bundle.getString("menu_colour_imageInversion_desc"), Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new CycleColoursAction(bundle.getString("menu_colour_cycleColours"), null, bundle.getString("menu_colour_cycleColours_desc"), Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new ContrastAndBrightnessAction("Change contrast and brightness", null, "Change the contrast and / or brightness of an image by a specified percentage", Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new ContrastAndBrightnessAction(bundle.getString("menu_colour_contrastAndBrightness"), null, bundle.getString("menu_colour_contrastAndBrightness_desc"), Integer.valueOf(KeyEvent.VK_C)));
 
     }
 
@@ -235,16 +235,18 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            String cycleType = "rgb";
+            String cycleType = bundle.getString("menu_colour_cycleColours_RGB");
 
             // Pop-up dialog box to ask for the cycle type.
 
-            String[] cycleOptions = {   "bgr",
-                                        "brg",
-                                        "gbr",
-                                        "grb",
-                                        "rbg",
-                                        "rgb" }; // different options for cycle type
+            String[] cycleOptions = {   
+                bundle.getString("menu_colour_cycleColours_BGR"),
+                bundle.getString("menu_colour_cycleColours_BRG"),
+                bundle.getString("menu_colour_cycleColours_GBR"),
+                bundle.getString("menu_colour_cycleColours_GRB"),
+                bundle.getString("menu_colour_cycleColours_RBG"),
+                bundle.getString("menu_colour_cycleColours_RGB") 
+            }; // different options for cycle type
 
             JComboBox<String> comboBox = new JComboBox<String>(); // drop down menu for options
 
@@ -254,7 +256,7 @@ public class ColourActions {
 
             }
 
-            int option = JOptionPane.showOptionDialog(null, comboBox, "Cycle colours from rgb to:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
+            int option = JOptionPane.showOptionDialog(null, comboBox, bundle.getString("menu_colour_cycleColours_fromRGBTo"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
 
             if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
 
@@ -263,7 +265,19 @@ public class ColourActions {
             } else if (option == JOptionPane.OK_OPTION) {
 
                 cycleType = (String) comboBox.getSelectedItem(); // convert to string array
-
+                if (cycleType.equals(bundle.getString("menu_colour_cycleColours_BGR"))) {
+                    cycleType = "bgr";
+                } else if (cycleType.equals(bundle.getString("menu_colour_cycleColours_BRG"))) {
+                    cycleType = "brg";
+                } else if (cycleType.equals(bundle.getString("menu_colour_cycleColours_GBR"))) {
+                    cycleType = "gbr";
+                } else if (cycleType.equals(bundle.getString("menu_colour_cycleColours_GRB"))) {
+                    cycleType = "grb";
+                } else if (cycleType.equals(bundle.getString("menu_colour_cycleColours_RBG"))) {
+                    cycleType = "rbg";
+                } else if (cycleType.equals(bundle.getString("menu_colour_cycleColours_RGB"))) {
+                    cycleType = "rgb";
+                }
             }
 
             target.getImage().apply(new CycleColours(cycleType));
