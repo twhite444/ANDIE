@@ -26,12 +26,12 @@ public class MacroActions{
     public MacroActions(){
 
         macroActions = new ArrayList<Action>();
-        macroActions.add(new ApplyMacroAction("Apply macro", null, 
-                "Apply macro to current image", Integer.valueOf(KeyEvent.VK_M)));
-        macroActions.add(new RecordMacroAction("Record macro", null, 
-                "Start recording actions to macro", Integer.valueOf(KeyEvent.VK_M)));
-        macroActions.add(new EndMacroAction("Stop recording", null, 
-                "Stop recording actions", Integer.valueOf(KeyEvent.VK_M)));
+        macroActions.add(new ApplyMacroAction(bundle.getString("menu_macro_applyMacro"), null, 
+        bundle.getString("menu_macro_applyMacroAction_desc"), Integer.valueOf(KeyEvent.VK_M)));
+        macroActions.add(new RecordMacroAction(bundle.getString("menu_macro_recordMacro"), null, 
+        bundle.getString("menu_macro_recordMacro_desc"), Integer.valueOf(KeyEvent.VK_M)));
+        macroActions.add(new EndMacroAction(bundle.getString("menu_macro_endMacro"), null, 
+        bundle.getString("menu_macro_endMacro_desc"), Integer.valueOf(KeyEvent.VK_M)));
     }
     /**
      * <p>
@@ -42,7 +42,7 @@ public class MacroActions{
      */
     public JMenu createMacrosMenu() {
         
-        this.macrosMenu = new JMenu("Macros");
+        this.macrosMenu = new JMenu(bundle.getString("menu_macro_macros"));
         
         macrosMenu.add(new JMenuItem(macroActions.get(0))); // Apply macro
         macrosMenu.add(new JMenuItem(macroActions.get(1))); // Record macro
@@ -109,12 +109,12 @@ public class MacroActions{
 
             try {
                 if (!target.getImageDangerous().hasImage()) {
-                    throw new NullPointerException("Error: Cannot apply macro if there is no image open");
+                    throw new NullPointerException(bundle.getString("error_message_menu_macro_errorApplyNoImage"));
                 }
                 
                 JFileChooser fileChooser = new JFileChooser();
                 FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "Macro files", "ops");
+                    bundle.getString("menu_macro_macroFiles"), bundle.getString("menu_macro_ops"));
                 fileChooser.setFileFilter(filter);
 
                 int result = fileChooser.showOpenDialog(target);
@@ -141,13 +141,13 @@ public class MacroActions{
             } catch (NullPointerException ex) {
 
                 JOptionPane.showMessageDialog(null,
-                        (ex.getMessage()), "Error",
+                        (ex.getMessage()),bundle.getString("error_message_ERROR"),
                         JOptionPane.ERROR_MESSAGE);
 
             } catch (Exception ex) {
 
-                JOptionPane.showMessageDialog(null, ("Error: Could not apply macro\nDetails: " + ex.getMessage()) + "\n" + ex,
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, (bundle.getString("error_message_menu_macro_errorApplyMacro") + ex.getMessage()) + "\n" + ex,
+                        bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
             }
         }
@@ -191,7 +191,7 @@ public class MacroActions{
         public void actionPerformed(ActionEvent e) {
             try {
                 if (!target.getImageDangerous().hasImage()) {
-                    throw new NullPointerException("Error: Cannot record macro if there is no image open");
+                    throw new NullPointerException(bundle.getString("error_message_menu_macro_errorApplyNoImage"));
                 }
                 macrosMenu.getItem(1).setVisible(false); //Once recording, option to record disappears
                 macrosMenu.getItem(2).setVisible(true); // Option to end recording then appears
@@ -202,13 +202,13 @@ public class MacroActions{
             } catch (NullPointerException ex) {
 
                 JOptionPane.showMessageDialog(null,
-                        (ex.getMessage()), "Error",
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
                         JOptionPane.ERROR_MESSAGE);
 
             } catch (Exception ex) {
 
-                JOptionPane.showMessageDialog(null, ("Error: Could not record macro\nDetails: " + ex.getMessage()) + "\n" + ex,
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, (bundle.getString("error_message_menu_macro_errorRecordMacro") + ex.getMessage()) + "\n" + ex,
+                bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
             }
         }
@@ -266,13 +266,13 @@ public class MacroActions{
                 } catch (NullPointerException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error",
+                            (bundle.getString("error_message_NULL_FILE_TYPE_WRONG") + ex.getMessage()), bundle.getString("error_message_ERROR"),
                             JOptionPane.ERROR_MESSAGE);
 
                 } catch (Exception ex) {
 
-                    JOptionPane.showMessageDialog(null, ("Error: problem saving as\n" + ex.getMessage() + "\n" + ex),
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, (bundle.getString("error_message_PROBLEM_SAVING") + ex.getMessage() + "\n" + ex),
+                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
                 }
             

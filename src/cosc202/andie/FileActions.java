@@ -138,8 +138,8 @@ public class FileActions {
 
             if (target.getImageDangerous().hasImage() && target.getImageDangerous().imageHasBeenEdited()) { // checks if an image is open and has been edited
 
-                int option = JOptionPane.showOptionDialog(null, "Open new image?\nUnsaved progress will be lost.",
-                        "Open?", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                int option = JOptionPane.showOptionDialog(null, bundle.getString("error_message_OPEN_NEW_IMAGE"),
+                bundle.getString("message_OPEN"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
                 if (option == JOptionPane.CANCEL_OPTION) { // cancel the exiting
 
@@ -162,13 +162,13 @@ public class FileActions {
                 } catch (NullPointerException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error",
+                            (bundle.getString("error_message_NULL_FILE_TYPE_WRONG") + ex.getMessage()), bundle.getString("error_message_ERROR")                            ,
                             JOptionPane.ERROR_MESSAGE);
 
                 } catch (Exception ex) {
 
-                    JOptionPane.showMessageDialog(null, ("Error: Unspecified error\n" + ex.getMessage()) + "\n" + ex,
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, (bundle.getString("error_message_UNSPECIFIED") + ex.getMessage()) + "\n" + ex,
+                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
                 }
             }
@@ -224,20 +224,20 @@ public class FileActions {
             } catch (NullPointerException ex) {
 
                 JOptionPane.showMessageDialog(null,
-                        ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error",
+                        (bundle.getString("error_message_NULL_FILE_TYPE_WRONG") + ex.getMessage()), bundle.getString("error_message_ERROR"),
                         JOptionPane.ERROR_MESSAGE);
 
             } catch (IllegalArgumentException ex) {
 
                 JOptionPane.showMessageDialog(null,
-                        ("Error: Illegal argument error, probably tried to save an image that doesnt exist\n"
+                        (bundle.getString("error_message_ILLEGAL_ARGUMENT")
                                 + ex.getMessage()),
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                                bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
             } catch (Exception ex) {
 
-                JOptionPane.showMessageDialog(null, ("Error: Unspecified error\n" + ex.getMessage() + "\n" + ex),
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, (bundle.getString("error_message_UNSPECIFIED") + ex.getMessage() + "\n" + ex),
+                bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
             }
         }
@@ -291,20 +291,20 @@ public class FileActions {
                 } catch (NullPointerException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error",
+                            (bundle.getString("error_message_NULL_FILE_TYPE_WRONG") + ex.getMessage()), bundle.getString("error_message_ERROR"),
                             JOptionPane.ERROR_MESSAGE);
 
                 } catch (IllegalArgumentException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            ("Error: Illegal argument error, probably tried to save an image that doesnt exist\n"
+                            (bundle.getString("error_message_ILLEGAL_ARGUMENT")
                                     + ex.getMessage()),
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
                 } catch (Exception ex) {
 
-                    JOptionPane.showMessageDialog(null, ("Error: Unspecified error\n" + ex.getMessage() + "\n" + ex),
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, (bundle.getString("error_message_UNSPECIFIED") + ex.getMessage() + "\n" + ex),
+                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
                 }
             }
@@ -360,20 +360,20 @@ public class FileActions {
                 } catch (NullPointerException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            ("Error: Null error, the file type is probably wrong\n" + ex.getMessage()), "Error",
+                            (bundle.getString("error_message_NULL_FILE_TYPE_WRONG") + ex.getMessage()), bundle.getString("error_message_ERROR"),
                             JOptionPane.ERROR_MESSAGE);
 
                 } catch (IllegalArgumentException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            ("Error: Illegal argument error, probably tried to save an image that doesnt exist\n"
+                            (bundle.getString("error_message_ILLEGAL_ARGUMENT")
                                     + ex.getMessage()),
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
                 } catch (Exception ex) {
 
-                    JOptionPane.showMessageDialog(null, ("Error: problem saving as\n" + ex.getMessage() + "\n" + ex),
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, (bundle.getString("error_message_PROBLEM_SAVING") + ex.getMessage() + "\n" + ex),
+                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
                 }
             }
@@ -419,7 +419,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
 
             int option = JOptionPane.showOptionDialog(null,
-                    "Are you sure you want to exit?\nUnsaved progress will be lost.", "Exit?",
+                    bundle.getString("exit_confirmation"), bundle.getString("exit_message"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             if (option == JOptionPane.CANCEL_OPTION) { // cancel the exiting
