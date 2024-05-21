@@ -31,6 +31,17 @@ public class Resize implements ImageOperation, java.io.Serializable {
         this.scale = scale;
     }
 
+    // /**
+    //  * <p>
+    //  * Create a new Resize operation.
+    //  * </p>
+    //  * 
+    //  * <p>
+    //  */
+    // Resize() {
+    //     this.scale = 1;
+    // }
+
     /**
      * <p>
      * Resize the image by the specified scaling factor.
@@ -40,6 +51,9 @@ public class Resize implements ImageOperation, java.io.Serializable {
      * @return The resulting resized image.
      */
     public BufferedImage apply(BufferedImage input) {
+        // if (scale == 1){
+        //     return input;
+        // }
         int newWidth = (int) (input.getWidth() * scale);
         int newHeight = (int) (input.getHeight() * scale);
 
@@ -53,4 +67,27 @@ public class Resize implements ImageOperation, java.io.Serializable {
 
         return resizedImage;
     }
+
+    // /**
+    //  * <p>
+    //  * Resize the image using specified width and height.
+    //  * </p>
+    //  * 
+    //  * @param input The image to be resized.
+    //  * @param newWidth the new width for the image.
+    //  * @param newHeight the new height for the image.
+    //  * @return The resulting resized image.
+    //  */
+    // public BufferedImage apply(BufferedImage input, int newWidth, int newHeight) {
+
+    //     BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, input.getType());
+
+    //     Graphics2D g2d = resizedImage.createGraphics();
+
+    //     g2d.drawImage(input.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH), 0, 0, null);
+
+    //     g2d.dispose();
+
+    //     return resizedImage;
+    // }
 }

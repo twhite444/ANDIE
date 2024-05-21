@@ -42,6 +42,9 @@ public class EditActions {
     /** The menu that will hold the FileActions */
     private JMenu editMenu;
     
+    static {
+        bundle = Andie.LanguageSettings.getMessageBundle();
+    }
 
     /**
      * <p>
@@ -49,8 +52,6 @@ public class EditActions {
      * </p>
      */
     public EditActions() {
-        // needed for multilingual support:
-        bundle = Andie.LanguageSettings.getMessageBundle();
 
         actions = new ArrayList<Action>();
         actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), Integer.valueOf(KeyEvent.VK_Z)));
@@ -76,12 +77,16 @@ public class EditActions {
             editMenu.add(new JMenuItem(action));
         }
         
+        MacroActions macroActions = new MacroActions();
+        JMenu macrosMenu = macroActions.createMacrosMenu();
+        editMenu.add(macrosMenu);
+
         setShortcuts();
 
         return editMenu;
     }
 
-    /** Sets the keyboard shortcuts for filterMenu */
+    /** Sets the keyboard shortcuts for editMenu */
     private void setShortcuts(){
         //Undo
         editMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
@@ -265,7 +270,7 @@ public class EditActions {
             int cropEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
             // remove the selection box
-            target.getImage().undo();
+            target.getImage().undoNoRedo();
 
             target.removeMouseListener(this); // removes the mouse listner so crops dont keep happeneing
             target.removeMouseMotionListener(this);
@@ -307,8 +312,9 @@ public class EditActions {
 
             //System.out.println(currentX + ", " + currentY + ",     " + topLeftX + ", " + topLeftY + ",     " + width + ", " + height);
 
-            target.getImage().undo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height, true));
+            target.getImage().undoNoRedo(); // remove the preivious selection box and draw a new one
+            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
+
             target.repaint();
             target.getParent().revalidate();
 
@@ -418,7 +424,7 @@ public class EditActions {
             int rectEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
             // remove the selection box
-            target.getImage().undo();
+            target.getImage().undoNoRedo();
 
             target.removeMouseListener(this); // removes the mouse listner
             target.removeMouseMotionListener(this);
@@ -440,11 +446,13 @@ public class EditActions {
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
+
             int rectEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100)); 
             int rectEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
 
-            target.getImage().undo(); // remove the preivious selection box and draw a new one
+            target.getImage().undoNoRedo(); // remove the preivious selection box and draw a new one
             target.getImage().apply(new DrawRectangle(Math.min(rectStartX, rectEndX), Math.min(rectStartY, rectEndY), Math.abs(rectStartX - Math.max(rectEndX, 0)), Math.abs(rectStartY - Math.max(rectEndY, 0)), lineColor, fillColor));
+
             target.repaint();
             target.getParent().revalidate();
 
@@ -549,7 +557,7 @@ public class EditActions {
             int ovalEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
             // remove the preview oval
-            target.getImage().undo();
+            target.getImage().undoNoRedo();
 
             target.removeMouseListener(this); // removes the mouse listner
             target.removeMouseMotionListener(this);
@@ -576,7 +584,7 @@ public class EditActions {
 
             //System.out.println(drag.getX() + ", " + (int)(drag.getX() * 1 / (target.getZoom() / 100)));
 
-            target.getImage().undo(); // remove the preivious previwe oval and draw a new one
+            target.getImage().undoNoRedo(); // remove the preivious previwe oval and draw a new one
             target.getImage().apply(new DrawOval(Math.min(ovalStartX, ovalEndX), Math.min(ovalStartY, ovalEndY), Math.abs(ovalStartX - Math.max(ovalEndX, 0)), Math.abs(ovalStartY - Math.max(ovalEndY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
@@ -676,7 +684,7 @@ public class EditActions {
             lineEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
             // remove the preview line
-            target.getImage().undo();
+            target.getImage().undoNoRedo();
 
             target.removeMouseListener(this); // removes the mouse listner
             target.removeMouseMotionListener(this);
@@ -692,10 +700,11 @@ public class EditActions {
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
+
             lineEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100));
             lineEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
 
-            target.getImage().undo(); // remove the preivious preview line and draw a new one
+            target.getImage().undoNoRedo(); // remove the preivious preview line and draw a new one
             target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineEndX, lineEndY, lineColor));
             target.repaint();
             target.getParent().revalidate();
