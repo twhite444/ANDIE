@@ -42,6 +42,9 @@ public class EditActions {
     /** The menu that will hold the FileActions */
     private JMenu editMenu;
     
+    static {
+        bundle = Andie.LanguageSettings.getMessageBundle();
+    }
 
     /**
      * <p>
@@ -49,8 +52,6 @@ public class EditActions {
      * </p>
      */
     public EditActions() {
-        // needed for multilingual support:
-        bundle = Andie.LanguageSettings.getMessageBundle();
 
         actions = new ArrayList<Action>();
         actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), Integer.valueOf(KeyEvent.VK_Z)));
@@ -74,12 +75,16 @@ public class EditActions {
             editMenu.add(new JMenuItem(action));
         }
         
+        MacroActions macroActions = new MacroActions();
+        JMenu macrosMenu = macroActions.createMacrosMenu();
+        editMenu.add(macrosMenu);
+
         setShortcuts();
 
         return editMenu;
     }
 
-    /** Sets the keyboard shortcuts for filterMenu */
+    /** Sets the keyboard shortcuts for editMenu */
     private void setShortcuts(){
         //Undo
         editMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
@@ -263,7 +268,7 @@ public class EditActions {
             int cropEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
             // remove the selection box
-            target.getImage().undo();
+            target.getImage().undoNoRedo();
 
             target.removeMouseListener(this); // removes the mouse listner so crops dont keep happeneing
             target.removeMouseMotionListener(this);
@@ -305,8 +310,9 @@ public class EditActions {
 
             //System.out.println(currentX + ", " + currentY + ",     " + topLeftX + ", " + topLeftY + ",     " + width + ", " + height);
 
-            target.getImage().undo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height, true));
+            target.getImage().undoNoRedo(); // remove the preivious selection box and draw a new one
+            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
+
             target.repaint();
             target.getParent().revalidate();
 
