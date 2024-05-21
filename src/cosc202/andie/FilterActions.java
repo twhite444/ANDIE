@@ -56,11 +56,10 @@ public class FilterActions {
         actions.add(new SharpenFilterAction(bundle.getString("menu_filter_sharpenFilter"),null,bundle.getString("menu_filter_sharpenFilter_desc"), null));
         actions.add(new MedianFilterAction(bundle.getString("menu_filter_medianFilter"), null, bundle.getString("menu_filter_medianFilter_desc"), null));
         actions.add(new GaussianFilterAction(bundle.getString("menu_filter_gaussianFilter"), null, bundle.getString("menu_filter_gaussianFilter_desc"), null));
-        actions.add(new BlockAverageAction( "Block Average", null, "Replaces blocks on a regular grid with the average pixel value within that region", null));
-        actions.add(new RandomScatteringAction( "menu_filter_randomScattering"/**bundle.getString("menu_filter_randomScattering")*/, null, "menu_filter_randomScattering_desc", null));
-        
-        actions.add(new EmbossFilterAction("Emboss Filter", null, "menu_filter_embossFilter_desc", null));
-        actions.add(new SobelFilterAction("Sobel Filter", null, "menu_filter_sobelFilter_desc", null));
+        actions.add(new BlockAverageAction( bundle.getString("menu_filter_blockAverage"), null, bundle.getString("menu_filter_blockAverage_desc"), null));
+        actions.add(new RandomScatteringAction( bundle.getString("menu_filter_randomScattering"), null, bundle.getString("menu_filter_randomScattering_desc"), null));
+        actions.add(new EmbossFilterAction(bundle.getString("menu_filter_embossFilter"), null, bundle.getString("menu_filter_embossFilter_desc"), null));
+        actions.add(new SobelFilterAction(bundle.getString("menu_filter_sobelFilter"), null, bundle.getString("menu_filter_sobelFilter_desc"), null));
     }
 
     /**
@@ -464,7 +463,7 @@ public class FilterActions {
 
             }
 
-            int option = JOptionPane.showOptionDialog(null, comboBox, "Select direction of embossment:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
+            int option = JOptionPane.showOptionDialog(null, comboBox, bundle.getString("menu_filter_embossFilter_selectDirection"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
 
             if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
 
@@ -614,9 +613,9 @@ public class FilterActions {
             JSpinner xSpinner = new JSpinner(xRadiusModel);
             JSpinner ySpinner = new JSpinner(yRadiusModel);
 
-            blockPanel.add(new JLabel("Select x value, 1px - 10px"));
+            blockPanel.add(new JLabel(bundle.getString("menu_filter_blockAverage_xSelect")));
             blockPanel.add(xSpinner);
-            blockPanel.add(new JLabel("Select y value, 1px - 10px"));
+            blockPanel.add(new JLabel(bundle.getString("menu_filter_blockAverage_ySelect")));
             blockPanel.add(ySpinner);
 
             int option = JOptionPane.showOptionDialog(
