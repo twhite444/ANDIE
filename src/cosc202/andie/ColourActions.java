@@ -338,7 +338,7 @@ public class ColourActions {
 
             sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
 
-            sliderPanel.add(new JLabel("Change brightness, -100% - 100%"));
+            sliderPanel.add(new JLabel(bundle.getString("menu_change_brightness")));
 
             JSlider brightnessSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
 
@@ -351,7 +351,7 @@ public class ColourActions {
 
             sliderPanel.add(brightnessSlider);
 
-            sliderPanel.add(new JLabel("Change contrast, -100% - 100%"));
+            sliderPanel.add(new JLabel(bundle.getString("menu_change_contrast")));
 
             JSlider contrastSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
 
@@ -364,7 +364,7 @@ public class ColourActions {
 
             sliderPanel.add(contrastSlider);
 
-            int option = JOptionPane.showOptionDialog(null, sliderPanel, "Enter amount -100 - 100", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ok", "Cancel"}, null);
+            int option = JOptionPane.showOptionDialog(null, sliderPanel, bundle.getString("menu_enter_amount"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ok", "Cancel"}, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
