@@ -251,8 +251,8 @@ public class DrawActions {
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
 
-            lineColor = JColorChooser.showDialog(null, "Pick a color of line", Color.black);
-            fillColor = JColorChooser.showDialog(null, "Pick a color of fill", Color.black);
+            lineColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_lineColor_desc"), Color.black);
+            fillColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_fillColor_desc"), Color.black);
 
 
         }
@@ -380,8 +380,8 @@ public class DrawActions {
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
 
-            lineColor = JColorChooser.showDialog(null, "Pick a color of line", Color.black);
-            fillColor = JColorChooser.showDialog(null, "Pick a color of fill", Color.black);
+            lineColor = JColorChooser.showDialog(null, bundle.getString(bundle.getString("menu_draw_lineColor_desc")), Color.black);
+            fillColor = JColorChooser.showDialog(null, bundle.getString(bundle.getString("menu_draw_fillColor_desc")), Color.black);
 
         }
 
@@ -511,7 +511,7 @@ public class DrawActions {
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
 
-            lineColor = JColorChooser.showDialog(null, "Pick a color of line", Color.black);
+            lineColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_lineColor_desc"), Color.black);
 
         }
 
