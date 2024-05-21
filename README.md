@@ -132,7 +132,60 @@ Language
 ### Language Menu: 
 **There are two language options**: English is set as the default, but selecting Russian and rerunning the file changes it to Russian.  
 
+## Keyboard shortcuts
+### File menu shortcuts:
+**Open**: `COMMAND` + `O`<br>
+**Save**: `COMMAND` + `S` <br>
+**Save As**: `COMMAND` + `SHIFT` + `S` <br>
+**Export**: `COMMAND` + `E` <br>
+**Exit**: `COMMAND` + `Q` <br>
 
+### Edit menu shortcuts:
+**Undo**: `COMMAND` + `Z` <br>
+**Redo**: `COMMAND` + `Y` <br>
+**Crop image**: <br>
 
+#### Macros submenu shortcuts:
+**Apply macro**: `COMMAND` + `1` <br>
+**Record macro**: `COMMAND` + `2` (shortcut only applies when macro is not being recorded) <br>
+**Stop recording**: `COMMAND` + `3` (shortcut only applies when macro is  being recorded) <br>
 
+### Draw menu shortcuts: 
+**Draw rectangle**: `CTRL` + `R` <br>
+**Draw oval**: `CTRL` + `O` <br>
+**Draw line**: `CTRL` + `L` <br>
+
+### View menu shortcuts:
+**Zoom in**: `COMMAND` + `+` <br>
+**Zoom out**: `COMMAND` + `-` <br>
+**Zoom full**: `COMMAND` + `0` <br>
+
+### Filter menu shortcuts:
+**Mean filter**: `CTRL` + `COMMAND` + `M` <br>
+**Soft blur filter out**: `CTRL` + `COMMAND` + `F` <br>
+**Sharpen filter**: `CTRL` + `COMMAND` + `S` <br>
+**Median filter**: `CTRL` + `COMMAND` + `A` <br>
+**Gaussian filter**: `CTRL` + `COMMAND` + `G` <br>
+**Block average filter**: `CTRL` + `COMMAND` + `B` <br>
+**Random scattering**: <br>
+**Emboss filter**: <br>
+**Sobel filter**: <br>
+
+### Filter menu shortcuts:
+**Greyscale**: `SHIFT` + `COMMAND` + `G` <br>
+**Image inversion**: `COMMAND` + `I` <br>
+**Greyscale**: `SHIFT` + `COMMAND` + `G` <br>
+**Cycle colours**: `CTRL` + `COMMAND` + `C` <br>
+**Change contrast and brightness**: `SHIFT` + `COMMAND` + `B` <br>
+
+### Transform menu shortcuts:
+**Resize to 50%**: `SHIFT` + `COMMAND` + `-` <br>
+**Resize to 150%**: `SHIFT` + `COMMAND` + `+` <br>
+#### Flip submenu shortcuts:
+**Flip vertical**: `COMMAND` + `[` <br>
+**Flip horizontal**: `COMMAND` + `]` <br>
+#### Rotate submenu shortcuts:
+**Rotate left**: `COMMAND` + `,` <br>
+**Rotate right**: `COMMAND` + `.` <br>
+**Rotate 180**: `COMMAND` + `/` <br>
 
