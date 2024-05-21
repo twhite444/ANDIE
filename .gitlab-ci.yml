@@ -73,7 +73,7 @@ deploy-job:      # This job runs in the deploy stage.
     - echo "Deploying application..."
     - echo "Application successfully deployed."
 
-pages:            # publish everything to the website and create a zip file of the documentation and jar
+pages:            # publish everything to the website and create a zip file containing the documentation and jar
   stage: deploy
   script:
     - apk add zip
