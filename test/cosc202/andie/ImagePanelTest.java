@@ -1,11 +1,9 @@
 package cosc202.andie;
 
-import java.beans.Transient;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import cosc202.andie.ImagePanel;
 
 public class ImagePanelTest {
     @Test 

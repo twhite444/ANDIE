@@ -2,12 +2,9 @@ package cosc202.andie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 
 //all values are calculated with using excel 
@@ -99,8 +96,62 @@ public class FiltersTest {
         expectedOutput.setRGB(0, 2, 1128481602);
         expectedOutput.setRGB(1, 2, 1886417008);
         expectedOutput.setRGB(2, 2, 0);
-        BufferedImage appliedInput = new SharpenFilter().apply(input);
 
+        // expectedOutput.setRGB(0, 0, -1);
+        // expectedOutput.setRGB(1, 0, -269488145);
+        // expectedOutput.setRGB(2, 0, 1128481603);
+        // expectedOutput.setRGB(0, 1, -1);
+        // expectedOutput.setRGB(1, 1, -269488145);
+        // expectedOutput.setRGB(2, 1, 1128481603);
+        // expectedOutput.setRGB(0, 2, -1);
+        // expectedOutput.setRGB(1, 2, -269488145);
+        // expectedOutput.setRGB(2, 2, 1128481603);
+        BufferedImage appliedInput = new SharpenFilter().apply(input);
+        // Compare output with output image
+        System.out.println("Input image: ");
+        for (int y = 0; y < input.getHeight(); y++) {
+            for (int x = 0; x < input.getWidth(); x++) {
+                // Get the RGB value of the pixel
+                int rgb = input.getRGB(x, y);
+                // Extract individual color components
+                int red = (rgb >> 16) & 0xFF;
+                int green = (rgb >> 8) & 0xFF;
+                int blue = rgb & 0xFF;
+                int alpha = (rgb >> 24) & 0xFF;
+                // Print the RGB values
+                System.out.println("Pixel at (" + x + "," + y + "): Red = " + red + ", Green = " + green + ", Blue = " + blue + ", Alpha = " + alpha);
+            }
+        }
+        // Compare output with output image
+        System.out.println("Output image: ");
+        for (int y = 0; y < appliedInput.getHeight(); y++) {
+            for (int x = 0; x < appliedInput.getWidth(); x++) {
+                // Get the RGB value of the pixel
+                int rgb = appliedInput.getRGB(x, y);
+                // Extract individual color components
+                int red = (rgb >> 16) & 0xFF;
+                int green = (rgb >> 8) & 0xFF;
+                int blue = rgb & 0xFF;
+                int alpha = (rgb >> 24) & 0xFF;
+                // Print the RGB values
+                System.out.println("Pixel at (" + x + "," + y + "): Red = " + red + ", Green = " + green + ", Blue = " + blue + ", Alpha = " + alpha);
+            }
+        }
+        // Compare output with expected output
+        System.out.println("Expected Output image: ");
+        for (int y = 0; y < expectedOutput.getHeight(); y++) {
+            for (int x = 0; x < expectedOutput.getWidth(); x++) {
+                // Get the RGB value of the pixel
+                int rgb = expectedOutput.getRGB(x, y);
+                // Extract individual color components
+                int red = (rgb >> 16) & 0xFF;
+                int green = (rgb >> 8) & 0xFF;
+                int blue = rgb & 0xFF;
+                int alpha = (rgb >> 24) & 0xFF;
+                // Print the RGB values
+                System.out.println("Pixel at (" + x + "," + y + "): Red = " + red + ", Green = " + green + ", Blue = " + blue + ", Alpha = " + alpha);
+            }
+        }
         assertImagesEqual(expectedOutput, appliedInput);
 
     }
@@ -159,7 +210,34 @@ public class FiltersTest {
         expectedOutput.setRGB(2, 2, 16843009);
 
         BufferedImage appliedInput = new GaussianFilter().apply(input);
-
+        // Compare output with output image
+        for (int y = 0; y < appliedInput.getHeight(); y++) {
+            for (int x = 0; x < appliedInput.getWidth(); x++) {
+                // Get the RGB value of the pixel
+                int rgb = appliedInput.getRGB(x, y);
+                // Extract individual color components
+                int red = (rgb >> 16) & 0xFF;
+                int green = (rgb >> 8) & 0xFF;
+                int blue = rgb & 0xFF;
+                int alpha = (rgb >> 24) & 0xFF;
+                // Print the RGB values
+                System.out.println("Pixel at (" + x + "," + y + "): Red = " + red + ", Green = " + green + ", Blue = " + blue + ", Alpha = " + alpha);
+            }
+        }
+        // Compare output with expected output
+        for (int y = 0; y < expectedOutput.getHeight(); y++) {
+            for (int x = 0; x < expectedOutput.getWidth(); x++) {
+                // Get the RGB value of the pixel
+                int rgb = expectedOutput.getRGB(x, y);
+                // Extract individual color components
+                int red = (rgb >> 16) & 0xFF;
+                int green = (rgb >> 8) & 0xFF;
+                int blue = rgb & 0xFF;
+                int alpha = (rgb >> 24) & 0xFF;
+                // Print the RGB values
+                System.out.println("Pixel at (" + x + "," + y + "): Red = " + red + ", Green = " + green + ", Blue = " + blue + ", Alpha = " + alpha);
+            }
+        }
         assertImagesEqual(expectedOutput, appliedInput);
 
     }

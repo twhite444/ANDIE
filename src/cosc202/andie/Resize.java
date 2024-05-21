@@ -17,8 +17,8 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public class Resize implements ImageOperation, java.io.Serializable {
-
-    private double scale; // Scaling factor: 0.5 for 50%, 1.5 for 150%
+    /** Scaling factor: 0.5 for 50%, 1.5 for 150% */
+    private double scale;
 
     /**
      * <p>

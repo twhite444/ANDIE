@@ -17,13 +17,19 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public class DrawRectangle implements ImageOperation, java.io.Serializable {
-
+    /** The starting X coordinate of the rectangle */
     int rectStartX;
+    /** The starting Y coordinate of the rectangle */
     int rectStartY;
+    /** The width of the rectangle */
     int rectWidth;
+    /** The height of the rectangle */
     int rectHeight;
+    /** The fill color of the rectangle */
     Color fillColor;
+    /** The color of the line of the rectangle */
     Color lineColor;
+    /** Flag indicating whether cropping is enabled */
     boolean  isCrop = false;
 
     /**

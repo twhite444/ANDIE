@@ -45,23 +45,37 @@ public class Toolbar {
     /** A list of action lists to go on right side of the toolbar. */
     protected ArrayList<ArrayList<Action>> rightActions;
 
+    //Lists of actions
+    /** List of action lists related to file operations. */
     protected ArrayList<Action> fileActionSection;
+    /** List of action lists related to editing operations. */
     protected ArrayList<Action> editActionSection;
+    /** List of action lists related to view operations. */
     protected ArrayList<Action> viewActionSection;
+    /** List of action lists related to image transformations. */
     protected ArrayList<Action> transformActionSection;
+    /** List of action lists related to color manipulation. */
     protected ArrayList<Action> colourActionSection;
 
+    //Actions
+    /** Actions related to file operations. */
     protected FileActions fileActions;
+    /** Actions related to editing operations. */
     protected EditActions editActions;
+    /** Actions related to view operations. */
     protected ViewActions viewActions;
+    /** Actions related to image transformations. */
     protected TransformationActions transformActions;
+    /** Actions related to color manipulation. */
     protected ColourActions colourActions;
 
+    /** The location of icons used in the toolbar. */
     protected String iconLocation = "/cosc202/andie/images/";
 
     //needed for languages:
     private static ResourceBundle bundle;
     
+    /** Constructs a new Toolbar object. */
     public Toolbar(){
         //needed for multilingual support:
         bundle = Andie.LanguageSettings.getMessageBundle();

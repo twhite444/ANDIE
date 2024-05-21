@@ -17,12 +17,17 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public class DrawOval implements ImageOperation, java.io.Serializable {
-
+    /** The starting X coordinate of the oval */
     int ovalStartX;
+    /** The starting Y coordinate of the oval */
     int ovalStartY;
+    /** The width of the oval */
     int ovalWidth;
+    /** The height of the oval */
     int ovalHeight;
+    /** The fill color of the oval */
     Color fillColor;
+    /** The color of the line of the oval */
     Color lineColor;
 
     /**

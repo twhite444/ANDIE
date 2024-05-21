@@ -20,7 +20,7 @@ import java.awt.image.*;
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
- * @author Steven Mills
+ * @author Yusei
  * @version 1.0
  */
 public class MeanFilter implements ImageOperation, java.io.Serializable {
@@ -82,77 +82,33 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
-        int height = input.getHeight();
-        int width = input.getWidth();
-        int size = (2 * radius + 1) * (2 * radius + 1);
-        BufferedImage outputImage= new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        int argb =0;
-        for (int y = 0; y < height; ++y) {
-            for (int x = 0; x < width; ++x) {
-                // Kernel
-                int i = 0;
-                int[] a = new int[size];
-                int[] r = new int[size];
-                int[] g = new int[size];
-                int[] b = new int[size];
-                for (int dy = -radius; dy <= radius; ++dy) {
-                    int moveY = y + dy;
-                    for (int dx = -radius; dx <= radius; ++dx) {
-                        int moveX = x + dx;
+        int width  = 2*radius+1;
+        int height = 2*radius+1;
+        int size = (width) * (height);
+        float[] kernel = createKernel(size);
+        BufferedImage output = Convolution.convolve(input, kernel, width, height, false);
 
-                        if (moveY >= 0 && moveY < input.getHeight() && moveX >= 0 && moveX < input.getWidth()) {
-                            argb = input.getRGB(moveX, moveY);
-                            a[i] = (argb & 0xFF000000) >>> 24;
-                            r[i] = (argb & 0x00FF0000) >> 16;
-                            g[i] = (argb & 0x0000FF00) >> 8;
-                            b[i] = (argb & 0x000000FF);
-                        } else {
-                            int tempX=moveX;
-                            int tempY=moveY;
-                            if(moveX<0){
-                                tempX=0;
-                            }
-                            if(moveY<0){
-                                tempY=0;
-                            }
-                            if(moveX>=input.getWidth()){                               
-                                tempX = input.getWidth()-1;
-                            }
-                            if(moveY>=input.getHeight()){
-                                tempY = input.getHeight()-1;
-                            }
-                            argb = input.getRGB(tempX, tempY);
-                            
-                            a[i] = (argb & 0xFF000000) >>> 24;
-                            r[i] = (argb & 0x00FF0000) >> 16;
-                            g[i] = (argb & 0x0000FF00) >> 8;
-                            b[i] = (argb & 0x000000FF);
-                        }
-                        i++;
-                        
-                    }
-                }
-                
-                argb = (meanValue(a, size)<<24)| (meanValue(r, size)<<16)|(meanValue(g, size)<<8)|meanValue(b, size);
-               
-                outputImage.setRGB(x, y, argb);
-            }
-
-            
-        }
-        
-        return outputImage;
+        return output;
     }
 
 
-    private int meanValue(int[] m, int size){
-        int total = 0;
-         
-        for(int i = 0;i<m.length;i++){
-            total+= m[i];
+    
+
+    /**
+     * Create a kernel of the given size, filled with 1's divided by the size of the kernel.
+     * 
+     * @param size The size of the kernel.
+     * @return The created kernel.
+     */
+    private float[] createKernel(int size) {
+        float[] kernel = new float[size];
+        float value = 1.0f / size;
+
+        for (int i = 0; i < size; i++) {
+            kernel[i] = value;
         }
 
-        return total/size;//  mean value 
+        return kernel;
     }
 
 }

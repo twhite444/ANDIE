@@ -4,7 +4,6 @@ import java.util.*;
 import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Image;
 
 import javax.swing.*;
 
@@ -61,9 +60,6 @@ public class EditActions {
         actions.add(new DrawRectangleAction(bundle.getString("menu_edit_drawRectangle"), null, bundle.getString("menu_edit_drawRectangle_desc"), null));
         actions.add(new DrawOvalAction(bundle.getString("menu_edit_drawOval"), null, bundle.getString("menu_edit_drawOval_desc"), null));
         actions.add(new DrawLineAction("Draw Line", null, "Click and drag to draw line", null));
-
-
-    
         
     }
 
@@ -208,9 +204,13 @@ public class EditActions {
      */
     public class CropAction extends ImageAction implements MouseListener, MouseMotionListener {
 
+        /** The starting X coordinate of the crop area */
         int cropStartX = 0;
+        /** The starting Y coordinate of the crop area */
         int cropStartY = 0;
+        /** The width of the cropped area */
         int cropWidth = 1;
+        /** The height of the cropped area */
         int cropHeight = 1;
 
         /**
@@ -253,13 +253,11 @@ public class EditActions {
         @Override
         public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
 
-            //System.out.println("clicky");
-
-            cropStartX = click.getX(); 
-            cropStartY = click.getY();
+            cropStartX = (int)(click.getX() * 1 / (target.getZoom() / 100)); // accounts for the zoom of the image to find the clicked position 
+            cropStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
             // draw a rectangle, this acts as the selection box
-            target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - Math.max(click.getX(), 0)), Math.abs(cropStartY - Math.max(click.getY(), 0)),true));
+            target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - Math.max(cropStartX, 0)), Math.abs(cropStartY - Math.max(cropStartY, 0)),true));
             target.repaint();
             target.getParent().revalidate();
 
@@ -268,7 +266,8 @@ public class EditActions {
         @Override
         public void mouseReleased(MouseEvent unclick) {
 
-            //System.out.println("un-clicky");
+            int cropEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
+            int cropEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
             // remove the selection box
             target.getImage().undoNoRedo();
@@ -278,11 +277,11 @@ public class EditActions {
 
             target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
 
-            cropWidth = Math.abs(cropStartX - Math.max(unclick.getX(), 0)); // gets the distance x & y between the click and the unclick
-            cropHeight = Math.abs(cropStartY - Math.max(unclick.getY(), 0));
+            cropWidth = Math.abs(cropStartX - Math.max(cropEndX, 0)); // gets the distance x & y between the click and the unclick
+            cropHeight = Math.abs(cropStartY - Math.max(cropEndY, 0));
 
-            cropStartX = Math.min(cropStartX, unclick.getX()); // gets the most top left x, y corner of the selected rectangle
-            cropStartY = Math.min(cropStartY, unclick.getY());
+            cropStartX = Math.min(cropStartX, cropEndX); // gets the most top left x, y corner of the selected rectangle
+            cropStartY = Math.min(cropStartY, cropEndY);
 
             target.getImage().apply(new Crop(cropStartX, cropStartY, cropWidth, cropHeight));
             target.repaint();
@@ -299,11 +298,11 @@ public class EditActions {
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
-            int initialX = Math.min(Math.max(cropStartX, 0), target.getImage().getCurrentImage().getWidth());  // start point of the selection, clamped inside the image
-            int initialY = Math.min(Math.max(cropStartY, 0), target.getImage().getCurrentImage().getHeight());
+            int currentX = Math.min(Math.max((int)(drag.getX() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getWidth()); // the position of the mouse, clamped to inside the image
+            int currentY = Math.min(Math.max((int)(drag.getY() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getHeight());
 
-            int currentX = Math.min(Math.max(drag.getX(), 0), target.getImage().getCurrentImage().getWidth()); // the position of the mouse, clamped to inside the image
-            int currentY = Math.min(Math.max(drag.getY(), 0), target.getImage().getCurrentImage().getHeight());
+            int initialX = Math.min(Math.max(cropStartX, 0), (target.getImage().getCurrentImage().getWidth()));  // start point of the selection, clamped inside the image
+            int initialY = Math.min(Math.max(cropStartY, 0), (target.getImage().getCurrentImage().getHeight()));
 
             int topLeftX  = Math.min(initialX, currentX); // the top left corner of the selection x & y
             int topLeftY = Math.min(initialY, currentY);
@@ -315,11 +314,16 @@ public class EditActions {
 
             target.getImage().undoNoRedo(); // remove the preivious selection box and draw a new one
             target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
+
             target.repaint();
             target.getParent().revalidate();
-            
+
             // draws the blueish selection box
-            target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
+            if (width > 1 && height > 1) { // makes the selection box only show up if there is some area to highlight, conviently this also stops it from trying to highlight things when the entire elected area is outside the image
+
+                target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
+
+            }
 
         }
 
@@ -346,11 +350,17 @@ public class EditActions {
      */
     public class DrawRectangleAction extends ImageAction implements MouseListener, MouseMotionListener {
 
+        /** The starting X coordinate of the rectangle. */
         int rectStartX = 0;
+        /** The starting Y coordinate of the rectangle. */
         int rectStartY = 0;
+        /** The width of the rectangle. */
         int rectWidth = 1;
+        /** The height of the rectangle. */
         int rectHeight = 1;
+        /** The color of the line of the rectangle. */
         Color lineColor = Color.black;
+        /** The fill color of the rectangle. */
         Color fillColor = Color.black;
 
         /**
@@ -387,7 +397,7 @@ public class EditActions {
             target.addMouseMotionListener(this);
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
-            //JColorChooser colorChooser = new JColorChooser();
+
             lineColor = JColorChooser.showDialog(null, "Pick a color of line", Color.black);
             fillColor = JColorChooser.showDialog(null, "Pick a color of fill", Color.black);
 
@@ -397,13 +407,11 @@ public class EditActions {
         @Override
         public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
 
-            //System.out.println("clicky");
-
-            rectStartX = click.getX(); 
-            rectStartY = click.getY();
+            rectStartX = (int)(click.getX() * 1 / (target.getZoom() / 100)); 
+            rectStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
             // draw a rectangle, this acts as the selection box
-            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - Math.max(click.getX(), 0)), Math.abs(rectStartY - Math.max(click.getY(), 0)),lineColor, fillColor));
+            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - Math.max(rectStartX, 0)), Math.abs(rectStartY - Math.max(rectStartY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
 
@@ -412,7 +420,8 @@ public class EditActions {
         @Override
         public void mouseReleased(MouseEvent unclick) { // when the mouse is released
 
-            //System.out.println("un-clicky");
+            int rectEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
+            int rectEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
             // remove the selection box
             target.getImage().undoNoRedo();
@@ -422,13 +431,13 @@ public class EditActions {
 
             target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
 
-            rectWidth = Math.abs(rectStartX - Math.max(unclick.getX(), 0)); // gets the distance x & y between the click and the unclick, clamping for left and up
-            rectHeight = Math.abs(rectStartY - Math.max(unclick.getY(), 0));
+            rectWidth = Math.abs(rectStartX - Math.max(rectEndX, 0)); // gets the distance x & y between the click and the unclick, clamping for left and up
+            rectHeight = Math.abs(rectStartY - Math.max(rectEndY, 0));
 
-            rectStartX = Math.min(rectStartX, unclick.getX()); // gets the most top left x, y corner of the selected rectangle
-            rectStartY = Math.min(rectStartY, unclick.getY());
+            rectStartX = Math.min(rectStartX, rectEndX); // gets the most top left x, y corner of the selected rectangle
+            rectStartY = Math.min(rectStartY, rectEndY);
 
-            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, rectWidth, rectHeight,lineColor, fillColor)); // draw the final rectangle
+            target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, rectWidth, rectHeight, lineColor, fillColor)); // draw the final rectangle
             target.repaint();
             target.getParent().revalidate();
 
@@ -437,8 +446,13 @@ public class EditActions {
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
+
+            int rectEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100)); 
+            int rectEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
+
             target.getImage().undoNoRedo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(Math.min(rectStartX, drag.getX()), Math.min(rectStartY, drag.getY()), Math.abs(rectStartX - Math.max(drag.getX(), 0)), Math.abs(rectStartY - Math.max(drag.getY(), 0)),lineColor, fillColor));
+            target.getImage().apply(new DrawRectangle(Math.min(rectStartX, rectEndX), Math.min(rectStartY, rectEndY), Math.abs(rectStartX - Math.max(rectEndX, 0)), Math.abs(rectStartY - Math.max(rectEndY, 0)), lineColor, fillColor));
+
             target.repaint();
             target.getParent().revalidate();
 
@@ -467,11 +481,17 @@ public class EditActions {
      */
     public class DrawOvalAction extends ImageAction implements MouseListener, MouseMotionListener {
 
+        /** The starting X coordinate of the oval. */
         int ovalStartX = 0;
+        /** The starting Y coordinate of the oval. */
         int ovalStartY = 0;
+        /** The width of the oval. */
         int ovalWidth = 1;
+        /** The height of the oval. */
         int ovalHeight = 1;
+        /** The color of the line of the oval. */
         Color lineColor = Color.black;
+        /** The fill color of the oval. */
         Color fillColor = Color.black;
 
         /**
@@ -508,7 +528,7 @@ public class EditActions {
             target.addMouseMotionListener(this);
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
-            //JColorChooser colorChooser = new JColorChooser();
+
             lineColor = JColorChooser.showDialog(null, "Pick a color of line", Color.black);
             fillColor = JColorChooser.showDialog(null, "Pick a color of fill", Color.black);
 
@@ -519,12 +539,12 @@ public class EditActions {
 
             //System.out.println("clicky");
            
-            ovalStartX = click.getX(); 
-            ovalStartY = click.getY();
+            ovalStartX = (int)(click.getX() * 1 / (target.getZoom() / 100));
+            ovalStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
 
             // draw an oval, this acts as the preview of where the oval will be drawn
-            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, Math.abs(ovalStartX - Math.max(click.getX(), 0)), Math.abs(ovalStartY - Math.max(click.getY(), 0)),lineColor, fillColor));
+            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, Math.abs(ovalStartX - Math.max(ovalStartX, 0)), Math.abs(ovalStartY - Math.max(ovalStartY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
 
@@ -533,7 +553,8 @@ public class EditActions {
         @Override
         public void mouseReleased(MouseEvent unclick) { // when the mouse is released
 
-            //System.out.println("un-clicky");
+            int ovalEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
+            int ovalEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
             // remove the preview oval
             target.getImage().undoNoRedo();
@@ -543,13 +564,13 @@ public class EditActions {
 
             target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
 
-            ovalWidth = Math.abs(ovalStartX - Math.max(unclick.getX(), 0)); // gets the distance x & y between the click and the unclick, clamping for left and up
-            ovalHeight = Math.abs(ovalStartY - Math.max(unclick.getY(), 0));
+            ovalWidth = Math.abs(ovalStartX - Math.max(ovalEndX, 0)); // gets the distance x & y between the click and the unclick, clamping for left and up
+            ovalHeight = Math.abs(ovalStartY - Math.max(ovalEndY, 0));
 
-            ovalStartX = Math.min(ovalStartX, unclick.getX()); // gets the most top left x, y corner of the selected area
-            ovalStartY = Math.min(ovalStartY, unclick.getY());
+            ovalStartX = Math.min(ovalStartX, ovalEndX); // gets the most top left x, y corner of the selected area
+            ovalStartY = Math.min(ovalStartY, ovalEndY);
 
-            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight,lineColor, fillColor)); // draw the final oval
+            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight, lineColor, fillColor)); // draw the final oval
             target.repaint();
             target.getParent().revalidate();
 
@@ -558,8 +579,13 @@ public class EditActions {
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
+            int ovalEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100));
+            int ovalEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
+
+            //System.out.println(drag.getX() + ", " + (int)(drag.getX() * 1 / (target.getZoom() / 100)));
+
             target.getImage().undoNoRedo(); // remove the preivious previwe oval and draw a new one
-            target.getImage().apply(new DrawOval(Math.min(ovalStartX, drag.getX()), Math.min(ovalStartY, drag.getY()), Math.abs(ovalStartX - Math.max(drag.getX(), 0)), Math.abs(ovalStartY - Math.max(drag.getY(), 0)),lineColor, fillColor));
+            target.getImage().apply(new DrawOval(Math.min(ovalStartX, ovalEndX), Math.min(ovalStartY, ovalEndY), Math.abs(ovalStartX - Math.max(ovalEndX, 0)), Math.abs(ovalStartY - Math.max(ovalEndY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
 
@@ -588,10 +614,15 @@ public class EditActions {
      */
     public class DrawLineAction extends ImageAction implements MouseListener, MouseMotionListener {
 
+        /** The starting X coordinate of the line. */
         int lineStartX = 0;
+        /** The starting Y coordinate of the line. */
         int lineStartY = 0;
+        /** The ending X coordinate of the line. */
         int lineEndX = 1;
+        /** The ending Y coordinate of the line. */
         int lineEndY = 1;
+        /** The color of the line. */
         Color lineColor = Color.black;
 
         /**
@@ -628,7 +659,7 @@ public class EditActions {
             target.addMouseMotionListener(this);
 
             target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
-            //JColorChooser colorChooser = new JColorChooser();
+
             lineColor = JColorChooser.showDialog(null, "Pick a color of line", Color.black);
 
         }
@@ -636,13 +667,11 @@ public class EditActions {
         @Override
         public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
 
-            //System.out.println("clicky");
-
-            lineStartX = click.getX(); 
-            lineStartY = click.getY();
+            lineStartX = (int)(click.getX() * 1 / (target.getZoom() / 100));
+            lineStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
             // draw a line, this acts as a preview of where the line will be drawn
-            target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineStartX, lineStartY,  lineColor));
+            target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineStartX, lineStartY, lineColor));
             target.repaint();
             target.getParent().revalidate();
 
@@ -651,7 +680,8 @@ public class EditActions {
         @Override
         public void mouseReleased(MouseEvent unclick) { // when the mouse is released
 
-            //System.out.println("un-clicky");
+            lineEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
+            lineEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
             // remove the preview line
             target.getImage().undoNoRedo();
@@ -661,10 +691,7 @@ public class EditActions {
 
             target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
 
-            lineEndX = unclick.getX();
-            lineEndY = unclick.getY();
-
-            target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineEndX, lineEndY,lineColor)); // draw the final line
+            target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineEndX, lineEndY, lineColor)); // draw the final line
             target.repaint();
             target.getParent().revalidate();
 
@@ -673,8 +700,12 @@ public class EditActions {
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
 
+
+            lineEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100));
+            lineEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
+
             target.getImage().undoNoRedo(); // remove the preivious preview line and draw a new one
-            target.getImage().apply(new DrawLine(lineStartX, lineStartY, drag.getX(), drag.getY(),lineColor));
+            target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineEndX, lineEndY, lineColor));
             target.repaint();
             target.getParent().revalidate();
 

@@ -114,7 +114,7 @@ public class Convolution {
         double[][][] imageArray= new double[4][height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                Color color = new Color(input.getRGB(j, i));
+                Color color = new Color(input.getRGB(j, i),true);
                 imageArray[0][i][j] = color.getRed();
                 imageArray[1][i][j] = color.getGreen();
                 imageArray[2][i][j] = color.getBlue();

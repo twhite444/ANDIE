@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cosc202.andie.Crop;
 
 public class DrawTest {
     private BufferedImage sampleInputImage;

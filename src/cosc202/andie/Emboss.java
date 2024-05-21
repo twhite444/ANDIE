@@ -11,13 +11,13 @@ import java.awt.image.*;
  * @author Tommo White
  */
 public class Emboss  implements ImageOperation, java.io.Serializable {
-
-    private String direction; // Direction of emboss effect: "1" to "8"
+    /** Direction of emboss effect filter*/
+    private String direction; 
 
     /**
      * Create a new Emboss operation with the specified direction.
      * 
-     * @param direction The direction of the emboss effect ("1" to "8").
+     * @param direction The direction of the emboss effect.
      */
     Emboss(String direction) {
         this.direction = direction;
