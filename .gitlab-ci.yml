@@ -19,6 +19,7 @@
 stages:          # List of stages for jobs, and their order of execution
   - build
   - test
+  - package
   - deploy
 
 build-job:       # This job runs in the build stage, which runs first.
@@ -27,42 +28,67 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Compiling the code..."
     - echo "Compile complete."
 
-unit-test-job:   # This job runs in the test stage.
+build-javadoc:  # creates the documentation from javadoc comments
+  stage: build
+  script:
+    - echo 'Attempting to generate JavaDoc documentation...'
+    - gradle -Dorg.gradle.welcome=never --no-daemon javadoc
+    - echo 'Done.'
+  artifacts:
+    paths:
+      - build/docs
+
+compile-code: # complies the code into a set of class files
+  stage: build
+  script:
+    - echo 'Attempting to compile the code...'
+    - gradle -Dorg.gradle.welcome=never --no-daemon compileJava
+    - echo 'Done.'
+  artifacts:
+    paths:
+      - build
+
+unit-test-job:   # This job runs the gradle tests
   tags:
    - docker
-  image: gradle:8-jdk17-alpine
+  image: eclipse-temurin:17
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
     - echo "Running unit tests..."
     - gradle --no-daemon test
 
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
+lint-test-job:   # This job doesnt do anyhting yet
+  stage: test    
   script:
     - echo "Linting code... This doesnt do anything yet"
 
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  environment: production
+create-jar:     # packages the class files made in compile-code into a single jar file
+  stage: package
   script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
-
-pages: # publish Javadoc website
-  tags:
-    - docker
-  image: eclipse-temurin:17
-  stage: build
-  script:
-    - javadoc -d docs src/cosc202/andie/*.java
-    - mkdir public
-    - echo 'test' >public/test.txt
-    - mv docs public/
-    - ls -R public | head
-    - echo 'first ten public/ files listed'
+    - echo 'Attempting to create JAR file...'
+    - gradle -Dorg.gradle.welcome=never --no-daemon jar
+    - tree
+    - echo 'Done.'
   artifacts:
     paths:
-    - public
-  only:
-  - main
+      - build/libs/andie.jar
 
+pages:
+  stage: deploy
+  script:
+    - mkdir public
+    - echo "testing 123" > public/test.txt    # empty test file
+    - cp -r build/docs/javadoc/ public/docs/
+    - cp build/libs/andie.jar public/
+    - cp ci-site-index.html public/index.html
+    - cd public
+    - zip -r ANDIE.zip andie.jar docs/
+    - cd ..
+    - trap '' PIPE # suppress the occasional weird exit code when using pipes
+    - find public | head
+    - echo 'Diagnostic output - first ten public/ files listed'
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
