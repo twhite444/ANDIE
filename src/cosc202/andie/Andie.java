@@ -80,6 +80,9 @@ public class Andie {
         EditActions editActions = new EditActions();
         menuBar.add(editActions.createMenu());
 
+        DrawActions drawActions = new DrawActions();
+        menuBar.add(drawActions.createMenu());
+
         // View actions control how the image is displayed, but do not alter its actual
         // content
         ViewActions viewActions = new ViewActions();
