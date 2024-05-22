@@ -106,6 +106,16 @@ public class FilterActions {
         //Block average
         filterMenu.getItem(5).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        //
+        filterMenu.getItem(6).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_R, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        //
+        filterMenu.getItem(7).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_E, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        //
+        filterMenu.getItem(8).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_O, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+
     }
 
     /**

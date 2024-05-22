@@ -53,7 +53,7 @@ public class TransformationActions {
 
         actions.add(new Resize50Action(bundle.getString("menu_transform_resize50"), null, bundle.getString("menu_transform_resize_desc"), null));
         actions.add(new Resize150Action(bundle.getString("menu_transform_resize150"), null, bundle.getString("menu_transform_resize_desc"), null));
-        actions.add(new CropAction(bundle.getString("menu_edit_crop_image"), null, bundle.getString("menu_edit_crop_image_desc"), null));
+        actions.add(new CropAction(bundle.getString("menu_transform_crop_image"), null, bundle.getString("menu_transform_crop_image_desc"), null));
 
     }
 
@@ -116,6 +116,14 @@ public class TransformationActions {
         //rotate 180
         rotationsMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_SLASH, ActionEvent.META_MASK));
+        //Crop
+        transformMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_C, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
+        
+
+       
+            
+        
     }
 
     /**
