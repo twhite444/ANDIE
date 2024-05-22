@@ -37,7 +37,6 @@ Uploaded an image to the program and compared the results of running the functio
 Built Gradle and created JUnit Testing for all filters except random scattering. Continuous integration has been implemented through the pipeline for JUnit Testing.
 
 
-
 ## A list of any known issues or bugs.
 For filter methods (Guassian, Mean, Median), applying a filter with a radius greater than 10 will not work. It doesn’t crash the program. For any value greater than 10 it currently chooses a radius of 1. (potentially could use ListView instead of spinner or throw an exception)  
 
@@ -123,6 +122,7 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 
 ### Language Menu: 
 **There are two language options**: English is set as the default language, but selecting Russian and reopening the program will change it to Russian.  
+
 
 ## Keyboard shortcuts
 ### File menu shortcuts:

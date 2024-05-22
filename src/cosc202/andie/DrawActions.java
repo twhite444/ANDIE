@@ -56,7 +56,7 @@ public class DrawActions {
         actions.add(new DrawRectangleAction(bundle.getString("menu_draw_drawRectangle"), null, bundle.getString("menu_draw_drawRectangle_desc"), null));
         actions.add(new DrawOvalAction(bundle.getString("menu_draw_drawOval"), null, bundle.getString("menu_draw_drawOval_desc"), null));
         actions.add(new DrawLineAction(bundle.getString("menu_draw_drawline"), null,  bundle.getString("menu_draw_drawline_desc"), null));
-        
+
     }
 
     /**
@@ -195,11 +195,7 @@ public class DrawActions {
         }
     }
 
-   
-  
-
-        
- /* 
+    /* 
      * <p>
      * Action to draw a rectangle on an image.
      * </p>
@@ -594,5 +590,5 @@ public class DrawActions {
         public void mouseExited(MouseEvent arg0) {}
 
     }
-    
+
 }
