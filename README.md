@@ -14,11 +14,11 @@ Image resize - Tommo
 Image rotations - Tommo  
 Image flip - Yusei  
 Image export - Charlotte  
-Junit Testing and Gradle build (testing for rotations and flips) - Tommo  
+Junit Testing and Gradle build  - Tommo / Liam / Yusei / Charlotte
 Keyboard shortcuts - Charlotte
 Language Actions Menu - Charlotte 
-Macros - charlotte
-Median Filter - Cushla, Liam, (Yusei wrote his own version of the code)  
+Macros - Charlotte
+Median Filter - Cushla, Liam, Yusei
 Multi-Language support - Charlotte 
 Random scattering - Yusei
 Sharpen Filter - Yusei / Tommo
