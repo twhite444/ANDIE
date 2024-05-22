@@ -2,6 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.*;
 
 import javax.swing.*;
 
@@ -136,7 +137,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            if (target.getImageDangerous().hasImage() && target.getImageDangerous().imageHasBeenEdited()) { // checks if an image is open and has been edited
+            if (target.getImage().hasImage() && target.getImage().imageHasBeenEdited()) { // checks if an image is open and has been edited
 
                 int option = JOptionPane.showOptionDialog(null, bundle.getString("error_message_OPEN_NEW_IMAGE"),
                 bundle.getString("message_OPEN"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -157,20 +158,30 @@ public class FileActions {
                 try {
 
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImageDangerous().open(imageFilepath);
+                    target.getImage().open(imageFilepath);
 
                 } catch (NullPointerException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            (bundle.getString("error_message_NULL_FILE_TYPE_WRONG") + ex.getMessage()), bundle.getString("error_message_ERROR")                            ,
+                            (bundle.getString("error_message_NULL_file_not_found") + ex.getMessage()), bundle.getString("error_message_ERROR")                            ,
                             JOptionPane.ERROR_MESSAGE);
+                
+                        } catch (IllegalArgumentException ex) {
+
+                    JOptionPane.showMessageDialog(null, (bundle.getString("error_message_ILLEGAL_ARGUMENT_file_type_unsupported") + ex.getMessage()),
+                            bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+                
+                } catch (FileNotFoundException ex) {
+
+                    JOptionPane.showMessageDialog(null, ("Error: File could not be found\nDetails:" + ex.getMessage()),
+                            bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
                 } catch (Exception ex) {
 
-                    JOptionPane.showMessageDialog(null, (bundle.getString("error_message_UNSPECIFIED") + ex.getMessage()) + "\n" + ex,
-                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, (bundle.getString("error_message_UNSPECIFIED_OPEN") + ex.getMessage()),
+                            bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
-                }
+                } 
             }
 
             target.repaint();
@@ -218,19 +229,22 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
 
             try {
-
-                target.getImageDangerous().save();
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_SAVE_no_image_open"));
+                }
+      
+                target.getImage().save();
 
             } catch (NullPointerException ex) {
 
                 JOptionPane.showMessageDialog(null,
-                        (bundle.getString("error_message_NULL_FILE_TYPE_WRONG") + ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        (bundle.getString("error_message_NULL_file_not_found") + ex.getMessage()), bundle.getString("error_message_ERROR"),
                         JOptionPane.ERROR_MESSAGE);
 
             } catch (IllegalArgumentException ex) {
 
                 JOptionPane.showMessageDialog(null,
-                        (bundle.getString("error_message_ILLEGAL_ARGUMENT")
+                        (bundle.getString("error_message_ILLEGAL_ARGUMENT_file_type_unsupported")
                                 + ex.getMessage()),
                                 bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
@@ -286,18 +300,18 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImageDangerous().exportAs(imageFilepath);
+                    target.getImage().exportAs(imageFilepath);
 
                 } catch (NullPointerException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            (bundle.getString("error_message_NULL_FILE_TYPE_WRONG") + ex.getMessage()), bundle.getString("error_message_ERROR"),
+                            (bundle.getString("error_message_NULL_file_not_found") + ex.getMessage()), bundle.getString("error_message_ERROR"),
                             JOptionPane.ERROR_MESSAGE);
 
                 } catch (IllegalArgumentException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            (bundle.getString("error_message_ILLEGAL_ARGUMENT")
+                            (bundle.getString("error_message_ILLEGAL_ARGUMENT_file_type_unsupported")
                                     + ex.getMessage()),
                                     bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
@@ -355,18 +369,18 @@ public class FileActions {
                 try {
 
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImageDangerous().saveAs(imageFilepath);
+                    target.getImage().saveAs(imageFilepath);
 
                 } catch (NullPointerException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            (bundle.getString("error_message_NULL_FILE_TYPE_WRONG") + ex.getMessage()), bundle.getString("error_message_ERROR"),
+                            (bundle.getString("error_message_NULL_file_not_found") + ex.getMessage()), bundle.getString("error_message_ERROR"),
                             JOptionPane.ERROR_MESSAGE);
 
                 } catch (IllegalArgumentException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            (bundle.getString("error_message_ILLEGAL_ARGUMENT")
+                            (bundle.getString("error_message_ILLEGAL_ARGUMENT_file_type_unsupported")
                                     + ex.getMessage()),
                                     bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 

@@ -108,7 +108,7 @@ public class MacroActions{
         public void actionPerformed(ActionEvent e) {
 
             try {
-                if (!target.getImageDangerous().hasImage()) {
+                if (!target.getImage().hasImage()) {
                     throw new NullPointerException(bundle.getString("error_message_menu_macro_errorApplyNoImage"));
                 }
                 
@@ -190,7 +190,7 @@ public class MacroActions{
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                if (!target.getImageDangerous().hasImage()) {
+                if (!target.getImage().hasImage()) {
                     throw new NullPointerException(bundle.getString("error_message_menu_macro_errorApplyNoImage"));
                 }
                 macrosMenu.getItem(1).setVisible(false); //Once recording, option to record disappears
@@ -259,7 +259,7 @@ public class MacroActions{
                 
 
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImageDangerous().saveMacro(imageFilepath);
+                    target.getImage().saveMacro(imageFilepath);
                     macrosMenu.getItem(2).setVisible(false); //Once saved, option to end recording disappears
                     macrosMenu.getItem(1).setVisible(true); // Option to start recording then reappears
                 }

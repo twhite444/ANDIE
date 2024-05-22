@@ -80,15 +80,16 @@ public class DrawActions {
 
     /** Sets the keyboard shortcuts for filterMenu */
     private void setShortcuts(){
-        //Rectanble
+        //Rectangle
         editMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_R, ActionEvent.CTRL_MASK)); 
         
         //Oval
         editMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_O, ActionEvent.CTRL_MASK)); 
-         //Line
-         editMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+        
+        //Line
+        editMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
             KeyEvent.VK_L, ActionEvent.CTRL_MASK)); 
     }
 
@@ -130,7 +131,9 @@ public class DrawActions {
         public void actionPerformed(ActionEvent e) {
 
             try {
-
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 target.getImage().undo();
                 target.repaint();
                 target.getParent().revalidate();
@@ -179,7 +182,9 @@ public class DrawActions {
         public void actionPerformed(ActionEvent e) {
 
             try {
-
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 target.getImage().redo();
                 target.repaint();
                 target.getParent().revalidate();
@@ -245,15 +250,20 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                target.addMouseListener(this);
+                target.addMouseMotionListener(this);
 
-            target.addMouseListener(this);
-            target.addMouseMotionListener(this);
+                target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
 
-            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
-
-            lineColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_lineColor_desc"), Color.black);
-            fillColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_fillColor_desc"), Color.black);
-
+                lineColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_lineColor_desc"), Color.black);
+                fillColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_fillColor_desc"), Color.black);
+            } catch(Exception ex){
+            
+            }
 
         }
 
@@ -374,15 +384,20 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                target.addMouseListener(this);
+                target.addMouseMotionListener(this);
 
-            target.addMouseListener(this);
-            target.addMouseMotionListener(this);
+                target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
 
-            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
-
-            lineColor = JColorChooser.showDialog(null, bundle.getString(bundle.getString("menu_draw_lineColor_desc")), Color.black);
-            fillColor = JColorChooser.showDialog(null, bundle.getString(bundle.getString("menu_draw_fillColor_desc")), Color.black);
-
+                lineColor = JColorChooser.showDialog(null, bundle.getString(bundle.getString("menu_draw_lineColor_desc")), Color.black);
+                fillColor = JColorChooser.showDialog(null, bundle.getString(bundle.getString("menu_draw_fillColor_desc")), Color.black);
+            } catch(Exception ex){
+                
+            }
         }
 
         @Override
@@ -505,14 +520,19 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                target.addMouseListener(this);
+                target.addMouseMotionListener(this);
 
-            target.addMouseListener(this);
-            target.addMouseMotionListener(this);
+                target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
 
-            target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
-
-            lineColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_lineColor_desc"), Color.black);
-
+                lineColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_lineColor_desc"), Color.black);
+            } catch(Exception ex){
+                    
+            }
         }
 
         @Override
