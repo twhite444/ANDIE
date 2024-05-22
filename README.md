@@ -31,7 +31,7 @@ User Guide - Cushla, Tommo (modified by everyone)
 ## How our code was tested (in general, not a multi-page exhaustive list).
 Uploaded an image to the program and compared the results of running the functions to the correct outcome that was in the lab book. All actions correctly manipulated the image, so we tested a couple of images and no unexpected outcomes came about. 
 
-Built Gradle and created JUnit Testing for most filters.
+Built Gradle and created JUnit Testing for all filters except random scattering. Continuous integration has been implemented through the pipeline for JUnit Testing.
 
 
 
@@ -143,7 +143,7 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 
 ### View menu shortcuts:
 **Zoom in**: `CTRL` + `+` <br>
-**Zoom out**: `CTRL` + `-` <br>
+**Zoom out**: `CTRL` + `=` <br>
 **Zoom full**: `CTRL` + `0` <br>
 
 ### Filter menu shortcuts:
@@ -165,7 +165,7 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 
 ### Transform menu shortcuts:
 **Resize to 50%**: `CTRL` + `SHIFT` + `-` <br>
-**Resize to 150%**: `CTRL` + `SHIFT` + `+` <br>
+**Resize to 150%**: `CTRL` + `SHIFT` + `=` <br>
 **Crop image**: `CTRL` + `C`<br>
 #### Flip submenu shortcuts:
 **Flip vertical**: `CTRL` + `[` <br>
