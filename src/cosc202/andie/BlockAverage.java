@@ -58,7 +58,11 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
 
-        //System.out.println(xDist + " " + yDist);
+        if (xDist == 0 && yDist == 0) {
+
+            return input;
+
+        }
 
         int width = input.getWidth();
         int height = input.getHeight();

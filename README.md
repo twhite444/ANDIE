@@ -44,6 +44,8 @@ Limits on zoom in and zoom out features
 
 When using crop while zoomed in or out the area that is selected sometimes flickers to having no zoom, this is purely visual and does not affect what area is cropped.
 
+When a block average filter is applied to a .jpg and either the x or y size is one a black line will appear along whatever edge 
+
 
 ## User Guide for ANDIE (A Non Destructive Image Editor)
 ### Introduction
@@ -57,7 +59,7 @@ Once you have launched ANDIE you will see a toolbar along the top with many comp
 ### Menu Options
 There are 8 differernt menus that all contain different manipulations:  
 **File**: Select ‘Open’ and you can import your desired image, or ‘Save’ to update the changes that you have made to your image into the current file or ‘Save As’ is another option that allows you to make a new version of the file (with stack of operations included) and name it. ‘Export’ allows you to export just the image.  
-**Edit**: Selecting the ‘Undo’ function will undo the last changes that you have made to the image, ‘Redo’ does the opposite.  
+**Edit**: Selecting the ‘Undo’ function will undo the last changes that you have made to the image, ‘Redo’ does the opposite. 
 **Draw**: 
 **View**: The ‘Zoom in’ function makes the image larger to a percentage that the user inputs and ‘Zoom Out’ does the same but makes it smaller. ‘Zoom Full’ zooms to the default.   
 **Filter**: Mean Filter, Soft Blur, sharpen filter, median filter, and Gaussian blur are all filters that change the way that the pixels and image appear  
@@ -99,7 +101,6 @@ There are 8 differernt menus that all contain different manipulations:
 ### Edit menu shortcuts:
 **Undo**: `COMMAND` + `Z` <br>
 **Redo**: `COMMAND` + `Y` <br>
-**Crop image**: <br>
 
 #### Macros submenu shortcuts:
 **Apply macro**: `COMMAND` + `1` <br>
@@ -137,6 +138,7 @@ There are 8 differernt menus that all contain different manipulations:
 ### Transform menu shortcuts:
 **Resize to 50%**: `SHIFT` + `COMMAND` + `-` <br>
 **Resize to 150%**: `SHIFT` + `COMMAND` + `+` <br>
+**Crop image**: <br>
 #### Flip submenu shortcuts:
 **Flip vertical**: `COMMAND` + `[` <br>
 **Flip horizontal**: `COMMAND` + `]` <br>

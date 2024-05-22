@@ -2,7 +2,6 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.Cursor;
 import javax.swing.*;
 
 
@@ -88,7 +87,7 @@ public class EditActions {
         //Redo
         editMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_Y, ActionEvent.META_MASK)); 
-        
+
     }
 
     /**
