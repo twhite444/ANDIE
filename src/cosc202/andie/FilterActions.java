@@ -61,6 +61,8 @@ public class FilterActions {
         actions.add(new RandomScatteringAction( bundle.getString("menu_filter_randomScattering"), null, bundle.getString("menu_filter_randomScattering_desc"), null));
         actions.add(new EmbossFilterAction(bundle.getString("menu_filter_embossFilter"), null, bundle.getString("menu_filter_embossFilter_desc"), null));
         actions.add(new SobelFilterAction(bundle.getString("menu_filter_sobelFilter"), null, bundle.getString("menu_filter_sobelFilter_desc"), null));
+        actions.add(new MotionBlurFilterAction(bundle.getString("menu_filter_motionBlurFilter_vertical"), null, bundle.getString("menu_filter_motionBlurFilter_vertical"), null));
+
         actions.add(new RSToSelectedAreaAction(bundle.getString("menu_filter_randomScattering_selected"), null, bundle.getString("menu_filter_randomScattering_selected_desc"), null));
     }
 
@@ -757,7 +759,7 @@ public class FilterActions {
 
     /**
      * <p>
-     * Action to blur an image with a median filter.
+     * Action to blur an image with a random scatter.
      * </p>
      * 
      * @see RandomScattering
@@ -782,12 +784,12 @@ public class FilterActions {
 
         /**
          * <p>
-         * Callback for when the median action is triggered.
+         * Callback for when the random scatter action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the MedianFilterAction is triggered.
-         * It prompts the user for a filter radius, then applies an appropriately sized {@link MedianFilter}.
+         * This method is called whenever the RandomScatteringAction is triggered.
+         * It prompts the user for a filter radius, then applies an appropriately sized {@link RandomScattering}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -833,139 +835,89 @@ public class FilterActions {
         }
 
     }
- 
-    public class RSToSelectedAreaAction extends ImageAction  implements MouseListener, MouseMotionListener{
-           /** The starting X coordinate of the crop area */
-           int cropStartX = 0;
-           /** The starting Y coordinate of the crop area */
-           int cropStartY = 0;
-           /** The width of the cropped area */
-           int cropWidth = 1;
-           /** The height of the cropped area */
-           int cropHeight = 1;
+
+    /**
+     * Action to apply a motion blur filter in a user-inputted direction.
+     * 
+     * @see MotionBlurFilter
+     */
+    public class MotionBlurFilterAction extends ImageAction {
+
         /**
-         * <p>
-         * Create a new mean-filter action.
-         * </p>
+         * Create a new MotionBlurFilterAction.
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        RSToSelectedAreaAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            
+        MotionBlurFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            
         }
 
         /**
-         * <p>
-         * Callback for when the mean filter action is triggered.
-         * </p>
+         * Callback for when the Motion Blur action is triggered.
          * 
-         * <p>
-         * This method is called whenever the MeanFilterAction is triggered.
-         * It prompts the user for a filter radius, then applies an appropriately sized {@link MeanFilter}.
-         * </p>
+         * This method is called whenever the MotionBlurFilterAction is triggered.
+         * It applies motion blur in a certain direction depending on user input.
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            String direction = bundle.getString("menu_filter_motionBlurFilter_horizontal");
+            int radius = 1;
+            // Pop-up dialog box to ask for the motion blur direction.
+            String[] directionOptions = {
+                bundle.getString("menu_filter_motionBlurFilter_horizontal"),
+                bundle.getString("menu_filter_motionBlurFilter_vertical"), 
+                bundle.getString("menu_filter_motionBlurFilter_diagonalTopLeftBottomRight"),
+                bundle.getString("menu_filter_motionBlurFilter_diagonalBottomLeftTopRight"),
+            };
 
-      
- 
-            // Create and apply the filter
-            target.addMouseListener(this);
-            target.addMouseMotionListener(this);
-        }
+            JComboBox<String> comboBox = new JComboBox<String>(directionOptions);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner radiusSpinner = new JSpinner(radiusModel);
 
-        @Override
-        public void mouseDragged(MouseEvent e) {
-        
-            int currentX = Math.min(Math.max((int)(e.getX() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getWidth()); // the position of the mouse, clamped to inside the image
-            int currentY = Math.min(Math.max((int)(e.getY() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getHeight());
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            panel.add(new JLabel(bundle.getString("menu_filter_motionBlurFilter_selectDirection")));
+            panel.add(comboBox);
+            panel.add(new JLabel(bundle.getString("menu_filter_enterFilterRadius1to10px")));
+            panel.add(radiusSpinner);
 
-            int initialX = Math.min(Math.max(cropStartX, 0), (target.getImage().getCurrentImage().getWidth()));  // start point of the selection, clamped inside the image
-            int initialY = Math.min(Math.max(cropStartY, 0), (target.getImage().getCurrentImage().getHeight()));
+            int option = JOptionPane.showOptionDialog(
+                null,
+                panel,
+                bundle.getString("menu_filter_motionBlurFilter_selectDirection"),
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{bundle.getString("optionPane_okButtonText"), bundle.getString("optionPane_cancelButtonText")},
+                null);
 
-            int topLeftX  = Math.min(initialX, currentX); // the top left corner of the selection x & y
-            int topLeftY = Math.min(initialY, currentY);
+            if (option == JOptionPane.OK_OPTION) {
+                direction = (String) comboBox.getSelectedItem();
+                if (direction.equals(bundle.getString("menu_filter_motionBlurFilter_vertical"))) {
+                    direction = "Vertical";
+                } else if (direction.equals(bundle.getString("menu_filter_motionBlurFilter_horizontal"))) {
+                    direction = "Horizontal";
+                } else if (direction.equals(bundle.getString("menu_filter_motionBlurFilter_diagonalTopLeftBottomRight"))) {
+                    direction = "Diagonal Top Left to Bottom Right";
+                } else if (direction.equals(bundle.getString("menu_filter_motionBlurFilter_diagonalBottomLeftTopRight"))) {
+                    direction = "Diagonal Bottom Left to Top Right";
+                } 
 
-            int width = Math.max(Math.abs(initialX - currentX), 1); // size of the selection, clamped to at least one
-            int height = Math.max(Math.abs(initialY - currentY), 1);
-
-            target.getImage().undoNoRedo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
-
-            target.repaint();
-            target.getParent().revalidate();
-
-            // draws the blueish selection box
-            if (width > 1 && height > 1) { // makes the selection box only show up if there is some area to highlight, conviently this also stops it from trying to highlight things when the entire elected area is outside the image
-
-                target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
-                target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+                radius = radiusModel.getNumber().intValue();
+            } else {
+                return; // User canceled, do nothing
             }
 
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-         
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-        
-            cropStartX = (int)(e.getX() * 1 / (target.getZoom() / 100)); // accounts for the zoom of the image to find the eed position 
-            cropStartY = (int)(e.getY() * 1 / (target.getZoom() / 100));
-
-            // draw a rectangle, this acts as the selection box
-            target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - Math.max(cropStartX, 0)), Math.abs(cropStartY - Math.max(cropStartY, 0)),true));
+            // create and apply the filter
+            target.getImage().apply(new MotionBlurFilter(direction, radius));
             target.repaint();
             target.getParent().revalidate();
         }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            
-        
-            int cropEndX = (int)(e.getX() * 1 / (target.getZoom() / 100));
-            int cropEndY = (int)(e.getY() * 1 / (target.getZoom() / 100));
-
-            // remove the selection box
-            target.getImage().undoNoRedo();
-
-            target.removeMouseListener(this); // removes the mouse listner so crops dont keep happeneing
-            target.removeMouseMotionListener(this);
-
-            target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
-
-            cropWidth = Math.abs(cropStartX - Math.max(cropEndX, 0)); // gets the distance x & y between the click and the unclick
-            cropHeight = Math.abs(cropStartY - Math.max(cropEndY, 0));
-
-            cropStartX = Math.min(cropStartX, cropEndX); // gets the most top left x, y corner of the selected rectangle
-            cropStartY = Math.min(cropStartY, cropEndY);
-
-            target.getImage().apply(new RSToSelectedArea(cropStartX, cropStartY, cropWidth, cropHeight));
-            target.repaint();
-            target.getParent().revalidate();
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-       
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-        }
-
     }
+
+
 }
