@@ -42,6 +42,8 @@ Limits on zoom in and zoom out features
 
 When using crop while zoomed in or out the area that is selected sometimes flickers to having no zoom, this is purely visual and does not affect what area is cropped.
 
+If any of the drawing tools are used when recording a macro their colours will always be black.
+
 
 ## User Guide for ANDIE (A Non Destructive Image Editor)
 ### Introduction
@@ -54,28 +56,56 @@ Once you have launched ANDIE you will see a toolbar along the top with many comp
 
 ### Menu Options
 There are 8 differernt menus that all contain different manipulations:  
-**File**: Select ‘Open’ and you can import your desired image, or ‘Save’ to update the changes that you have made to your image into the current file or ‘Save As’ is another option that allows you to make a new version of the file (with stack of operations included) and name it. ‘Export’ allows you to export just the image.  
-**Edit**: Selecting the ‘Undo’ function will undo the last changes that you have made to the image, ‘Redo’ does the opposite. 
-**Draw**: 
-**View**: The ‘Zoom in’ function makes the image larger to a percentage that the user inputs and ‘Zoom Out’ does the same but makes it smaller. ‘Zoom Full’ zooms to the default.   
+**File
+**Edit**:
+**Draw**:
+**View**: 
 **Filter**: Mean Filter, Soft Blur, sharpen filter, median filter, and Gaussian blur are all filters that change the way that the pixels and image appear  
 **Colors**: greyscale, invert colours, colour cycling  
 **Transform**: Contains horizontal, vertical, and inverted ways to flip your image and change the composition
 **Language**: 
 
 
+### File menu:
+**Open**: Imports a selected image into the program.
+**Save**: Updates the changes that you have made to your image into the current file.
+**Save as**: Same as previous but allows for renaming and moving of where the file is saved.
+**Export**: Allows you to export just the image.
+**Exit**: Closes the program.
+
+
+### Edit menu:
+**Undo**: Undoes the last changes that you have made to the image.
+**Redo**: Redoes the last undo.
+**Macros**: ‘Apply Macro’ will apply a set opertains defined in a selected .ops file to the current image. ‘Record macro’ will record any operations that are made before ‘Stop recording’ is clicked and asve them as a .ops file.
+
+
+### Draw menu:
+Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a colour picker, allowing you to choose the outline colour and, in the case of rectangle and oval, the fill colour, the selected shape can the be drawn by clicking and dragging.
+
+
+### View menu:
+**Zoom in**: Zooms the image in by 10%, up to a maximum of 200%.
+**Zoom out**: Zooms the image out by 10%, down to a minimum of 50%.
+**Zoom full**: Resets zoom to 100%.
+
 ### Filter Menu:  
-**Mean Filter**: A mean filter calculates the average pixel value within a specified neighborhood, smoothing out the image and reducing noise. It replaces each pixel with the average of its neighboring pixels.  
-**Soft Blur**: A soft blur filter is similar to the mean filter but does weaker blur, resulting in a smoother appearance. It effectively blurs the image while preserving its overall structure.  
-**Sharpen Filter**: A sharpen filter enhances image clarity by increasing the contrast around edges, making them appear sharper. It accentuates high-contrast areas in the image, resulting in a crisper and more defined appearance.  
+**Mean filter**: A mean filter calculates the average pixel value within a specified neighborhood, smoothing out the image and reducing noise. It replaces each pixel with the average of its neighboring pixels.  
+**Soft Blur filter**: A soft blur filter is similar to the mean filter but does weaker blur, resulting in a smoother appearance. It effectively blurs the image while preserving its overall structure.  
+**Sharpen filter**: A sharpen filter enhances image clarity by increasing the contrast around edges, making them appear sharper. It accentuates high-contrast areas in the image, resulting in a crisper and more defined appearance.  
 **Median filter**: A blurring filter that takes in all of the pixel values and finds a median. This median value determines the degree to which the image is blurred. It has a user interaction in which the radius is asked for, the higher the radius number the more blurred.  
-**Gaussian Blur**: A Gaussian blur filter reduces image detail by convolving the image with a Gaussian function, which softens the transitions between pixels. It effectively blurs the image while preserving its overall structure, resulting in a smoother appearance with reduced noise and fine details.  
+**Gaussian filter**: A Gaussian blur filter reduces image detail by convolving the image with a Gaussian function, which softens the transitions between pixels. It effectively blurs the image while preserving its overall structure, resulting in a smoother appearance with reduced noise and fine details.  
+**Block average**: Splits the image up into blocks with each block will be coloured based on the average colour of the pixels inside the block.
+**Random Scattering**: Randomly moves each pixel to a nearby location.
+**Emboss filter**: 
+**Sobel filter**:
 
 
 ### Colour Menu:
-**Greyscale**: converts image from RGB to greyscale  
-**Invert**: inverts the colours of the image  
-**Cycle Colours**: allows you to cycle through colour channels of all possible combinations (BGR, BRG, GBR, GRB, RBG, RGB)  
+**Greyscale**: converts image from RGB to greyscale.
+**Invert**: inverts the colours of the image from RGB to any ordering of R, G and B.
+**Cycle Colours**: allows you to cycle through colour channels of all possible combinations (BGR, BRG, GBR, GRB, RBG, RGB).
+**Change contrast and brightness**: 
 
 ### Transformation Menu: 
 **Resize to 50%**: Shrinks the image to half its original size.  
@@ -84,7 +114,7 @@ There are 8 differernt menus that all contain different manipulations:
 **Rotations 90 (left), 90 (right), 180**: Rotates the image by the specified angle (90 degrees left, 90 degrees right, or 180 degrees).  
 
 ### Language Menu: 
-**There are two language options**: English is set as the default, but selecting Russian and rerunning the file changes it to Russian.  
+**There are two language options**: English is set as the default language, but selecting Russian and reopening the program will change it to Russian.  
 
 ## Keyboard shortcuts
 ### File menu shortcuts:
