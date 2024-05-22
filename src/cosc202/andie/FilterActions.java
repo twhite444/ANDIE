@@ -60,6 +60,8 @@ public class FilterActions {
         actions.add(new RandomScatteringAction( bundle.getString("menu_filter_randomScattering"), null, bundle.getString("menu_filter_randomScattering_desc"), null));
         actions.add(new EmbossFilterAction(bundle.getString("menu_filter_embossFilter"), null, bundle.getString("menu_filter_embossFilter_desc"), null));
         actions.add(new SobelFilterAction(bundle.getString("menu_filter_sobelFilter"), null, bundle.getString("menu_filter_sobelFilter_desc"), null));
+        actions.add(new MotionBlurFilterAction(bundle.getString("menu_filter_motionBlurFilter_vertical"), null, bundle.getString("menu_filter_motionBlurFilter_vertical"), null));
+
     }
 
     /**
@@ -677,7 +679,7 @@ public class FilterActions {
 
     /**
      * <p>
-     * Action to blur an image with a median filter.
+     * Action to blur an image with a random scatter.
      * </p>
      * 
      * @see RandomScattering
@@ -702,12 +704,12 @@ public class FilterActions {
 
         /**
          * <p>
-         * Callback for when the median action is triggered.
+         * Callback for when the random scatter action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the MedianFilterAction is triggered.
-         * It prompts the user for a filter radius, then applies an appropriately sized {@link MedianFilter}.
+         * This method is called whenever the RandomScatteringAction is triggered.
+         * It prompts the user for a filter radius, then applies an appropriately sized {@link RandomScattering}.
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -743,6 +745,89 @@ public class FilterActions {
             target.getParent().revalidate();
         }
 
+    }
+
+    /**
+     * Action to apply a motion blur filter in a user-inputted direction.
+     * 
+     * @see MotionBlurFilter
+     */
+    public class MotionBlurFilterAction extends ImageAction {
+
+        /**
+         * Create a new MotionBlurFilterAction.
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        MotionBlurFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * Callback for when the Motion Blur action is triggered.
+         * 
+         * This method is called whenever the MotionBlurFilterAction is triggered.
+         * It applies motion blur in a certain direction depending on user input.
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            String direction = bundle.getString("menu_filter_motionBlurFilter_horizontal");
+            int radius = 1;
+            // Pop-up dialog box to ask for the motion blur direction.
+            String[] directionOptions = {
+                bundle.getString("menu_filter_motionBlurFilter_horizontal"),
+                bundle.getString("menu_filter_motionBlurFilter_vertical"), 
+                bundle.getString("menu_filter_motionBlurFilter_diagonalTopLeftBottomRight"),
+                bundle.getString("menu_filter_motionBlurFilter_diagonalBottomLeftTopRight"),
+            };
+
+            JComboBox<String> comboBox = new JComboBox<String>(directionOptions);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            JSpinner radiusSpinner = new JSpinner(radiusModel);
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            panel.add(new JLabel(bundle.getString("menu_filter_motionBlurFilter_selectDirection")));
+            panel.add(comboBox);
+            panel.add(new JLabel(bundle.getString("menu_filter_enterFilterRadius1to10px")));
+            panel.add(radiusSpinner);
+
+            int option = JOptionPane.showOptionDialog(
+                null,
+                panel,
+                bundle.getString("menu_filter_motionBlurFilter_selectDirection"),
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{bundle.getString("optionPane_okButtonText"), bundle.getString("optionPane_cancelButtonText")},
+                null);
+
+            if (option == JOptionPane.OK_OPTION) {
+                direction = (String) comboBox.getSelectedItem();
+                if (direction.equals(bundle.getString("menu_filter_motionBlurFilter_vertical"))) {
+                    direction = "Vertical";
+                } else if (direction.equals(bundle.getString("menu_filter_motionBlurFilter_horizontal"))) {
+                    direction = "Horizontal";
+                } else if (direction.equals(bundle.getString("menu_filter_motionBlurFilter_diagonalTopLeftBottomRight"))) {
+                    direction = "Diagonal Top Left to Bottom Right";
+                } else if (direction.equals(bundle.getString("menu_filter_motionBlurFilter_diagonalBottomLeftTopRight"))) {
+                    direction = "Diagonal Bottom Left to Top Right";
+                } 
+
+                radius = radiusModel.getNumber().intValue();
+            } else {
+                return; // User canceled, do nothing
+            }
+
+            // create and apply the filter
+            target.getImage().apply(new MotionBlurFilter(direction, radius));
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 
 
