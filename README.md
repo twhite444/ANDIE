@@ -58,7 +58,7 @@ Once you have launched ANDIE you will see a toolbar along the top with many comp
 There are 8 differernt menus that all contain different manipulations:  
 **File**: Select ‘Open’ and you can import your desired image, or ‘Save’ to update the changes that you have made to your image into the current file or ‘Save As’ is another option that allows you to make a new version of the file (with stack of operations included) and name it. ‘Export’ allows you to export just the image.  
 **Edit**: Selecting the ‘Undo’ function will undo the last changes that you have made to the image, ‘Redo’ does the opposite.  
-**Draw**
+**Draw**: 
 **View**: The ‘Zoom in’ function makes the image larger to a percentage that the user inputs and ‘Zoom Out’ does the same but makes it smaller. ‘Zoom Full’ zooms to the default.   
 **Filter**: Mean Filter, Soft Blur, sharpen filter, median filter, and Gaussian blur are all filters that change the way that the pixels and image appear  
 **Colors**: greyscale, invert colours, colour cycling  
