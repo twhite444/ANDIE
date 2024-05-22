@@ -58,6 +58,11 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
 
+        if (xDist == 0 && yDist == 0) {
+
+            return input;
+
+        }
 
         int width = input.getWidth();
         int height = input.getHeight();
@@ -79,11 +84,9 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
                 int yLocal = 0;
 
 
-                for (xLocal = 0; xLocal <= xDist; xLocal ++) { // for each pixel within the block, add its color to the total
+                for (xLocal = 0; xLocal + x <= width && xLocal <= xDist; xLocal ++) { // for each pixel within the block, add its color to the total
 
-                    for (yLocal = 0; yLocal <= yDist; yLocal ++) {
-                        int px =x + xLocal;
-                        int py = y+ yLocal;
+                    for (yLocal = 0; yLocal + y <= height && yLocal <= yDist; yLocal ++) {
 
                         px = Math.max(0, Math.min(px, width-1));
                         py = Math.max(0, Math.min(py, height - 1));
