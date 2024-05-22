@@ -2,13 +2,10 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.Color;
 import java.awt.Cursor;
-
 import javax.swing.*;
 
-//import cosc202.andie.EditActions.RedoAction;
-//import cosc202.andie.EditActions.UndoAction;
+
 
 
 /**
@@ -54,9 +51,9 @@ public class EditActions {
     public EditActions() {
 
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), Integer.valueOf(KeyEvent.VK_Y)));
-        actions.add(new CropAction(bundle.getString("menu_edit_crop_image"), null, "Click and drag to crop image", null));
+        actions.add(new UndoAction(bundle.getString("menu_edit_undo"), null, bundle.getString("menu_edit_undo"), null));
+        actions.add(new RedoAction(bundle.getString("menu_edit_redo"), null, bundle.getString("menu_edit_redo"), null));
+        actions.add(new CropAction(bundle.getString("menu_edit_crop_image"), null, bundle.getString("menu_edit_crop_image_desc"), null));
        
         
     }
@@ -307,8 +304,6 @@ public class EditActions {
 
             int width = Math.max(Math.abs(initialX - currentX), 1); // size of the selection, clamped to at least one
             int height = Math.max(Math.abs(initialY - currentY), 1);
-
-            //System.out.println(currentX + ", " + currentY + ",     " + topLeftX + ", " + topLeftY + ",     " + width + ", " + height);
 
             target.getImage().undoNoRedo(); // remove the preivious selection box and draw a new one
             target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
