@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Cursor;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -60,6 +61,7 @@ public class FilterActions {
         actions.add(new RandomScatteringAction( bundle.getString("menu_filter_randomScattering"), null, bundle.getString("menu_filter_randomScattering_desc"), null));
         actions.add(new EmbossFilterAction(bundle.getString("menu_filter_embossFilter"), null, bundle.getString("menu_filter_embossFilter_desc"), null));
         actions.add(new SobelFilterAction(bundle.getString("menu_filter_sobelFilter"), null, bundle.getString("menu_filter_sobelFilter_desc"), null));
+        actions.add(new SobelFilterAction(bundle.getString("menu_filter_randomScattering_selected"), null, bundle.getString("menu_filter_randomScattering_selected_desc"), null));
     }
 
     /**
@@ -106,15 +108,19 @@ public class FilterActions {
         //Block average
         filterMenu.getItem(5).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_B, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
-        //
+        //Random Scattering
         filterMenu.getItem(6).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_R, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
-        //
+        //Emboss filter
         filterMenu.getItem(7).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_E, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
-        //
+        //Sobel filter
         filterMenu.getItem(8).setAccelerator(KeyStroke.getKeyStroke(
         KeyEvent.VK_O, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
+        // random scattering selected area
+        filterMenu.getItem(9).setAccelerator(KeyStroke.getKeyStroke(
+            KeyEvent.VK_T, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
+    
 
     }
 
@@ -825,5 +831,141 @@ public class FilterActions {
                         JOptionPane.ERROR_MESSAGE);
             }    
         }
+
+    }
+ 
+    public class RSToSelectedAreaAction extends ImageAction  implements MouseListener, MouseMotionListener{
+           /** The starting X coordinate of the crop area */
+           int cropStartX = 0;
+           /** The starting Y coordinate of the crop area */
+           int cropStartY = 0;
+           /** The width of the cropped area */
+           int cropWidth = 1;
+           /** The height of the cropped area */
+           int cropHeight = 1;
+        /**
+         * <p>
+         * Create a new mean-filter action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        RSToSelectedAreaAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            
+            super(name, icon, desc, mnemonic);
+            
+        }
+
+        /**
+         * <p>
+         * Callback for when the mean filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the MeanFilterAction is triggered.
+         * It prompts the user for a filter radius, then applies an appropriately sized {@link MeanFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+
+      
+ 
+            // Create and apply the filter
+            target.addMouseListener(this);
+            target.addMouseMotionListener(this);
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+        
+            int currentX = Math.min(Math.max((int)(e.getX() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getWidth()); // the position of the mouse, clamped to inside the image
+            int currentY = Math.min(Math.max((int)(e.getY() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getHeight());
+
+            int initialX = Math.min(Math.max(cropStartX, 0), (target.getImage().getCurrentImage().getWidth()));  // start point of the selection, clamped inside the image
+            int initialY = Math.min(Math.max(cropStartY, 0), (target.getImage().getCurrentImage().getHeight()));
+
+            int topLeftX  = Math.min(initialX, currentX); // the top left corner of the selection x & y
+            int topLeftY = Math.min(initialY, currentY);
+
+            int width = Math.max(Math.abs(initialX - currentX), 1); // size of the selection, clamped to at least one
+            int height = Math.max(Math.abs(initialY - currentY), 1);
+
+            target.getImage().undoNoRedo(); // remove the preivious selection box and draw a new one
+            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
+
+            target.repaint();
+            target.getParent().revalidate();
+
+            // draws the blueish selection box
+            if (width > 1 && height > 1) { // makes the selection box only show up if there is some area to highlight, conviently this also stops it from trying to highlight things when the entire elected area is outside the image
+
+                target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
+                target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+            }
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+         
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        
+            cropStartX = (int)(e.getX() * 1 / (target.getZoom() / 100)); // accounts for the zoom of the image to find the eed position 
+            cropStartY = (int)(e.getY() * 1 / (target.getZoom() / 100));
+
+            // draw a rectangle, this acts as the selection box
+            target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - Math.max(cropStartX, 0)), Math.abs(cropStartY - Math.max(cropStartY, 0)),true));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            
+        
+            int cropEndX = (int)(e.getX() * 1 / (target.getZoom() / 100));
+            int cropEndY = (int)(e.getY() * 1 / (target.getZoom() / 100));
+
+            // remove the selection box
+            target.getImage().undoNoRedo();
+
+            target.removeMouseListener(this); // removes the mouse listner so crops dont keep happeneing
+            target.removeMouseMotionListener(this);
+
+            target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
+
+            cropWidth = Math.abs(cropStartX - Math.max(cropEndX, 0)); // gets the distance x & y between the click and the unclick
+            cropHeight = Math.abs(cropStartY - Math.max(cropEndY, 0));
+
+            cropStartX = Math.min(cropStartX, cropEndX); // gets the most top left x, y corner of the selected rectangle
+            cropStartY = Math.min(cropStartY, cropEndY);
+
+            target.getImage().apply(new RSToSelectedArea(cropStartX, cropStartY, cropWidth, cropHeight));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+       
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+
     }
 }

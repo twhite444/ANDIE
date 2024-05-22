@@ -29,6 +29,7 @@ Soft Blur - Yusei / Tommo
 Toolbar for common operations - Charlotte
 Transformation actions menu - Tommo (added to by Yusei)  
 User Guide - Cushla, Tommo (modified by everyone)  
+Selected Area Random Scattering - Yusei 
 
 
 ## How our code was tested (in general, not a multi-page exhaustive list).
@@ -103,7 +104,7 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 **Random Scattering**: Randomly moves each pixel to some position within a radius.
 **Emboss filter**:  Enhances the appearances of edges in an image to simulate a raised or embossed effect
 **Sobel filter**: Detects edges in an image to show areas of rapid intensity change with higher contrast
-
+**Selected Area Random Scattering**: It does use both crop function and RandomScattering function so than you can apply randomscattering to the area you select as a default the radius is set to 5. 
 
 ### Colour Menu:
 **Greyscale**: Converts image from RGB to greyscale.
