@@ -63,7 +63,7 @@ public class FilterActions {
         actions.add(new SobelFilterAction(bundle.getString("menu_filter_sobelFilter"), null, bundle.getString("menu_filter_sobelFilter_desc"), null));
         actions.add(new MotionBlurFilterAction(bundle.getString("menu_filter_motionBlurFilter_vertical"), null, bundle.getString("menu_filter_motionBlurFilter_vertical"), null));
 
-        actions.add(new SobelFilterAction(bundle.getString("menu_filter_randomScattering_selected"), null, bundle.getString("menu_filter_randomScattering_selected_desc"), null));
+        actions.add(new RSToSelectedAreaAction(bundle.getString("menu_filter_randomScattering_selected"), null, bundle.getString("menu_filter_randomScattering_selected_desc"), null));
     }
 
     /**
