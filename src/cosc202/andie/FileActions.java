@@ -80,23 +80,23 @@ public class FileActions {
     private void setShortcuts(){
         //Open
         this.fileMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_O, ActionEvent.META_MASK)); 
+        KeyEvent.VK_O, ActionEvent.CTRL_MASK)); 
         
         //Save
         this.fileMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_S, ActionEvent.META_MASK));
+        KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         
         //Save as
         this.fileMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_S, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
+        KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK)); 
         
         //Export
         this.fileMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_E, ActionEvent.META_MASK)); 
+        KeyEvent.VK_E, ActionEvent.CTRL_MASK)); 
         
         //Exit
         this.fileMenu.getItem(4).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_Q, ActionEvent.META_MASK));
+        KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
     }
 
     /**
