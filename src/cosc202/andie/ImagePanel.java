@@ -1,7 +1,7 @@
 package cosc202.andie;
 
 import java.awt.*;
-import java.util.ResourceBundle;
+
 
 import javax.swing.*;
 
@@ -31,13 +31,6 @@ public class ImagePanel extends JPanel {
      */
     private EditableImage image;
 
-    //needed for languages:
-    private static ResourceBundle bundle;
-    
-    static {
-        bundle = Andie.LanguageSettings.getMessageBundle();
-
-    }
 
     /**
      * <p>
@@ -78,27 +71,6 @@ public class ImagePanel extends JPanel {
      * @return the image currently displayed.
      */
     public EditableImage getImage() {
-
-        if (!image.hasImage()) { // check if an image is loaded
-
-            JOptionPane.showMessageDialog(null, bundle.getString("error_imagePanel_noImage"), bundle.getString("error_generic"), JOptionPane.ERROR_MESSAGE);
-
-            throw new RuntimeException("no image found");
-
-        }
-
-        return image;
-
-    }
-
-    /**
-     * <p>
-     * Only required for when current image may be null
-     * </p>
-     *
-     * @return the image currently displayed or null
-     */
-    public EditableImage getImageDangerous() {
 
         return image;
 
@@ -195,7 +167,7 @@ public class ImagePanel extends JPanel {
 
         if (image.hasImage()) {
 
-            Graphics2D g2  = (Graphics2D) g.create();
+            Graphics2D g2 = (Graphics2D) g.create();
 
             g2.scale(scale, scale);
 
