@@ -441,18 +441,19 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            String direction = "Middle Left";
+            String direction = bundle.getString("menu_filter_embossFilter_middleLeft");
 
             // Pop-up dialog box to ask for the cycle type.
 
-            String[] directionOptions = {   "Middle Left",
-                                        "Top Left",
-                                        "Top Middle",
-                                        "Top Right",
-                                        "Middle Right",
-                                        "Bottom Right",
-                                        "Bottom Middle",
-                                        "Bottom Left",
+            String[] directionOptions = { 
+                bundle.getString("menu_filter_embossFilter_middleLeft"),
+                bundle.getString("menu_filter_embossFilter_topLeft"),
+                bundle.getString("menu_filter_embossFilter_topMiddle"),
+                bundle.getString("menu_filter_embossFilter_topRight"),
+                bundle.getString("menu_filter_embossFilter_middleRight"),
+                bundle.getString("menu_filter_embossFilter_bottomRight"),
+                bundle.getString("menu_filter_embossFilter_bottomMiddle"),
+                bundle.getString("menu_filter_embossFilter_bottomLeft") 
                                         }; // different options for direction
 
             JComboBox<String> comboBox = new JComboBox<String>(); // drop down menu for options
@@ -472,7 +473,25 @@ public class FilterActions {
             } else if (option == JOptionPane.OK_OPTION) {
 
                 direction = (String) comboBox.getSelectedItem(); // convert to string array
-
+                if (direction.equals(bundle.getString("menu_filter_embossFilter_middleLeft"))) {
+                    direction = "Middle left";
+                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topLeft"))) {
+                    direction = "Top Left";
+                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topMiddle"))) {
+                    direction = "Top Middle";
+                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topRight"))) {
+                    direction = "Top Right";
+                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_middleRight"))) {
+                    direction = "Middle Right";
+                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_bottomRight"))) {
+                    direction = "Bottom Right";
+                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_bottomMiddle"))) {
+                    direction = "Bottom Middle";
+                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_bottomLeft"))) {
+                    direction = "Bottom Left";
+                }
+                
+                
             }
 
             target.getImage().apply(new Emboss(direction));
@@ -522,12 +541,14 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            String direction = "Vertical Sobel";
+            String direction = bundle.getString("menu_macro_verticalSobel");
 
             // Pop-up dialog box to ask for the cycle type.
 
-            String[] directionOptions = {"Vertical Sobel",
-                                        "Horizontal Sobel" }; // different options for direciton
+            String[] directionOptions = {
+                bundle.getString("menu_macro_verticalSobel"),
+                bundle.getString("menu_macro_horizontalSobel") 
+            }; // different options for direction
 
             JComboBox<String> comboBox = new JComboBox<String>(); // drop down menu for options
 
@@ -537,7 +558,7 @@ public class FilterActions {
 
             }
 
-            int option = JOptionPane.showOptionDialog(null, comboBox, "Select direction of sobel filter:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
+            int option = JOptionPane.showOptionDialog(null, comboBox, bundle.getString("menu_macro_selectSobelDirection"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
 
             if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
 
@@ -546,7 +567,12 @@ public class FilterActions {
             } else if (option == JOptionPane.OK_OPTION) {
 
                 direction = (String) comboBox.getSelectedItem(); // convert to string array
-
+                if (direction.equals(bundle.getString("menu_macro_verticalSobel"))) {
+                    direction = "Vertical Sobel";
+                } else if (direction.equals(bundle.getString("menu_macro_horizontalSobel"))) {
+                    direction = "Horizontal Sobel";
+                }
+                
             }
 
             target.getImage().apply(new Emboss(direction));
