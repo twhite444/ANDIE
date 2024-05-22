@@ -95,7 +95,7 @@ public class TransformationActions {
         
         //Resize 150
         transformMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_PLUS, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+        KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
 
         //Flip vertical
         flipsMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
