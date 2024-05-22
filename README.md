@@ -29,9 +29,11 @@ User Guide - Cushla, Tommo (modified by everyone)
 
 
 ## How our code was tested (in general, not a multi-page exhaustive list).
-Opened an image in the program and compared the results of running the functions to the correct outcome that was in the lab book. All actions correctly manipulated the image, so we tested a couple of images (png, jpg, partly transparent ect.) and no unexpected outcomes came about. 
+Uploaded an image to the program and compared the results of running the functions to the correct outcome that was in the lab book. All actions correctly manipulated the image, so we tested a couple of images and no unexpected outcomes came about. 
 
-Built Gradle and created JUnit Testing for most filters and other operations such as drawing.
+Built Gradle and created JUnit Testing but not extensively used for testing other than running the program through Gradle to be quicker.
+
+We did use Junit testing for transformation actions such as rotating and flipping. However, Junit testing was difficult for filters so resorted to manually checking through GUI. In the next deliverables we will look to add at least Junit testing for colour changes as that will be easier to implement.
 
 
 ## A list of any known issues or bugs.
@@ -43,6 +45,8 @@ Limits on zoom in and zoom out features
 When using crop while zoomed in or out the area that is selected sometimes flickers to having no zoom, this is purely visual and does not affect what area is cropped.
 
 If any of the drawing tools are used when recording a macro their colours will always be black.
+
+When a block average filter is applied to a .jpg and either the x or y size is one a black line will appear along whatever edge 
 
 
 ## User Guide for ANDIE (A Non Destructive Image Editor)
@@ -116,59 +120,61 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 ### Language Menu: 
 **There are two language options**: English is set as the default language, but selecting Russian and reopening the program will change it to Russian.  
 
+
+
 ## Keyboard shortcuts
 ### File menu shortcuts:
-**Open**: `COMMAND` + `O`<br>
-**Save**: `COMMAND` + `S` <br>
-**Save As**: `COMMAND` + `SHIFT` + `S` <br>
-**Export**: `COMMAND` + `E` <br>
-**Exit**: `COMMAND` + `Q` <br>
+**Open**: `CTRL` + `O`<br>
+**Save**: `CTRL` + `S` <br>
+**Save As**: `CTRL` + `SHIFT` + `S` <br>
+**Export**: `CTRL` + `E` <br>
+**Exit**: `CTRL` + `Q` <br>
 
 ### Edit menu shortcuts:
-**Undo**: `COMMAND` + `Z` <br>
-**Redo**: `COMMAND` + `Y` <br>
+**Undo**: `CTRL` + `Z` <br>
+**Redo**: `CTRL` + `Y` <br>
 
 #### Macros submenu shortcuts:
-**Apply macro**: `COMMAND` + `1` <br>
-**Record macro**: `COMMAND` + `2` (shortcut only applies when macro is not being recorded) <br>
-**Stop recording**: `COMMAND` + `3` (shortcut only applies when macro is  being recorded) <br>
+**Apply macro**: `CTRL` + `1` <br>
+**Record macro**: `CTRL` + `2` (shortcut only applies when macro is not being recorded) <br>
+**Stop recording**: `CTRL` + `3` (shortcut only applies when macro is  being recorded) <br>
 
 ### Draw menu shortcuts: 
-**Draw rectangle**: `CTRL` + `R` <br>
-**Draw oval**: `CTRL` + `O` <br>
-**Draw line**: `CTRL` + `L` <br>
+**Draw rectangle**: `CTRL` + `SHIFT` + `R` <br>
+**Draw oval**: `CTRL` + `SHIFT` + `O` <br>
+**Draw line**: `CTRL` + `SHIFT` + `L` <br>
 
 ### View menu shortcuts:
-**Zoom in**: `COMMAND` + `+` <br>
-**Zoom out**: `COMMAND` + `-` <br>
-**Zoom full**: `COMMAND` + `0` <br>
+**Zoom in**: `CTRL` + `+` <br>
+**Zoom out**: `CTRL` + `-` <br>
+**Zoom full**: `CTRL` + `0` <br>
 
 ### Filter menu shortcuts:
-**Mean filter**: `CTRL` + `COMMAND` + `M` <br>
-**Soft blur filter out**: `CTRL` + `COMMAND` + `F` <br>
-**Sharpen filter**: `CTRL` + `COMMAND` + `S` <br>
-**Median filter**: `CTRL` + `COMMAND` + `A` <br>
-**Gaussian filter**: `CTRL` + `COMMAND` + `G` <br>
-**Block average filter**: `CTRL` + `COMMAND` + `B` <br>
-**Random scattering**: `CTRL` + `COMMAND` + `R`<br>
-**Emboss filter**: `CTRL` + `COMMAND` + `E`<br>
+**Mean filter**: `CTRL` + `ALT` + `M` <br>
+**Soft blur filter out**: `CTRL` + `ALT` + `F` <br>
+**Sharpen filter**: `CTRL` + `ALT` + `S` <br>
+**Median filter**: `CTRL` + `ALT` + `A` <br>
+**Gaussian filter**: `CTRL` + `ALT` + `G` <br>
+**Block average filter**: `CTRL` + `ALT` + `B` <br>
+**Random scattering**: `CTRL` + `ALT` + `R` <br>
+**Emboss filter**: `CTRL` + `ALT` + `E`<br>
+**Sobel filter**: `CTRL` + `ALT` + `O` <br>
 
 ### Filter menu shortcuts:
-**Greyscale**: `SHIFT` + `COMMAND` + `G` <br>
-**Image inversion**: `COMMAND` + `I` <br>
-**Greyscale**: `SHIFT` + `COMMAND` + `G` <br>
-**Cycle colours**: `CTRL` + `COMMAND` + `C` <br>
-**Change contrast and brightness**: `SHIFT` + `COMMAND` + `B` <br>
+**Greyscale**: `CTRL` + `G` <br>
+**Image inversion**: `CTRL` + `I` <br>
+**Cycle colours**: `CTRL` + `SHIFT` + `C` <br>
+**Change contrast and brightness**: `CTRL` + `SHIFT` + `B` <br>
 
 ### Transform menu shortcuts:
-**Resize to 50%**: `SHIFT` + `COMMAND` + `-` <br>
-**Resize to 150%**: `SHIFT` + `COMMAND` + `+` <br>
-**Crop image**: `SHIFT` + `COMMAND` + `C` <br>
+**Resize to 50%**: `CTRL` + `SHIFT` + `-` <br>
+**Resize to 150%**: `CTRL` + `SHIFT` + `+` <br>
+**Crop image**: `CTRL` + `C`<br>
 #### Flip submenu shortcuts:
-**Flip vertical**: `COMMAND` + `[` <br>
-**Flip horizontal**: `COMMAND` + `]` <br>
+**Flip vertical**: `CTRL` + `[` <br>
+**Flip horizontal**: `CTRL` + `]` <br>
 #### Rotate submenu shortcuts:
-**Rotate left**: `COMMAND` + `,` <br>
-**Rotate right**: `COMMAND` + `.` <br>
-**Rotate 180**: `COMMAND` + `/` <br>
+**Rotate left**: `CTRL` + `,` <br>
+**Rotate right**: `CTRL` + `.` <br>
+**Rotate 180**: `CTRL` + `/` <br>
 
