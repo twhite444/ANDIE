@@ -1,7 +1,7 @@
 package cosc202.andie;
 
 import java.awt.*;
-import java.util.ResourceBundle;
+
 
 import javax.swing.*;
 
@@ -31,13 +31,6 @@ public class ImagePanel extends JPanel {
      */
     private EditableImage image;
 
-    //needed for languages:
-    private static ResourceBundle bundle;
-    
-    static {
-        bundle = Andie.LanguageSettings.getMessageBundle();
-
-    }
 
     /**
      * <p>
@@ -174,7 +167,7 @@ public class ImagePanel extends JPanel {
 
         if (image.hasImage()) {
 
-            Graphics2D g2  = (Graphics2D) g.create();
+            Graphics2D g2 = (Graphics2D) g.create();
 
             g2.scale(scale, scale);
 
