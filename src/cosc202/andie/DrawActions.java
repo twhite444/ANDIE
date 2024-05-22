@@ -326,7 +326,7 @@ public class DrawActions {
             int rectEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100)); 
             int rectEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
 
-            target.getImage().undo(); // remove the preivious selection box and draw a new one
+            target.getImage().undo(); // remove the previous selection box and draw a new one
             target.getImage().apply(new DrawRectangle(Math.min(rectStartX, rectEndX), Math.min(rectStartY, rectEndY), Math.abs(rectStartX - Math.max(rectEndX, 0)), Math.abs(rectStartY - Math.max(rectEndY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
@@ -412,8 +412,8 @@ public class DrawActions {
 
                 target.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR)); // changes the cursor to a cross
 
-                lineColor = JColorChooser.showDialog(null, bundle.getString(bundle.getString("menu_draw_lineColor_desc")), Color.black);
-                fillColor = JColorChooser.showDialog(null, bundle.getString(bundle.getString("menu_draw_fillColor_desc")), Color.black);
+                lineColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_lineColor_desc"), Color.black);
+                fillColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_fillColor_desc"), Color.black);
             } catch(Exception ex){
                 JOptionPane.showMessageDialog(null,
                         (ex.getMessage()), bundle.getString("error_message_ERROR"),
@@ -481,7 +481,7 @@ public class DrawActions {
 
                 //System.out.println(drag.getX() + ", " + (int)(drag.getX() * 1 / (target.getZoom() / 100)));
 
-                target.getImage().undo(); // remove the preivious previwe oval and draw a new one
+                target.getImage().undo(); // remove the previous previwe oval and draw a new one
                 target.getImage().apply(new DrawOval(Math.min(ovalStartX, ovalEndX), Math.min(ovalStartY, ovalEndY), Math.abs(ovalStartX - Math.max(ovalEndX, 0)), Math.abs(ovalStartY - Math.max(ovalEndY, 0)), lineColor, fillColor));
                 target.repaint();
                 target.getParent().revalidate();
@@ -620,7 +620,7 @@ public class DrawActions {
                 lineEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100));
                 lineEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
 
-                target.getImage().undo(); // remove the preivious preview line and draw a new one
+                target.getImage().undo(); // remove the previous preview line and draw a new one
                 target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineEndX, lineEndY, lineColor));
                 target.repaint();
                 target.getParent().revalidate();
