@@ -58,15 +58,15 @@ public class MacroActions{
     private void setShortcuts(){
         //Apply macro
         macrosMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_1, ActionEvent.META_MASK)); 
+        KeyEvent.VK_1, ActionEvent.CTRL_MASK)); 
         
         //Record macro - shortcut does not apply when button is hidden
         macrosMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_2, ActionEvent.META_MASK)); 
+        KeyEvent.VK_2, ActionEvent.CTRL_MASK)); 
         
         //End macro - shortcut does not apply when button is hidden
         macrosMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_3, ActionEvent.META_MASK)); 
+        KeyEvent.VK_3, ActionEvent.CTRL_MASK)); 
 
     }
 

@@ -53,7 +53,7 @@ public class TransformationActions {
 
         actions.add(new Resize50Action(bundle.getString("menu_transform_resize50"), null, bundle.getString("menu_transform_resize_desc"), null));
         actions.add(new Resize150Action(bundle.getString("menu_transform_resize150"), null, bundle.getString("menu_transform_resize_desc"), null));
-        actions.add(new CropAction(bundle.getString("menu_edit_crop_image"), null, bundle.getString("menu_edit_crop_image_desc"), null));
+        actions.add(new CropAction(bundle.getString("menu_transform_crop_image"), null, bundle.getString("menu_transform_crop_image_desc"), null));
 
     }
 
@@ -91,31 +91,39 @@ public class TransformationActions {
     private void setShortcuts(){
         //Resize 50
         transformMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_MINUS, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
+        KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK)); 
         
         //Resize 150
         transformMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_PLUS, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK));
+        KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
 
         //Flip vertical
         flipsMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_OPEN_BRACKET, ActionEvent.META_MASK)); 
+        KeyEvent.VK_OPEN_BRACKET, ActionEvent.CTRL_MASK)); 
         
         //Flip horizontal
         flipsMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_CLOSE_BRACKET, ActionEvent.META_MASK));
+        KeyEvent.VK_CLOSE_BRACKET, ActionEvent.CTRL_MASK));
 
         //rotate 90 left
         rotationsMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_COMMA, ActionEvent.META_MASK)); 
+        KeyEvent.VK_COMMA, ActionEvent.CTRL_MASK)); 
         
         //rotate 90 right
         rotationsMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_PERIOD, ActionEvent.META_MASK));
+        KeyEvent.VK_PERIOD, ActionEvent.CTRL_MASK));
 
         //rotate 180
         rotationsMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_SLASH, ActionEvent.META_MASK));
+        KeyEvent.VK_SLASH, ActionEvent.CTRL_MASK));
+        //Crop
+        transformMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_C, ActionEvent.CTRL_MASK)); 
+        
+
+       
+            
+        
     }
 
     /**

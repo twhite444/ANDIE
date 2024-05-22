@@ -56,7 +56,7 @@ public class DrawActions {
         actions.add(new DrawRectangleAction(bundle.getString("menu_draw_drawRectangle"), null, bundle.getString("menu_draw_drawRectangle_desc"), null));
         actions.add(new DrawOvalAction(bundle.getString("menu_draw_drawOval"), null, bundle.getString("menu_draw_drawOval_desc"), null));
         actions.add(new DrawLineAction(bundle.getString("menu_draw_drawline"), null,  bundle.getString("menu_draw_drawline_desc"), null));
-        
+
     }
 
     /**
@@ -82,15 +82,15 @@ public class DrawActions {
     private void setShortcuts(){
         //Rectangle
         editMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_R, ActionEvent.CTRL_MASK)); 
+        KeyEvent.VK_R, ActionEvent.SHIFT_MASK | ActionEvent.CTRL_MASK)); 
         
         //Oval
         editMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_O, ActionEvent.CTRL_MASK)); 
-        
+        KeyEvent.VK_O, ActionEvent.SHIFT_MASK | ActionEvent.CTRL_MASK)); 
+
         //Line
         editMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
-            KeyEvent.VK_L, ActionEvent.CTRL_MASK)); 
+        KeyEvent.VK_L, ActionEvent.SHIFT_MASK | ActionEvent.CTRL_MASK)); 
     }
 
     /**
@@ -200,11 +200,7 @@ public class DrawActions {
         }
     }
 
-   
-  
-
-        
- /* 
+    /* 
      * <p>
      * Action to draw a rectangle on an image.
      * </p>
@@ -649,5 +645,5 @@ public class DrawActions {
         public void mouseExited(MouseEvent arg0) {}
 
     }
-    
+
 }

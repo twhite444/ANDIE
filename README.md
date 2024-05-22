@@ -1,3 +1,6 @@
+## Download
+The program can be downloaded as a single .jar file at: https://cosc202-kooky_koalas.cspages.otago.ac.nz/andie/
+
 ## Contributions to features
 Block averaging - Liam
 Colour channel cycling - Liam 
@@ -14,11 +17,11 @@ Image resize - Tommo
 Image rotations - Tommo  
 Image flip - Yusei  
 Image export - Charlotte  
-Junit Testing and Gradle build (testing for rotations and flips) - Tommo  
+Junit Testing and Gradle build  - Tommo / Liam / Yusei / Charlotte
 Keyboard shortcuts - Charlotte
 Language Actions Menu - Charlotte 
-Macros - charlotte
-Median Filter - Cushla, Liam, (Yusei wrote his own version of the code)  
+Macros - Charlotte
+Median Filter - Cushla, Liam, Yusei
 Multi-Language support - Charlotte 
 Random scattering - Yusei
 Sharpen Filter - Yusei / Tommo
@@ -31,9 +34,7 @@ User Guide - Cushla, Tommo (modified by everyone)
 ## How our code was tested (in general, not a multi-page exhaustive list).
 Uploaded an image to the program and compared the results of running the functions to the correct outcome that was in the lab book. All actions correctly manipulated the image, so we tested a couple of images and no unexpected outcomes came about. 
 
-Built Gradle and created JUnit Testing but not extensively used for testing other than running the program through Gradle to be quicker.
-
-We did use Junit testing for transformation actions such as rotating and flipping. However, Junit testing was difficult for filters so resorted to manually checking through GUI. In the next deliverables we will look to add at least Junit testing for colour changes as that will be easier to implement.
+Built Gradle and created JUnit Testing for all filters except random scattering. Continuous integration has been implemented through the pipeline for JUnit Testing.
 
 
 ## A list of any known issues or bugs.
@@ -43,6 +44,8 @@ If you open up a very large image it doesn’t automatically resize the GUI arou
 Limits on zoom in and zoom out features  
 
 When using crop while zoomed in or out the area that is selected sometimes flickers to having no zoom, this is purely visual and does not affect what area is cropped.
+
+If any of the drawing tools are used when recording a macro their colours will always be black.
 
 
 ## User Guide for ANDIE (A Non Destructive Image Editor)
@@ -55,93 +58,125 @@ Once you have launched ANDIE you will see a toolbar along the top with many comp
 
 
 ### Menu Options
-There are 8 differernt menus that all contain different manipulations:  
-**File**: Select ‘Open’ and you can import your desired image, or ‘Save’ to update the changes that you have made to your image into the current file or ‘Save As’ is another option that allows you to make a new version of the file (with stack of operations included) and name it. ‘Export’ allows you to export just the image.  
-**Edit**: Selecting the ‘Undo’ function will undo the last changes that you have made to the image, ‘Redo’ does the opposite.  
-**Draw**: 
-**View**: The ‘Zoom in’ function makes the image larger to a percentage that the user inputs and ‘Zoom Out’ does the same but makes it smaller. ‘Zoom Full’ zooms to the default.   
-**Filter**: Mean Filter, Soft Blur, sharpen filter, median filter, and Gaussian blur are all filters that change the way that the pixels and image appear  
-**Colors**: greyscale, invert colours, colour cycling  
-**Transform**: Contains horizontal, vertical, and inverted ways to flip your image and change the composition
-**Language**: 
+There are 8 differernt menus that all contain different operations:  
+**File**: Operations to open and manipulate files.
+**Edit**: Operations to chage what operations are applied to an image.
+**Draw**: Operations to draw various types of shapes on the image.
+**View**: Operations to change how the image is viewed.
+**Filter**: Operations that apply various filters to the image, changing pixels based on nearby ones.
+**Colors**: Operations that changes the colours in the image.
+**Transform**: Operations that change the shape of the image.
+**Language**: Changes what language the program is in.
+
+
+### File menu:
+**Open**: Imports a selected image into the program.
+**Save**: Updates the changes that you have made to your image into the current file.
+**Save as**: Same as previous but allows for renaming and moving of where the file is saved.
+**Export**: Allows you to export just the image.
+**Exit**: Closes the program.
+
+
+### Edit menu:
+**Undo**: Undoes the last changes that you have made to the image.
+**Redo**: Redoes the last undo.
+**Macros**: ‘Apply Macro’ will apply a set opertains defined in a selected .ops file to the current image. ‘Record macro’ will record any operations that are made before ‘Stop recording’ is clicked and asve them as a .ops file.
+
+
+### Draw menu:
+Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a colour picker, allowing you to choose the outline colour and, in the case of rectangle and oval, the fill colour, the selected shape can the be drawn by clicking and dragging.
+
+
+### View menu:
+**Zoom in**: Zooms the image in by 10%, up to a maximum of 200%.
+**Zoom out**: Zooms the image out by 10%, down to a minimum of 50%.
+**Zoom full**: Resets zoom to 100%.
 
 
 ### Filter Menu:  
-**Mean Filter**: A mean filter calculates the average pixel value within a specified neighborhood, smoothing out the image and reducing noise. It replaces each pixel with the average of its neighboring pixels.  
-**Soft Blur**: A soft blur filter is similar to the mean filter but does weaker blur, resulting in a smoother appearance. It effectively blurs the image while preserving its overall structure.  
-**Sharpen Filter**: A sharpen filter enhances image clarity by increasing the contrast around edges, making them appear sharper. It accentuates high-contrast areas in the image, resulting in a crisper and more defined appearance.  
+**Mean filter**: A mean filter calculates the average pixel value within a specified neighborhood, smoothing out the image and reducing noise. It replaces each pixel with the average of its neighboring pixels.  
+**Soft Blur filter**: A soft blur filter is similar to the mean filter but does weaker blur, resulting in a smoother appearance. It effectively blurs the image while preserving its overall structure.  
+**Sharpen filter**: A sharpen filter enhances image clarity by increasing the contrast around edges, making them appear sharper. It accentuates high-contrast areas in the image, resulting in a crisper and more defined appearance.  
 **Median filter**: A blurring filter that takes in all of the pixel values and finds a median. This median value determines the degree to which the image is blurred. It has a user interaction in which the radius is asked for, the higher the radius number the more blurred.  
-**Gaussian Blur**: A Gaussian blur filter reduces image detail by convolving the image with a Gaussian function, which softens the transitions between pixels. It effectively blurs the image while preserving its overall structure, resulting in a smoother appearance with reduced noise and fine details.  
+**Gaussian filter**: A Gaussian blur filter reduces image detail by convolving the image with a Gaussian function, which softens the transitions between pixels. It effectively blurs the image while preserving its overall structure, resulting in a smoother appearance with reduced noise and fine details.  
+**Block average**: Splits the image up into blocks with each block will be coloured based on the average colour of the pixels inside the block.
+**Random Scattering**: Randomly moves each pixel to some position within a radius.
+**Emboss filter**:  Enhances the appearances of edges in an image to simulate a raised or embossed effect
+**Sobel filter**: Detects edges in an image to show areas of rapid intensity change with higher contrast
 
 
 ### Colour Menu:
-**Greyscale**: converts image from RGB to greyscale  
-**Invert**: inverts the colours of the image  
-**Cycle Colours**: allows you to cycle through colour channels of all possible combinations (BGR, BRG, GBR, GRB, RBG, RGB)  
+**Greyscale**: Converts image from RGB to greyscale.
+**Invert**: Inverts the colours of the image from RGB to any ordering of R, G and B.
+**Cycle Colours**: Allows you to cycle through colour channels of all possible combinations (BGR, BRG, GBR, GRB, RBG, RGB).
+**Change contrast and brightness**: Changes the contrast and brightness by a specified percetage from -100% to 100%.
+
 
 ### Transformation Menu: 
 **Resize to 50%**: Shrinks the image to half its original size.  
-**Resize to 100%**: Keeps the image at its original size.   
-**Flip Vertical/Horizontal**: Reflects the image either vertically (top becomes bottom) or horizontally (left becomes right).  
+**Resize to 100%**: Keeps the image at its original size.
+**Crop image**: Crops the image to a selected area.
+**Flip Vertical/Horizontal**: Reflects the image either vertically (top becomes bottom) or horizontally (left becomes right).
 **Rotations 90 (left), 90 (right), 180**: Rotates the image by the specified angle (90 degrees left, 90 degrees right, or 180 degrees).  
 
+
 ### Language Menu: 
-**There are two language options**: English is set as the default, but selecting Russian and rerunning the file changes it to Russian.  
+**There are two language options**: English is set as the default language, but selecting Russian and reopening the program will change it to Russian.  
+
 
 ## Keyboard shortcuts
 ### File menu shortcuts:
-**Open**: `COMMAND` + `O`<br>
-**Save**: `COMMAND` + `S` <br>
-**Save As**: `COMMAND` + `SHIFT` + `S` <br>
-**Export**: `COMMAND` + `E` <br>
-**Exit**: `COMMAND` + `Q` <br>
+**Open**: `CTRL` + `O`<br>
+**Save**: `CTRL` + `S` <br>
+**Save As**: `CTRL` + `SHIFT` + `S` <br>
+**Export**: `CTRL` + `E` <br>
+**Exit**: `CTRL` + `Q` <br>
 
 ### Edit menu shortcuts:
-**Undo**: `COMMAND` + `Z` <br>
-**Redo**: `COMMAND` + `Y` <br>
-**Crop image**: <br>
+**Undo**: `CTRL` + `Z` <br>
+**Redo**: `CTRL` + `Y` <br>
 
 #### Macros submenu shortcuts:
-**Apply macro**: `COMMAND` + `1` <br>
-**Record macro**: `COMMAND` + `2` (shortcut only applies when macro is not being recorded) <br>
-**Stop recording**: `COMMAND` + `3` (shortcut only applies when macro is  being recorded) <br>
+**Apply macro**: `CTRL` + `1` <br>
+**Record macro**: `CTRL` + `2` (shortcut only applies when macro is not being recorded) <br>
+**Stop recording**: `CTRL` + `3` (shortcut only applies when macro is  being recorded) <br>
 
 ### Draw menu shortcuts: 
-**Draw rectangle**: `CTRL` + `R` <br>
-**Draw oval**: `CTRL` + `O` <br>
-**Draw line**: `CTRL` + `L` <br>
+**Draw rectangle**: `CTRL` + `SHIFT` + `R` <br>
+**Draw oval**: `CTRL` + `SHIFT` + `O` <br>
+**Draw line**: `CTRL` + `SHIFT` + `L` <br>
 
 ### View menu shortcuts:
-**Zoom in**: `COMMAND` + `+` <br>
-**Zoom out**: `COMMAND` + `-` <br>
-**Zoom full**: `COMMAND` + `0` <br>
+**Zoom in**: `CTRL` + `+` <br>
+**Zoom out**: `CTRL` + `=` <br>
+**Zoom full**: `CTRL` + `0` <br>
 
 ### Filter menu shortcuts:
-**Mean filter**: `CTRL` + `COMMAND` + `M` <br>
-**Soft blur filter out**: `CTRL` + `COMMAND` + `F` <br>
-**Sharpen filter**: `CTRL` + `COMMAND` + `S` <br>
-**Median filter**: `CTRL` + `COMMAND` + `A` <br>
-**Gaussian filter**: `CTRL` + `COMMAND` + `G` <br>
-**Block average filter**: `CTRL` + `COMMAND` + `B` <br>
-**Random scattering**: <br>
-**Emboss filter**: <br>
-**Sobel filter**: <br>
+**Mean filter**: `CTRL` + `ALT` + `M` <br>
+**Soft blur filter out**: `CTRL` + `ALT` + `F` <br>
+**Sharpen filter**: `CTRL` + `ALT` + `S` <br>
+**Median filter**: `CTRL` + `ALT` + `A` <br>
+**Gaussian filter**: `CTRL` + `ALT` + `G` <br>
+**Block average filter**: `CTRL` + `ALT` + `B` <br>
+**Random scattering**: `CTRL` + `ALT` + `R` <br>
+**Emboss filter**: `CTRL` + `ALT` + `E`<br>
+**Sobel filter**: `CTRL` + `ALT` + `O` <br>
 
 ### Filter menu shortcuts:
-**Greyscale**: `SHIFT` + `COMMAND` + `G` <br>
-**Image inversion**: `COMMAND` + `I` <br>
-**Greyscale**: `SHIFT` + `COMMAND` + `G` <br>
-**Cycle colours**: `CTRL` + `COMMAND` + `C` <br>
-**Change contrast and brightness**: `SHIFT` + `COMMAND` + `B` <br>
+**Greyscale**: `CTRL` + `G` <br>
+**Image inversion**: `CTRL` + `I` <br>
+**Cycle colours**: `CTRL` + `SHIFT` + `C` <br>
+**Change contrast and brightness**: `CTRL` + `SHIFT` + `B` <br>
 
 ### Transform menu shortcuts:
-**Resize to 50%**: `SHIFT` + `COMMAND` + `-` <br>
-**Resize to 150%**: `SHIFT` + `COMMAND` + `+` <br>
+**Resize to 50%**: `CTRL` + `SHIFT` + `-` <br>
+**Resize to 150%**: `CTRL` + `SHIFT` + `=` <br>
+**Crop image**: `CTRL` + `C`<br>
 #### Flip submenu shortcuts:
-**Flip vertical**: `COMMAND` + `[` <br>
-**Flip horizontal**: `COMMAND` + `]` <br>
+**Flip vertical**: `CTRL` + `[` <br>
+**Flip horizontal**: `CTRL` + `]` <br>
 #### Rotate submenu shortcuts:
-**Rotate left**: `COMMAND` + `,` <br>
-**Rotate right**: `COMMAND` + `.` <br>
-**Rotate 180**: `COMMAND` + `/` <br>
+**Rotate left**: `CTRL` + `,` <br>
+**Rotate right**: `CTRL` + `.` <br>
+**Rotate 180**: `CTRL` + `/` <br>
 

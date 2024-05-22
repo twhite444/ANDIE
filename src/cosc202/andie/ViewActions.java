@@ -63,15 +63,15 @@ public class ViewActions {
 
         //Zoom in
         viewMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_PLUS, ActionEvent.META_MASK)); 
+        KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK)); 
         
         //Zoom out
         viewMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_MINUS, ActionEvent.META_MASK));
+        KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK));
 
         //Zoom full
         viewMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_0, ActionEvent.META_MASK));
+        KeyEvent.VK_0, ActionEvent.CTRL_MASK));
 
         return viewMenu;
     }

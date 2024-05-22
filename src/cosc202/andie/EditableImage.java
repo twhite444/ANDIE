@@ -48,6 +48,9 @@ class EditableImage {
     /** The file where the operation sequence is stored. */
     private String opsFilename;
 
+    private static ResourceBundle bundle;
+
+
     private Stack<ImageOperation> macro;
     private Stack<ImageOperation> macroOpsRedo;
     private boolean recordingMacro;
@@ -72,7 +75,7 @@ class EditableImage {
         recordingMacro = false;
         macro = new Stack<ImageOperation>();
         macroOpsRedo = new Stack<ImageOperation>();
-
+        bundle = Andie.LanguageSettings.getMessageBundle();
     }
 
     /**
@@ -330,10 +333,10 @@ class EditableImage {
      */
     public void saveMacro(String macroFilename) throws NullPointerException, RuntimeException, Exception{
         if(!recordingMacro){
-            throw new RuntimeException("Cannot save macro if operations were not being recorded");
+            throw new RuntimeException(bundle.getString("menu_macro_errorCannotSaveMacro"));
         } 
         if(macro.isEmpty()){
-            throw new NullPointerException("Cannot save empty macro");
+            throw new Exception(bundle.getString("menu_macro_errorCannotSaveEmptyMacro"));
         }
         recordingMacro = false;
         if(!macroFilename.contains(".ops")){
@@ -406,7 +409,7 @@ class EditableImage {
 
         if(ops.empty()) { // checks if there is anything to undo
 
-            JOptionPane.showMessageDialog(null, "Error: nothing to undo", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, bundle.getString("menu_macro_errorNothingToUndo"), bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
             throw new RuntimeException();
 
@@ -431,7 +434,7 @@ class EditableImage {
 
         if(ops.empty()) { // checks if there is anything to undo
 
-            JOptionPane.showMessageDialog(null, "Error: nothing to undo", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, bundle.getString("menu_macro_errorNothingToUndo"), bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
             throw new RuntimeException();
 
@@ -455,8 +458,7 @@ class EditableImage {
 
         if(redoOps.empty()) { // checks if there is anything to redo
 
-            JOptionPane.showMessageDialog(null, "Error: nothing to redo", "Error", JOptionPane.ERROR_MESSAGE);
-
+            JOptionPane.showMessageDialog(null, bundle.getString("menu_macro_errorNothingToRedo"), bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException();
 
         }
