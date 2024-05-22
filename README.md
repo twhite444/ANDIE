@@ -99,8 +99,8 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 **Gaussian filter**: A Gaussian blur filter reduces image detail by convolving the image with a Gaussian function, which softens the transitions between pixels. It effectively blurs the image while preserving its overall structure, resulting in a smoother appearance with reduced noise and fine details.  
 **Block average**: Splits the image up into blocks with each block will be coloured based on the average colour of the pixels inside the block.
 **Random Scattering**: Randomly moves each pixel to some position within a radius.
-**Emboss filter**: 
-**Sobel filter**:
+**Emboss filter**:  Enhances the appearances of edges in an image to simulate a raised or embossed effect
+**Sobel filter**: Detects edges in an image to show areas of rapid intensity change with higher contrast
 
 
 ### Colour Menu:
