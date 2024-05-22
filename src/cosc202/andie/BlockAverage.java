@@ -127,6 +127,7 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
                         px = Math.max(0, Math.min(px, width - 1));
                         py = Math.max(0, Math.min(py, height - 1));
                         input.setRGB(px, py, argb);
+                        
                     }
 
                 }
