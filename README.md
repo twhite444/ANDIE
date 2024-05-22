@@ -120,9 +120,8 @@ There are 8 differernt menus that all contain different manipulations:
 **Median filter**: `CTRL` + `COMMAND` + `A` <br>
 **Gaussian filter**: `CTRL` + `COMMAND` + `G` <br>
 **Block average filter**: `CTRL` + `COMMAND` + `B` <br>
-**Random scattering**: <br>
-**Emboss filter**: <br>
-**Sobel filter**: <br>
+**Random scattering**: `CTRL` + `COMMAND` + `R`<br>
+**Emboss filter**: `CTRL` + `COMMAND` + `E`<br>
 
 ### Filter menu shortcuts:
 **Greyscale**: `SHIFT` + `COMMAND` + `G` <br>
@@ -134,7 +133,7 @@ There are 8 differernt menus that all contain different manipulations:
 ### Transform menu shortcuts:
 **Resize to 50%**: `SHIFT` + `COMMAND` + `-` <br>
 **Resize to 150%**: `SHIFT` + `COMMAND` + `+` <br>
-**Crop image**: <br>
+**Crop image**: `SHIFT` + `COMMAND` + `C` <br>
 #### Flip submenu shortcuts:
 **Flip vertical**: `COMMAND` + `[` <br>
 **Flip horizontal**: `COMMAND` + `]` <br>
