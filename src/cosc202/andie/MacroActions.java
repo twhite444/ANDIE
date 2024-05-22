@@ -122,18 +122,7 @@ public class MacroActions{
                 if (result == JFileChooser.APPROVE_OPTION) {
 
                     String macroFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    // int[] macroSize = target.getImage().getMacroSize(macroFilepath);
-                    // int macroWidth = macroSize[0];
-                    // int macroHeight = macroSize[1];
-                    // int imageWidth = target.getImage().getCurrentWidth();
-                    // int imageHeight= target.getImage().getCurrentHeight();
-                    // if(imageWidth == macroWidth && imageHeight == macroHeight){
-                        target.getImage().applyMacro(macroFilepath);
-                    // } else{
-                    //     Resize resize = new Resize();
-                        // target.getImage() = new Resize().apply(current, originalMacroWidth, originalMacroHeight);  
-                    // }
-                    
+                        target.getImage().applyMacro(macroFilepath);        
                 }
                 target.repaint();
                 target.getParent().revalidate();
@@ -144,6 +133,12 @@ public class MacroActions{
                         (ex.getMessage()),bundle.getString("error_message_ERROR"),
                         JOptionPane.ERROR_MESSAGE);
 
+            } catch(IllegalArgumentException ex){
+                
+                JOptionPane.showMessageDialog(null,
+                        (bundle.getString("error_message_ILLEGAL_ARGUMENT_file_type_unsupported") + ex.getMessage()),bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+        
             } catch (Exception ex) {
 
                 JOptionPane.showMessageDialog(null, (bundle.getString("error_message_menu_macro_errorApplyMacro") + ex.getMessage()) + "\n" + ex,
@@ -250,10 +245,10 @@ public class MacroActions{
         public void actionPerformed(ActionEvent e) {
             try{
                 JFileChooser fileChooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                FileNameExtensionFilter filter = new FileNameExtensionFilter(
                     "Macro files", "ops");
-            fileChooser.setFileFilter(filter);
-            int result = fileChooser.showSaveDialog(target);
+                fileChooser.setFileFilter(filter);
+                int result = fileChooser.showSaveDialog(target);
 
                 if (result == JFileChooser.APPROVE_OPTION) {
                 
@@ -266,13 +261,18 @@ public class MacroActions{
                 } catch (NullPointerException ex) {
 
                     JOptionPane.showMessageDialog(null,
-                            (bundle.getString("error_message_NULL_FILE_TYPE_WRONG") + ex.getMessage()), bundle.getString("error_message_ERROR"),
+                            (ex.getMessage()), bundle.getString("error_message_ERROR"),
                             JOptionPane.ERROR_MESSAGE);
+
+                } catch (RuntimeException ex) {
+
+                    JOptionPane.showMessageDialog(null, ex.getMessage(),
+                            bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
                 } catch (Exception ex) {
 
-                    JOptionPane.showMessageDialog(null, (bundle.getString("error_message_PROBLEM_SAVING") + ex.getMessage() + "\n" + ex),
-                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, (bundle.getString("error_message_PROBLEM_SAVING") + ex.getMessage()),
+                            bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
 
                 }
             

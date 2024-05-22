@@ -127,14 +127,16 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
-            try {
+            try{
 
                 target.getImage().undo();
                 target.repaint();
                 target.getParent().revalidate();
 
-            } catch (Exception ex) {
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -176,18 +178,16 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
-            try {
-
+            try{
                 target.getImage().redo();
                 target.repaint();
                 target.getParent().revalidate();
 
-            } catch (Exception ex) {
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
-
         }
-
     }
-
 }

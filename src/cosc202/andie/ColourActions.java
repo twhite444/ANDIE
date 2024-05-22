@@ -85,21 +85,21 @@ public class ColourActions {
 
     /** Sets the keyboard shortcuts for colourMenu */
     private void setShortcuts(){
-         //Convert to grey
-         colourMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-            KeyEvent.VK_G, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
+        //Convert to grey
+        colourMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_G, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
             
-            //Invert
-            colourMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-            KeyEvent.VK_I, ActionEvent.META_MASK));
+        //Invert
+        colourMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_I, ActionEvent.META_MASK));
             
-            //Cycle colours
-            colourMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
-            KeyEvent.VK_C, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        //Cycle colours
+        colourMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_C, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
             
-            //Contrast and brightness
-            colourMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
-            KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK));
+        //Contrast and brightness
+        colourMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
+        KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK));
     }
 
     /**
@@ -140,11 +140,23 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
             target.getImage().apply(new ConvertToGrey());
             target.repaint();
             target.getParent().revalidate();
+            
+            } catch(NullPointerException ex){
 
+            JOptionPane.showMessageDialog(null, ex.getMessage(), 
+                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+
+            } catch(Exception ex){
+            JOptionPane.showMessageDialog(null, bundle.getString("error_message_FILTER") + ex.getMessage(), 
+                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -187,11 +199,24 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
 
-            target.getImage().apply(new ConvertToInverse());
-            target.repaint();
-            target.getParent().revalidate();
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                target.getImage().apply(new ConvertToInverse());
+                target.repaint();
+                target.getParent().revalidate();
 
+            } catch(NullPointerException ex){
+
+                JOptionPane.showMessageDialog(null, ex.getMessage(), 
+                        bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null, bundle.getString("error_message_FILTER") + ex.getMessage(), 
+                        bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -234,6 +259,10 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
 
             String cycleType = bundle.getString("menu_colour_cycleColours_RGB");
 
@@ -283,7 +312,15 @@ public class ColourActions {
             target.getImage().apply(new CycleColours(cycleType));
             target.repaint();
             target.getParent().revalidate();
+        } catch(NullPointerException ex){
 
+            JOptionPane.showMessageDialog(null, ex.getMessage(), 
+                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+
+        } catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), 
+                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+        }
         }
 
     }
@@ -327,61 +364,75 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
 
-            // Determine the amount - ask the user.
-            int brightness = 0;
-            int contrast = 0;
+                // Determine the amount - ask the user.
+                int brightness = 0;
+                int contrast = 0;
 
-            // Pop-up dialog box to ask for the amount value.
+                // Pop-up dialog box to ask for the amount value.
 
-            JPanel sliderPanel = new JPanel();
+                JPanel sliderPanel = new JPanel();
 
-            sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
+                sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
 
-            sliderPanel.add(new JLabel(bundle.getString("menu_change_brightness")));
+                sliderPanel.add(new JLabel(bundle.getString("menu_change_brightness")));
 
-            JSlider brightnessSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
+                JSlider brightnessSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
 
-            brightnessSlider.setPreferredSize(new Dimension(500, 50));
+                brightnessSlider.setPreferredSize(new Dimension(500, 50));
 
-            brightnessSlider.setMajorTickSpacing(25);
-            brightnessSlider.setMinorTickSpacing(5);
-            brightnessSlider.setPaintTicks(true);
-            brightnessSlider.setPaintLabels(true);
+                brightnessSlider.setMajorTickSpacing(25);
+                brightnessSlider.setMinorTickSpacing(5);
+                brightnessSlider.setPaintTicks(true);
+                brightnessSlider.setPaintLabels(true);
 
-            sliderPanel.add(brightnessSlider);
+                sliderPanel.add(brightnessSlider);
 
-            sliderPanel.add(new JLabel(bundle.getString("menu_change_contrast")));
+                sliderPanel.add(new JLabel(bundle.getString("menu_change_contrast")));
 
-            JSlider contrastSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
+                JSlider contrastSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 0);
 
-            contrastSlider.setPreferredSize(new Dimension(500, 50));
+                contrastSlider.setPreferredSize(new Dimension(500, 50));
 
-            contrastSlider.setMajorTickSpacing(25);
-            contrastSlider.setMinorTickSpacing(5);
-            contrastSlider.setPaintTicks(true);
-            contrastSlider.setPaintLabels(true);
+                contrastSlider.setMajorTickSpacing(25);
+                contrastSlider.setMinorTickSpacing(5);
+                contrastSlider.setPaintTicks(true);
+                contrastSlider.setPaintLabels(true);
 
-            sliderPanel.add(contrastSlider);
+                sliderPanel.add(contrastSlider);
 
-            int option = JOptionPane.showOptionDialog(null, sliderPanel, bundle.getString("menu_enter_amount"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ok", "Cancel"}, null);
+                int option = JOptionPane.showOptionDialog(null, sliderPanel, bundle.getString("menu_enter_amount"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Ok", "Cancel"}, null);
 
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
+                // Check the return value from the dialog box.
+                if (option == JOptionPane.CANCEL_OPTION) {
 
-                return;
+                    return;
 
-            } else if (option == JOptionPane.OK_OPTION) {
+                } else if (option == JOptionPane.OK_OPTION) {
 
-                brightness = brightnessSlider.getValue();
-                contrast = contrastSlider.getValue();
+                    brightness = brightnessSlider.getValue();
+                    contrast = contrastSlider.getValue();
 
+                }
+
+                target.getImage().apply(new ChangeContrastAndBrightness(brightness, contrast));
+                target.repaint();
+                target.getParent().revalidate();
+
+            } catch(NullPointerException ex){
+
+            JOptionPane.showMessageDialog(null, ex.getMessage(), 
+                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+
+            } catch(Exception ex){
+            
+                JOptionPane.showMessageDialog(null, ex.getMessage(), 
+                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
             }
-
-            target.getImage().apply(new ChangeContrastAndBrightness(brightness, contrast));
-            target.repaint();
-            target.getParent().revalidate();
-
         }
 
     }
