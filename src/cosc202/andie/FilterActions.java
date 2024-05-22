@@ -155,6 +155,9 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 // Determine the radius - ask the user.
                 int radius = 1;
 
@@ -230,6 +233,9 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 // Determine the radius - ask the user.
                 int radius = 1;
 
@@ -303,6 +309,9 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e){
             try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 target.getImage().apply(new SoftBlur());
                 target.repaint();
                 target.getParent().revalidate();
@@ -351,6 +360,9 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e){
             try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 target.getImage().apply(new SharpenFilter());
                 target.repaint();
                 target.getParent().revalidate();
@@ -402,6 +414,9 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 // Determine the radius - ask the user.
                 int radius = 1;
 
@@ -477,6 +492,9 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 String direction = bundle.getString("menu_filter_embossFilter_middleLeft");
 
                 // Pop-up dialog box to ask for the cycle type.
@@ -581,6 +599,9 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 String direction = bundle.getString("menu_macro_verticalSobel");
 
                 // Pop-up dialog box to ask for the cycle type.
@@ -671,6 +692,9 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 // Determine the x and y distance, ask the user.
                 int xDist = 1;
                 int yDist = 1;
@@ -764,6 +788,9 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
                 // Determine the radius - ask the user.
                 int radius = 1;
 
