@@ -31,9 +31,8 @@ User Guide - Cushla, Tommo (modified by everyone)
 ## How our code was tested (in general, not a multi-page exhaustive list).
 Uploaded an image to the program and compared the results of running the functions to the correct outcome that was in the lab book. All actions correctly manipulated the image, so we tested a couple of images and no unexpected outcomes came about. 
 
-Built Gradle and created JUnit Testing but not extensively used for testing other than running the program through Gradle to be quicker.
+Built Gradle and created JUnit Testing for most filters.
 
-We did use Junit testing for transformation actions such as rotating and flipping. However, Junit testing was difficult for filters so resorted to manually checking through GUI. In the next deliverables we will look to add at least Junit testing for colour changes as that will be easier to implement.
 
 
 ## A list of any known issues or bugs.
@@ -46,8 +45,6 @@ When using crop while zoomed in or out the area that is selected sometimes flick
 
 If any of the drawing tools are used when recording a macro their colours will always be black.
 
-When a block average filter is applied to a .jpg and either the x or y size is one a black line will appear along whatever edge 
-
 
 ## User Guide for ANDIE (A Non Destructive Image Editor)
 ### Introduction
@@ -59,15 +56,15 @@ Once you have launched ANDIE you will see a toolbar along the top with many comp
 
 
 ### Menu Options
-There are 8 differernt menus that all contain different manipulations:  
-**File
-**Edit**:
-**Draw**:
-**View**: 
-**Filter**: Mean Filter, Soft Blur, sharpen filter, median filter, and Gaussian blur are all filters that change the way that the pixels and image appear  
-**Colors**: greyscale, invert colours, colour cycling  
-**Transform**: Contains horizontal, vertical, and inverted ways to flip your image and change the composition
-**Language**: 
+There are 8 differernt menus that all contain different operations:  
+**File**: Operations to open and manipulate files.
+**Edit**: Operations to chage what operations are applied to an image.
+**Draw**: Operations to draw various types of shapes on the image.
+**View**: Operations that change how the image is veiwed without changing
+**Filter**:
+**Colors**:
+**Transform**:
+**Language**:
 
 
 ### File menu:
@@ -100,16 +97,16 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 **Median filter**: A blurring filter that takes in all of the pixel values and finds a median. This median value determines the degree to which the image is blurred. It has a user interaction in which the radius is asked for, the higher the radius number the more blurred.  
 **Gaussian filter**: A Gaussian blur filter reduces image detail by convolving the image with a Gaussian function, which softens the transitions between pixels. It effectively blurs the image while preserving its overall structure, resulting in a smoother appearance with reduced noise and fine details.  
 **Block average**: Splits the image up into blocks with each block will be coloured based on the average colour of the pixels inside the block.
-**Random Scattering**: Randomly moves each pixel to a nearby location.
+**Random Scattering**: Randomly moves each pixel to some position within a radius.
 **Emboss filter**: 
 **Sobel filter**:
 
 
 ### Colour Menu:
-**Greyscale**: converts image from RGB to greyscale.
-**Invert**: inverts the colours of the image from RGB to any ordering of R, G and B.
-**Cycle Colours**: allows you to cycle through colour channels of all possible combinations (BGR, BRG, GBR, GRB, RBG, RGB).
-**Change contrast and brightness**: 
+**Greyscale**: Converts image from RGB to greyscale.
+**Invert**: Inverts the colours of the image from RGB to any ordering of R, G and B.
+**Cycle Colours**: Allows you to cycle through colour channels of all possible combinations (BGR, BRG, GBR, GRB, RBG, RGB).
+**Change contrast and brightness**: Changes the contrast and brightness by a specified percetage from -100% to 100%.
 
 ### Transformation Menu: 
 **Resize to 50%**: Shrinks the image to half its original size.  
