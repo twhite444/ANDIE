@@ -1,3 +1,6 @@
+## Download
+The program can be downloaded as a single .jar file at: https://cosc202-kooky_koalas.cspages.otago.ac.nz/andie/
+
 ## Contributions to features
 Block averaging - Liam
 Colour channel cycling - Liam 
@@ -26,13 +29,13 @@ Soft Blur - Yusei / Tommo
 Toolbar for common operations - Charlotte
 Transformation actions menu - Tommo (added to by Yusei)  
 User Guide - Cushla, Tommo (modified by everyone)  
+Selected Area Random Scattering - Yusei 
 
 
 ## How our code was tested (in general, not a multi-page exhaustive list).
 Uploaded an image to the program and compared the results of running the functions to the correct outcome that was in the lab book. All actions correctly manipulated the image, so we tested a couple of images and no unexpected outcomes came about. 
 
 Built Gradle and created JUnit Testing for all filters except random scattering. Continuous integration has been implemented through the pipeline for JUnit Testing.
-
 
 
 ## A list of any known issues or bugs.
@@ -102,7 +105,7 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 **Emboss filter**:  Enhances the appearances of edges in an image to simulate a raised or embossed effect
 **Sobel filter**: Detects edges in an image to show areas of rapid intensity change with higher contrast
 **Motion Blur**: The Motion Blur Filter implementation applies a blur effect of a specified kernel size in a specified direction 
-
+**Selected Area Random Scattering**: It does use both crop function and RandomScattering function so than you can apply randomscattering to the area you select as a default the radius is set to 5. 
 
 ### Colour Menu:
 **Greyscale**: Converts image from RGB to greyscale.
@@ -121,6 +124,7 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 
 ### Language Menu: 
 **There are two language options**: English is set as the default language, but selecting Russian and reopening the program will change it to Russian.  
+
 
 ## Keyboard shortcuts
 ### File menu shortcuts:
