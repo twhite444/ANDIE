@@ -84,9 +84,9 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
                 int yLocal = 0;
 
 
-                for (xLocal = 0; xLocal + x < width && xLocal <= xDist; xLocal ++) { // for each pixel within the block, add its color to the total
+                for (xLocal = 0; xLocal + x <= width && xLocal <= xDist; xLocal ++) { // for each pixel within the block, add its color to the total
 
-                    for (yLocal = 0; yLocal + y < height && yLocal <= yDist; yLocal ++) {
+                    for (yLocal = 0; yLocal + y <= height && yLocal <= yDist; yLocal ++) {
 
                         argb = input.getRGB(Math.min(x + xLocal, width - 1), Math.min(y + yLocal, height - 1));
 
