@@ -36,14 +36,16 @@ public class FileActions {
     /** The menu that will hold the FileActions */
     private JMenu fileMenu;
 
+    static {
+        bundle = Andie.LanguageSettings.getMessageBundle();
+    }
+
     /**
      * <p>
      * Create a set of File menu actions.
      * </p>
      */
     public FileActions() {
-        // needed for multilingual support:
-        bundle = Andie.LanguageSettings.getMessageBundle();
 
         actions = new ArrayList<Action>();
         actions.add(new FileOpenAction(bundle.getString("menu_file_open"), null,
@@ -232,7 +234,13 @@ public class FileActions {
                 if (!target.getImage().hasImage()) {
                     throw new NullPointerException(bundle.getString("error_message_NULL_SAVE_no_image_open"));
                 }
-      
+            } catch (NullPointerException ex) {
+                JOptionPane.showMessageDialog(null,
+                        ex.getMessage(), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+            try{
                 target.getImage().save();
 
             } catch (NullPointerException ex) {
@@ -293,37 +301,45 @@ public class FileActions {
          * 
          * @param e The event triggering this callback.
          */
-        public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showSaveDialog(target);
-
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().exportAs(imageFilepath);
-
-                } catch (NullPointerException ex) {
-
-                    JOptionPane.showMessageDialog(null,
-                            (bundle.getString("error_message_NULL_file_not_found") + ex.getMessage()), bundle.getString("error_message_ERROR"),
-                            JOptionPane.ERROR_MESSAGE);
-
-                } catch (IllegalArgumentException ex) {
-
-                    JOptionPane.showMessageDialog(null,
-                            (bundle.getString("error_message_ILLEGAL_ARGUMENT_file_type_unsupported")
-                                    + ex.getMessage()),
-                                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
-
-                } catch (Exception ex) {
-
-                    JOptionPane.showMessageDialog(null, (bundle.getString("error_message_UNSPECIFIED") + ex.getMessage() + "\n" + ex),
-                    bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
-
+        public void actionPerformed(ActionEvent e){
+            try {
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_EXPORT_no_image_open"));
                 }
+            } catch (NullPointerException ex) {
+
+                JOptionPane.showMessageDialog(null,
+                        ex.getMessage(), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+            try{                
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showSaveDialog(target);
+            
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    
+                        String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                        target.getImage().exportAs(imageFilepath);
+                }
+            } catch (NullPointerException ex) {
+
+                JOptionPane.showMessageDialog(null,
+                        ex.getMessage(), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+
+            } catch (IllegalArgumentException ex) {
+
+                JOptionPane.showMessageDialog(null,
+                        (bundle.getString("error_message_ILLEGAL_ARGUMENT_file_type_unsupported")
+                        + ex.getMessage()), bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(null, ex.getMessage(),
+                        bundle.getString("error_message_ERROR"), JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }
 
     /**
@@ -362,6 +378,16 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try {
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+            } catch (NullPointerException ex) {
+                JOptionPane.showMessageDialog(null,
+                        ex.getMessage(), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 
@@ -431,7 +457,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
+            
             int option = JOptionPane.showOptionDialog(null,
                     bundle.getString("exit_confirmation"), bundle.getString("exit_message"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);

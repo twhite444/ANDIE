@@ -56,7 +56,7 @@ public class DrawActions {
         actions.add(new DrawRectangleAction(bundle.getString("menu_draw_drawRectangle"), null, bundle.getString("menu_draw_drawRectangle_desc"), null));
         actions.add(new DrawOvalAction(bundle.getString("menu_draw_drawOval"), null, bundle.getString("menu_draw_drawOval_desc"), null));
         actions.add(new DrawLineAction(bundle.getString("menu_draw_drawline"), null,  bundle.getString("menu_draw_drawline_desc"), null));
-        
+
     }
 
     /**
@@ -129,16 +129,18 @@ public class DrawActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
             try {
                 if (!target.getImage().hasImage()) {
-                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                    throw new NullPointerException(bundle.getString("error_message_NULL_SAVE_no_image_open"));
                 }
                 target.getImage().undo();
                 target.repaint();
                 target.getParent().revalidate();
 
             } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -190,16 +192,15 @@ public class DrawActions {
                 target.getParent().revalidate();
 
             } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         }
     }
 
-   
-  
-
-        
- /* 
+    /* 
      * <p>
      * Action to draw a rectangle on an image.
      * </p>
@@ -262,14 +263,16 @@ public class DrawActions {
                 lineColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_lineColor_desc"), Color.black);
                 fillColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_fillColor_desc"), Color.black);
             } catch(Exception ex){
-            
+                JOptionPane.showMessageDialog(null,
+                (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                JOptionPane.ERROR_MESSAGE);
             }
 
         }
 
         @Override
-        public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
-
+        public void mousePressed(MouseEvent click){ // gets the position of the mouse when it is clicked
+            try{
             rectStartX = (int)(click.getX() * 1 / (target.getZoom() / 100)); 
             rectStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
@@ -277,12 +280,17 @@ public class DrawActions {
             target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, Math.abs(rectStartX - Math.max(rectStartX, 0)), Math.abs(rectStartY - Math.max(rectStartY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
         }
 
         @Override
         public void mouseReleased(MouseEvent unclick) { // when the mouse is released
-
+            try{
             int rectEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
             int rectEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
@@ -303,12 +311,18 @@ public class DrawActions {
             target.getImage().apply(new DrawRectangle(rectStartX, rectStartY, rectWidth, rectHeight, lineColor, fillColor)); // draw the final rectangle
             target.repaint();
             target.getParent().revalidate();
+        
+        } catch(Exception ex){
+            JOptionPane.showMessageDialog(null,
+                    (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                    JOptionPane.ERROR_MESSAGE);
+        }
 
         }
 
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
-
+            try{
             int rectEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100)); 
             int rectEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
 
@@ -316,6 +330,11 @@ public class DrawActions {
             target.getImage().apply(new DrawRectangle(Math.min(rectStartX, rectEndX), Math.min(rectStartY, rectEndY), Math.abs(rectStartX - Math.max(rectEndX, 0)), Math.abs(rectStartY - Math.max(rectEndY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
         }
 
@@ -396,13 +415,15 @@ public class DrawActions {
                 lineColor = JColorChooser.showDialog(null, bundle.getString(bundle.getString("menu_draw_lineColor_desc")), Color.black);
                 fillColor = JColorChooser.showDialog(null, bundle.getString(bundle.getString("menu_draw_fillColor_desc")), Color.black);
             } catch(Exception ex){
-                
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
 
         @Override
         public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
-
+            try{
             //System.out.println("clicky");
            
             ovalStartX = (int)(click.getX() * 1 / (target.getZoom() / 100));
@@ -413,48 +434,62 @@ public class DrawActions {
             target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, Math.abs(ovalStartX - Math.max(ovalStartX, 0)), Math.abs(ovalStartY - Math.max(ovalStartY, 0)), lineColor, fillColor));
             target.repaint();
             target.getParent().revalidate();
+        } catch(Exception ex){
+            JOptionPane.showMessageDialog(null,
+                    (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                    JOptionPane.ERROR_MESSAGE);
+        }
 
         }
 
         @Override
         public void mouseReleased(MouseEvent unclick) { // when the mouse is released
+            try{
+                int ovalEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
+                int ovalEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
-            int ovalEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
-            int ovalEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
+                // remove the preview oval
+                target.getImage().undo();
 
-            // remove the preview oval
-            target.getImage().undo();
+                target.removeMouseListener(this); // removes the mouse listner
+                target.removeMouseMotionListener(this);
 
-            target.removeMouseListener(this); // removes the mouse listner
-            target.removeMouseMotionListener(this);
+                target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
 
-            target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
+                ovalWidth = Math.abs(ovalStartX - Math.max(ovalEndX, 0)); // gets the distance x & y between the click and the unclick, clamping for left and up
+                ovalHeight = Math.abs(ovalStartY - Math.max(ovalEndY, 0));
 
-            ovalWidth = Math.abs(ovalStartX - Math.max(ovalEndX, 0)); // gets the distance x & y between the click and the unclick, clamping for left and up
-            ovalHeight = Math.abs(ovalStartY - Math.max(ovalEndY, 0));
+                ovalStartX = Math.min(ovalStartX, ovalEndX); // gets the most top left x, y corner of the selected area
+                ovalStartY = Math.min(ovalStartY, ovalEndY);
 
-            ovalStartX = Math.min(ovalStartX, ovalEndX); // gets the most top left x, y corner of the selected area
-            ovalStartY = Math.min(ovalStartY, ovalEndY);
-
-            target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight, lineColor, fillColor)); // draw the final oval
-            target.repaint();
-            target.getParent().revalidate();
+                target.getImage().apply(new DrawOval(ovalStartX, ovalStartY, ovalWidth, ovalHeight, lineColor, fillColor)); // draw the final oval
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
         }
 
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
+            try{
+                int ovalEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100));
+                int ovalEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
 
-            int ovalEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100));
-            int ovalEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
+                //System.out.println(drag.getX() + ", " + (int)(drag.getX() * 1 / (target.getZoom() / 100)));
 
-            //System.out.println(drag.getX() + ", " + (int)(drag.getX() * 1 / (target.getZoom() / 100)));
-
-            target.getImage().undo(); // remove the preivious previwe oval and draw a new one
-            target.getImage().apply(new DrawOval(Math.min(ovalStartX, ovalEndX), Math.min(ovalStartY, ovalEndY), Math.abs(ovalStartX - Math.max(ovalEndX, 0)), Math.abs(ovalStartY - Math.max(ovalEndY, 0)), lineColor, fillColor));
-            target.repaint();
-            target.getParent().revalidate();
-
+                target.getImage().undo(); // remove the preivious previwe oval and draw a new one
+                target.getImage().apply(new DrawOval(Math.min(ovalStartX, ovalEndX), Math.min(ovalStartY, ovalEndY), Math.abs(ovalStartX - Math.max(ovalEndX, 0)), Math.abs(ovalStartY - Math.max(ovalEndY, 0)), lineColor, fillColor));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         @Override
@@ -531,53 +566,69 @@ public class DrawActions {
 
                 lineColor = JColorChooser.showDialog(null, bundle.getString("menu_draw_lineColor_desc"), Color.black);
             } catch(Exception ex){
-                    
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
 
         @Override
         public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
+            try{
+                lineStartX = (int)(click.getX() * 1 / (target.getZoom() / 100));
+                lineStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
-            lineStartX = (int)(click.getX() * 1 / (target.getZoom() / 100));
-            lineStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
-
-            // draw a line, this acts as a preview of where the line will be drawn
-            target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineStartX, lineStartY, lineColor));
-            target.repaint();
-            target.getParent().revalidate();
-
+                // draw a line, this acts as a preview of where the line will be drawn
+                target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineStartX, lineStartY, lineColor));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         @Override
         public void mouseReleased(MouseEvent unclick) { // when the mouse is released
+            try{
+                lineEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
+                lineEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
-            lineEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
-            lineEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
+                // remove the preview line
+                target.getImage().undo();
 
-            // remove the preview line
-            target.getImage().undo();
+                target.removeMouseListener(this); // removes the mouse listner
+                target.removeMouseMotionListener(this);
 
-            target.removeMouseListener(this); // removes the mouse listner
-            target.removeMouseMotionListener(this);
+                target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
 
-            target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
-
-            target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineEndX, lineEndY, lineColor)); // draw the final line
-            target.repaint();
-            target.getParent().revalidate();
+                target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineEndX, lineEndY, lineColor)); // draw the final line
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
         }
 
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
+            try{
+                lineEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100));
+                lineEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
 
-            lineEndX = (int)(drag.getX() * 1 / (target.getZoom() / 100));
-            lineEndY = (int)(drag.getY() * 1 / (target.getZoom() / 100));
-
-            target.getImage().undo(); // remove the preivious preview line and draw a new one
-            target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineEndX, lineEndY, lineColor));
-            target.repaint();
-            target.getParent().revalidate();
+                target.getImage().undo(); // remove the preivious preview line and draw a new one
+                target.getImage().apply(new DrawLine(lineStartX, lineStartY, lineEndX, lineEndY, lineColor));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
         }
 
@@ -594,5 +645,5 @@ public class DrawActions {
         public void mouseExited(MouseEvent arg0) {}
 
     }
-    
+
 }

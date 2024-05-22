@@ -160,34 +160,42 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                // Determine the radius - ask the user.
+                int radius = 1;
 
-            // Determine the radius - ask the user.
-            int radius = 1;
+                // Pop-up dialog box to ask for the radius value.
+                SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+                JSpinner radiusSpinner = new JSpinner(radiusModel);
+                int option = JOptionPane.showOptionDialog(
+                    null,
+                    radiusSpinner,
+                    bundle.getString("menu_filter_enterFilterRadius1to10px"), 
+                    JOptionPane.OK_CANCEL_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
+                    null);
 
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(
-                null,
-                radiusSpinner,
-                bundle.getString("menu_filter_enterFilterRadius1to10px"), 
-                JOptionPane.OK_CANCEL_OPTION, 
-                JOptionPane.QUESTION_MESSAGE, 
-                null, 
-                new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
-                null);
+                // Check the return value from the dialog box.
+                if (option == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option == JOptionPane.OK_OPTION) {
+                    radius = radiusModel.getNumber().intValue();
+                }
 
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
+                // Create and apply the filter
+                target.getImage().apply(new GaussianFilter(radius));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
-
-            // Create and apply the filter
-            target.getImage().apply(new GaussianFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
         }
 
     }
@@ -230,34 +238,43 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                // Determine the radius - ask the user.
+                int radius = 1;
 
-            // Determine the radius - ask the user.
-            int radius = 1;
+                // Pop-up dialog box to ask for the radius value.
+                SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+                JSpinner radiusSpinner = new JSpinner(radiusModel);
+                int option = JOptionPane.showOptionDialog(
+                    null, 
+                    radiusSpinner, 
+                    bundle.getString("menu_filter_enterFilterRadius1to10px"), 
+                    JOptionPane.OK_CANCEL_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
+                    null);
 
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(
-                null, 
-                radiusSpinner, 
-                bundle.getString("menu_filter_enterFilterRadius1to10px"), 
-                JOptionPane.OK_CANCEL_OPTION, 
-                JOptionPane.QUESTION_MESSAGE, 
-                null, 
-                new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
-                null);
+                // Check the return value from the dialog box.
+                if (option == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option == JOptionPane.OK_OPTION) {
+                    radius = radiusModel.getNumber().intValue();
+                }
 
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
+                // Create and apply the filter
+                target.getImage().apply(new MeanFilter(radius));
+                target.repaint();
+                target.getParent().revalidate();
+
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
-
-            // Create and apply the filter
-            target.getImage().apply(new MeanFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
         }
 
     }
@@ -297,9 +314,18 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e){
-            target.getImage().apply(new SoftBlur());
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                target.getImage().apply(new SoftBlur());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -339,9 +365,18 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e){
-            target.getImage().apply(new SharpenFilter());
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                target.getImage().apply(new SharpenFilter());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -384,38 +419,44 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                // Determine the radius - ask the user.
+                int radius = 1;
 
-            // Determine the radius - ask the user.
-            int radius = 1;
+                // Pop-up dialog box to ask for the radius value.
+                SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+                JSpinner radiusSpinner = new JSpinner(radiusModel);
+                int option = JOptionPane.showOptionDialog(
+                    null,
+                    radiusSpinner,
+                    bundle.getString("menu_filter_enterFilterRadius1to10px"), 
+                    JOptionPane.OK_CANCEL_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
+                    null);
 
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(
-                null,
-                radiusSpinner,
-                bundle.getString("menu_filter_enterFilterRadius1to10px"), 
-                JOptionPane.OK_CANCEL_OPTION, 
-                JOptionPane.QUESTION_MESSAGE, 
-                null, 
-                new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
-                null);
+                // Check the return value from the dialog box.
+                if (option == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option == JOptionPane.OK_OPTION) {
+                    radius = radiusModel.getNumber().intValue();
+                }
 
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
+                // Create and apply the filter
+                target.getImage().apply(new MedianFilter(radius));
+                target.repaint();
+                target.getParent().revalidate();
+
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
-
-            // Create and apply the filter
-            target.getImage().apply(new MedianFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
         }
-
-
-
     }
 
     /**
@@ -456,64 +497,71 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
-            String direction = bundle.getString("menu_filter_embossFilter_middleLeft");
-
-            // Pop-up dialog box to ask for the cycle type.
-
-            String[] directionOptions = { 
-                bundle.getString("menu_filter_embossFilter_middleLeft"),
-                bundle.getString("menu_filter_embossFilter_topLeft"),
-                bundle.getString("menu_filter_embossFilter_topMiddle"),
-                bundle.getString("menu_filter_embossFilter_topRight"),
-                bundle.getString("menu_filter_embossFilter_middleRight"),
-                bundle.getString("menu_filter_embossFilter_bottomRight"),
-                bundle.getString("menu_filter_embossFilter_bottomMiddle"),
-                bundle.getString("menu_filter_embossFilter_bottomLeft") 
-                                        }; // different options for direction
-
-            JComboBox<String> comboBox = new JComboBox<String>(); // drop down menu for options
-
-            for (String i: directionOptions) { // add each option to the menu
-
-                comboBox.addItem(i);
-
-            }
-
-            int option = JOptionPane.showOptionDialog(null, comboBox, bundle.getString("menu_filter_embossFilter_selectDirection"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
-
-            if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
-
-                return;
-
-            } else if (option == JOptionPane.OK_OPTION) {
-
-                direction = (String) comboBox.getSelectedItem(); // convert to string array
-                if (direction.equals(bundle.getString("menu_filter_embossFilter_middleLeft"))) {
-                    direction = "Middle left";
-                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topLeft"))) {
-                    direction = "Top Left";
-                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topMiddle"))) {
-                    direction = "Top Middle";
-                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topRight"))) {
-                    direction = "Top Right";
-                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_middleRight"))) {
-                    direction = "Middle Right";
-                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_bottomRight"))) {
-                    direction = "Bottom Right";
-                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_bottomMiddle"))) {
-                    direction = "Bottom Middle";
-                } else if (direction.equals(bundle.getString("menu_filter_embossFilter_bottomLeft"))) {
-                    direction = "Bottom Left";
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
                 }
-                
-                
+                String direction = bundle.getString("menu_filter_embossFilter_middleLeft");
+
+                // Pop-up dialog box to ask for the cycle type.
+
+                String[] directionOptions = { 
+                    bundle.getString("menu_filter_embossFilter_middleLeft"),
+                    bundle.getString("menu_filter_embossFilter_topLeft"),
+                    bundle.getString("menu_filter_embossFilter_topMiddle"),
+                    bundle.getString("menu_filter_embossFilter_topRight"),
+                    bundle.getString("menu_filter_embossFilter_middleRight"),
+                    bundle.getString("menu_filter_embossFilter_bottomRight"),
+                    bundle.getString("menu_filter_embossFilter_bottomMiddle"),
+                    bundle.getString("menu_filter_embossFilter_bottomLeft") 
+                                            }; // different options for direction
+
+                JComboBox<String> comboBox = new JComboBox<String>(); // drop down menu for options
+
+                for (String i: directionOptions) { // add each option to the menu
+
+                    comboBox.addItem(i);
+
+                }
+
+                int option = JOptionPane.showOptionDialog(null, comboBox, bundle.getString("menu_filter_embossFilter_selectDirection"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
+
+                if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
+
+                    return;
+
+                } else if (option == JOptionPane.OK_OPTION) {
+
+                    direction = (String) comboBox.getSelectedItem(); // convert to string array
+                    if (direction.equals(bundle.getString("menu_filter_embossFilter_middleLeft"))) {
+                        direction = "Middle left";
+                    } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topLeft"))) {
+                        direction = "Top Left";
+                    } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topMiddle"))) {
+                        direction = "Top Middle";
+                    } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topRight"))) {
+                        direction = "Top Right";
+                    } else if (direction.equals(bundle.getString("menu_filter_embossFilter_middleRight"))) {
+                        direction = "Middle Right";
+                    } else if (direction.equals(bundle.getString("menu_filter_embossFilter_bottomRight"))) {
+                        direction = "Bottom Right";
+                    } else if (direction.equals(bundle.getString("menu_filter_embossFilter_bottomMiddle"))) {
+                        direction = "Bottom Middle";
+                    } else if (direction.equals(bundle.getString("menu_filter_embossFilter_bottomLeft"))) {
+                        direction = "Bottom Left";
+                    }
+                    
+                    
+                }
+
+                target.getImage().apply(new Emboss(direction));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
-
-            target.getImage().apply(new Emboss(direction));
-            target.repaint();
-            target.getParent().revalidate();
-
         }
 
     }
@@ -556,45 +604,53 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
-            String direction = bundle.getString("menu_macro_verticalSobel");
-
-            // Pop-up dialog box to ask for the cycle type.
-
-            String[] directionOptions = {
-                bundle.getString("menu_macro_verticalSobel"),
-                bundle.getString("menu_macro_horizontalSobel") 
-            }; // different options for direction
-
-            JComboBox<String> comboBox = new JComboBox<String>(); // drop down menu for options
-
-            for (String i: directionOptions) { // add each option to the menu
-
-                comboBox.addItem(i);
-
-            }
-
-            int option = JOptionPane.showOptionDialog(null, comboBox, bundle.getString("menu_macro_selectSobelDirection"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
-
-            if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
-
-                return;
-
-            } else if (option == JOptionPane.OK_OPTION) {
-
-                direction = (String) comboBox.getSelectedItem(); // convert to string array
-                if (direction.equals(bundle.getString("menu_macro_verticalSobel"))) {
-                    direction = "Vertical Sobel";
-                } else if (direction.equals(bundle.getString("menu_macro_horizontalSobel"))) {
-                    direction = "Horizontal Sobel";
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
                 }
-                
+                String direction = bundle.getString("menu_macro_verticalSobel");
+
+                // Pop-up dialog box to ask for the cycle type.
+
+                String[] directionOptions = {
+                    bundle.getString("menu_macro_verticalSobel"),
+                    bundle.getString("menu_macro_horizontalSobel") 
+                }; // different options for direction
+
+                JComboBox<String> comboBox = new JComboBox<String>(); // drop down menu for options
+
+                for (String i: directionOptions) { // add each option to the menu
+
+                    comboBox.addItem(i);
+
+                }
+
+                int option = JOptionPane.showOptionDialog(null, comboBox, bundle.getString("menu_macro_selectSobelDirection"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,                 new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, null);
+
+                if (option == JOptionPane.CANCEL_OPTION) { // Check the return value from the dialog box.
+
+                    return;
+
+                } else if (option == JOptionPane.OK_OPTION) {
+
+                    direction = (String) comboBox.getSelectedItem(); // convert to string array
+                    if (direction.equals(bundle.getString("menu_macro_verticalSobel"))) {
+                        direction = "Vertical Sobel";
+                    } else if (direction.equals(bundle.getString("menu_macro_horizontalSobel"))) {
+                        direction = "Horizontal Sobel";
+                    }
+                    
+                }
+
+                target.getImage().apply(new Emboss(direction));
+                target.repaint();
+                target.getParent().revalidate();
+            
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
-
-            target.getImage().apply(new Emboss(direction));
-            target.repaint();
-            target.getParent().revalidate();
-
         }
 
     }
@@ -641,52 +697,60 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                // Determine the x and y distance, ask the user.
+                int xDist = 1;
+                int yDist = 1;
 
-            // Determine the x and y distance, ask the user.
-            int xDist = 1;
-            int yDist = 1;
+                // Pop-up dialog box to ask for the x any y values.
+                JPanel blockPanel = new JPanel();
 
-            // Pop-up dialog box to ask for the x any y values.
-            JPanel blockPanel = new JPanel();
+                SpinnerNumberModel xRadiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+                SpinnerNumberModel yRadiusModel = new SpinnerNumberModel(1, 1, 10, 1);
 
-            SpinnerNumberModel xRadiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            SpinnerNumberModel yRadiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+                JSpinner xSpinner = new JSpinner(xRadiusModel);
+                JSpinner ySpinner = new JSpinner(yRadiusModel);
 
-            JSpinner xSpinner = new JSpinner(xRadiusModel);
-            JSpinner ySpinner = new JSpinner(yRadiusModel);
+                blockPanel.add(new JLabel(bundle.getString("menu_filter_blockAverage_xSelect")));
+                blockPanel.add(xSpinner);
+                blockPanel.add(new JLabel(bundle.getString("menu_filter_blockAverage_ySelect")));
+                blockPanel.add(ySpinner);
 
-            blockPanel.add(new JLabel(bundle.getString("menu_filter_blockAverage_xSelect")));
-            blockPanel.add(xSpinner);
-            blockPanel.add(new JLabel(bundle.getString("menu_filter_blockAverage_ySelect")));
-            blockPanel.add(ySpinner);
+                int option = JOptionPane.showOptionDialog(
 
-            int option = JOptionPane.showOptionDialog(
+                    null,
+                    blockPanel,
+                    "select block size",
+                    JOptionPane.OK_CANCEL_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
+                    null);
 
-                null,
-                blockPanel,
-                "select block size",
-                JOptionPane.OK_CANCEL_OPTION, 
-                JOptionPane.QUESTION_MESSAGE, 
-                null, 
-                new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
-                null);
+                // Check the return value from the dialog box.
+                if (option == JOptionPane.CANCEL_OPTION) {
 
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
+                    return;
 
-                return;
+                } else if (option == JOptionPane.OK_OPTION) {
 
-            } else if (option == JOptionPane.OK_OPTION) {
+                    xDist = (int)xSpinner.getValue();
+                    yDist = (int)ySpinner.getValue();
 
-                xDist = (int)xSpinner.getValue();
-                yDist = (int)ySpinner.getValue();
+                }
 
-            }
-
-            // Create and apply the filter
-            target.getImage().apply(new BlockAverage(xDist, yDist));
-            target.repaint();
-            target.getParent().revalidate();
+                // Create and apply the filter
+                target.getImage().apply(new BlockAverage(xDist, yDist));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }    
         }
 
     }
@@ -729,34 +793,43 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
+                if (!target.getImage().hasImage()) {
+                    throw new NullPointerException(bundle.getString("error_message_NULL_no_image_open"));
+                }
+                // Determine the radius - ask the user.
+                int radius = 1;
 
-            // Determine the radius - ask the user.
-            int radius = 1;
+                // Pop-up dialog box to ask for the radius value.
+                SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+                JSpinner radiusSpinner = new JSpinner(radiusModel);
+                int option = JOptionPane.showOptionDialog(
+                    null,
+                    radiusSpinner,
+                    bundle.getString("menu_filter_enterFilterRadius1to10px"), 
+                    JOptionPane.OK_CANCEL_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
+                    null);
 
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(
-                null,
-                radiusSpinner,
-                bundle.getString("menu_filter_enterFilterRadius1to10px"), 
-                JOptionPane.OK_CANCEL_OPTION, 
-                JOptionPane.QUESTION_MESSAGE, 
-                null, 
-                new String[]{bundle.getString("optionPane_okButtonText"),bundle.getString("optionPane_cancelButtonText")}, 
-                null);
+                // Check the return value from the dialog box.
+                if (option == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option == JOptionPane.OK_OPTION) {
+                    radius = radiusModel.getNumber().intValue();
+                }
 
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
-            }
+                // Create and apply the filter
+                target.getImage().apply(new RandomScattering(radius));
+                target.repaint();
+                target.getParent().revalidate();
 
-            // Create and apply the filter
-            target.getImage().apply(new RandomScattering(radius));
-            target.repaint();
-            target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }    
         }
 
     }
@@ -895,6 +968,4 @@ public class FilterActions {
         }
 
     }
-
-
 }

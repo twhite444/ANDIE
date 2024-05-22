@@ -95,7 +95,7 @@ public class TransformationActions {
         
         //Resize 150
         transformMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_PLUS, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+        KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
 
         //Flip vertical
         flipsMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
@@ -162,9 +162,15 @@ public class TransformationActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new Rotate90Left());
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                target.getImage().apply(new Rotate90Left());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -199,9 +205,15 @@ public class TransformationActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new Rotate90Right());
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                target.getImage().apply(new Rotate90Right());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -236,9 +248,15 @@ public class TransformationActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new Rotate180());
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                target.getImage().apply(new Rotate180());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     
@@ -274,9 +292,15 @@ public class TransformationActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ImageFlipV());
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                target.getImage().apply(new ImageFlipV());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -311,9 +335,15 @@ public class TransformationActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ImageFlipH());
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                target.getImage().apply(new ImageFlipH());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -348,10 +378,15 @@ public class TransformationActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
-            target.getImage().apply(new Resize(1.5));
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                target.getImage().apply(new Resize(1.5));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -386,10 +421,15 @@ public class TransformationActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
-            target.getImage().apply(new Resize(0.5));
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                target.getImage().apply(new Resize(0.5));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }    
         }
 
     }
@@ -453,40 +493,49 @@ public class TransformationActions {
 
         @Override
         public void mousePressed(MouseEvent click) { // gets the position of the mouse when it is clicked
+            try{
+                cropStartX = (int)(click.getX() * 1 / (target.getZoom() / 100)); // accounts for the zoom of the image to find the clicked position 
+                cropStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
 
-            cropStartX = (int)(click.getX() * 1 / (target.getZoom() / 100)); // accounts for the zoom of the image to find the clicked position 
-            cropStartY = (int)(click.getY() * 1 / (target.getZoom() / 100));
-
-            // draw a rectangle, this acts as the selection box
-            target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - Math.max(cropStartX, 0)), Math.abs(cropStartY - Math.max(cropStartY, 0)),true));
-            target.repaint();
-            target.getParent().revalidate();
-
+                // draw a rectangle, this acts as the selection box
+                target.getImage().apply(new DrawRectangle(cropStartX, cropStartY, Math.abs(cropStartX - Math.max(cropStartX, 0)), Math.abs(cropStartY - Math.max(cropStartY, 0)),true));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         @Override
         public void mouseReleased(MouseEvent unclick) {
+            try{
+                int cropEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
+                int cropEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
 
-            int cropEndX = (int)(unclick.getX() * 1 / (target.getZoom() / 100));
-            int cropEndY = (int)(unclick.getY() * 1 / (target.getZoom() / 100));
+                // remove the selection box
+                target.getImage().undoNoRedo();
 
-            // remove the selection box
-            target.getImage().undoNoRedo();
+                target.removeMouseListener(this); // removes the mouse listner so crops dont keep happeneing
+                target.removeMouseMotionListener(this);
 
-            target.removeMouseListener(this); // removes the mouse listner so crops dont keep happeneing
-            target.removeMouseMotionListener(this);
+                target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
 
-            target.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // returs the cursor to default
+                cropWidth = Math.abs(cropStartX - Math.max(cropEndX, 0)); // gets the distance x & y between the click and the unclick
+                cropHeight = Math.abs(cropStartY - Math.max(cropEndY, 0));
 
-            cropWidth = Math.abs(cropStartX - Math.max(cropEndX, 0)); // gets the distance x & y between the click and the unclick
-            cropHeight = Math.abs(cropStartY - Math.max(cropEndY, 0));
+                cropStartX = Math.min(cropStartX, cropEndX); // gets the most top left x, y corner of the selected rectangle
+                cropStartY = Math.min(cropStartY, cropEndY);
 
-            cropStartX = Math.min(cropStartX, cropEndX); // gets the most top left x, y corner of the selected rectangle
-            cropStartY = Math.min(cropStartY, cropEndY);
-
-            target.getImage().apply(new Crop(cropStartX, cropStartY, cropWidth, cropHeight));
-            target.repaint();
-            target.getParent().revalidate();
+                target.getImage().apply(new Crop(cropStartX, cropStartY, cropWidth, cropHeight));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
         }
 
@@ -498,30 +547,35 @@ public class TransformationActions {
         */
         @Override
         public void mouseDragged(MouseEvent drag) { // whenever the mouse is dragged
+            try{
+                int currentX = Math.min(Math.max((int)(drag.getX() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getWidth()); // the position of the mouse, clamped to inside the image
+                int currentY = Math.min(Math.max((int)(drag.getY() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getHeight());
 
-            int currentX = Math.min(Math.max((int)(drag.getX() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getWidth()); // the position of the mouse, clamped to inside the image
-            int currentY = Math.min(Math.max((int)(drag.getY() * 1 / (target.getZoom() / 100)), 0), target.getImage().getCurrentImage().getHeight());
+                int initialX = Math.min(Math.max(cropStartX, 0), (target.getImage().getCurrentImage().getWidth()));  // start point of the selection, clamped inside the image
+                int initialY = Math.min(Math.max(cropStartY, 0), (target.getImage().getCurrentImage().getHeight()));
 
-            int initialX = Math.min(Math.max(cropStartX, 0), (target.getImage().getCurrentImage().getWidth()));  // start point of the selection, clamped inside the image
-            int initialY = Math.min(Math.max(cropStartY, 0), (target.getImage().getCurrentImage().getHeight()));
+                int topLeftX  = Math.min(initialX, currentX); // the top left corner of the selection x & y
+                int topLeftY = Math.min(initialY, currentY);
 
-            int topLeftX  = Math.min(initialX, currentX); // the top left corner of the selection x & y
-            int topLeftY = Math.min(initialY, currentY);
+                int width = Math.max(Math.abs(initialX - currentX), 1); // size of the selection, clamped to at least one
+                int height = Math.max(Math.abs(initialY - currentY), 1);
 
-            int width = Math.max(Math.abs(initialX - currentX), 1); // size of the selection, clamped to at least one
-            int height = Math.max(Math.abs(initialY - currentY), 1);
+                target.getImage().undoNoRedo(); // remove the preivious selection box and draw a new one
+                target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
 
-            target.getImage().undoNoRedo(); // remove the preivious selection box and draw a new one
-            target.getImage().apply(new DrawRectangle(topLeftX, topLeftY, width, height,true));
+                target.repaint();
+                target.getParent().revalidate();
 
-            target.repaint();
-            target.getParent().revalidate();
+                // draws the blueish selection box
+                if (width > 1 && height > 1) { // makes the selection box only show up if there is some area to highlight, conviently this also stops it from trying to highlight things when the entire elected area is outside the image
 
-            // draws the blueish selection box
-            if (width > 1 && height > 1) { // makes the selection box only show up if there is some area to highlight, conviently this also stops it from trying to highlight things when the entire elected area is outside the image
+                    target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
 
-                target.getGraphics().drawImage(new MakeLookSelected().apply(target.getImage().getCurrentImage().getSubimage(topLeftX, topLeftY, width, height)), topLeftX, topLeftY, null);
-
+                }
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null,
+                        (ex.getMessage()), bundle.getString("error_message_ERROR"),
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         }

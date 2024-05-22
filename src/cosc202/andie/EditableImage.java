@@ -281,8 +281,9 @@ class EditableImage {
      * </p>
      * 
      * @param op The operation to apply.
+     * @throws Exception If something goes wrong.
      */
-    public void apply(ImageOperation op) {
+    public void apply(ImageOperation op) throws Exception{
         current = op.apply(current);
         ops.add(op);
         if(recordingMacro){
@@ -330,7 +331,7 @@ class EditableImage {
      * @param macroFilename The file location to save the macro to.
      * @throws Exception If something goes wrong.
      */
-    public void saveMacro(String macroFilename) throws Exception{
+    public void saveMacro(String macroFilename) throws NullPointerException, RuntimeException, Exception{
         if(!recordingMacro){
             throw new RuntimeException(bundle.getString("menu_macro_errorCannotSaveMacro"));
         } 
@@ -382,38 +383,10 @@ class EditableImage {
             // elements within the Stack, i.e., a non-ImageOperation.
             @SuppressWarnings("unchecked")
             Stack<ImageOperation> opsFromMacro = (Stack<ImageOperation>) objIn.readObject();
-            //int originalMacroWidth = (int) objIn.readObject();
-            //int originalMacroHeight = (int) objIn.readObject();
             
-            // if(current.getWidth() == originalMacroWidth && current.getHeight() == originalMacroHeight){
-                
-                
-            //     while(!opsFromMacro.isEmpty()){
-            //         //ops.push(opsFromMacro.remove(0));
-            //         apply(opsFromMacro.remove(0));
-            //     }
-
-            //     // for(ImageOperation op: opsFromMacro){
-            //     //     apply(op);
-            //     // }
-            //     sameSize = true;
-
-            // } else { // doesn't do anything I think...
-            //     int thisImageWidth = current.getWidth();
-            //     int thisImageHeight = current.getHeight();
-
-                //this.current = new Resize().apply(current, originalMacroWidth, originalMacroHeight);
-
-                //this.current = new Resize().apply(current, originalMacroWidth, originalMacroHeight);
-
                 while(!opsFromMacro.isEmpty()){
                     ops.push(opsFromMacro.remove(0));
                 }
-                //this.refresh();
-                //this.current = new Resize().apply(current, thisImageWidth, thisImageHeight);
-                //new Resize().apply(current, thisImageWidth, thisImageHeight);
-
-            //}
             redoOps.clear();
             objIn.close();
             fileIn.close();
@@ -422,57 +395,17 @@ class EditableImage {
             ops.clear();
             redoOps.clear();
         }
-        //if(sameSize == true){
             this.refresh();
-        //}
     }
-
-    // /**
-    //  * 
-    //  * @param filePath
-    //  * @return an int array where [0] is the width of the macro, and [1] is the height
-    //  * @throws Exception
-    //  */
-    // public int[] getMacroSize(String filePath) throws Exception{
-    //     int[] macroSize = new int[2];
-    //     try{
-    //     FileInputStream fileIn = new FileInputStream(filePath);
-    //     ObjectInputStream objIn = new ObjectInputStream(fileIn);
-
-    //     // Silence the Java compiler warning about type casting.
-    //     @SuppressWarnings("unchecked")
-        
-    //     //Ignore this:
-    //     Stack<ImageOperation> opsFromMacro = (Stack<ImageOperation>) objIn.readObject();
-        
-    //     int macroWidth = objIn.readInt();
-    //     int macroHeight = objIn.readInt();
-    //     macroSize[0] = macroWidth;
-    //     macroSize[1] = macroHeight;
-    //     objIn.close();
-    //     fileIn.close();
-    //     return macroSize;
-        
-    // } catch (Exception ex) {
-    //         // Could be no file or something else. Carry on for now.
-    //         return macroSize;
-    //     }
-    // }
-
-    // public int getCurrentHeight(){
-    //     return current.getHeight();
-    // }
-
-    // public int getCurrentWidth(){
-    //     return current.getHeight();
-    // }
 
     /**
      * <p>
      * Undo the last {@link ImageOperation} applied to the image.
      * </p>
+     * 
+     * @throws Exception If something goes wrong.
      */
-    public void undo() {
+    public void undo() throws Exception{
 
         if(ops.empty()) { // checks if there is anything to undo
 
@@ -494,8 +427,10 @@ class EditableImage {
      * Undo the last {@link ImageOperation} applied to the image, without adding it to RedoOps stack
      * (to use with draw tools).
      * </p>
+     * 
+     * @throws Exception If something goes wrong.
      */
-    public void undoNoRedo() {
+    public void undoNoRedo() throws Exception{
 
         if(ops.empty()) { // checks if there is anything to undo
 
@@ -516,8 +451,10 @@ class EditableImage {
      * <p>
      * Reapply the most recently {@link undo}ne {@link ImageOperation} to the image.
      * </p>
+     * 
+     * @throws Exception If something goes wrong.
      */
-    public void redo()  {
+    public void redo()  throws Exception{
 
         if(redoOps.empty()) { // checks if there is anything to redo
 
