@@ -87,19 +87,19 @@ public class ColourActions {
     private void setShortcuts(){
          //Convert to grey
          colourMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-            KeyEvent.VK_G, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK)); 
+            KeyEvent.VK_G, ActionEvent.CTRL_MASK)); 
             
             //Invert
             colourMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-            KeyEvent.VK_I, ActionEvent.META_MASK));
+            KeyEvent.VK_I, ActionEvent.CTRL_MASK));
             
             //Cycle colours
             colourMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
-            KeyEvent.VK_C, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+            KeyEvent.VK_C, ActionEvent.SHIFT_MASK | ActionEvent.CTRL_MASK)); 
             
             //Contrast and brightness
             colourMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
-            KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.SHIFT_MASK));
+            KeyEvent.VK_B, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
     }
 
     /**

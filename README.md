@@ -200,7 +200,7 @@ There are 8 differernt menus that all contain different manipulations:
 ### Transform menu shortcuts:
 **Resize to 50%**: `CTRL` + `SHIFT` + `-` <br>
 **Resize to 150%**: `CTRL` + `SHIFT` + `+` <br>
-**Crop image**: <br>
+**Crop image**: `CTRL` + `C`<br>
 #### Flip submenu shortcuts:
 **Flip vertical**: `CTRL` + `[` <br>
 **Flip horizontal**: `CTRL` + `]` <br>
