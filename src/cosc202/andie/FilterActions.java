@@ -85,36 +85,36 @@ public class FilterActions {
     private void setShortcuts(){
         //Mean filter
         filterMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_M, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        KeyEvent.VK_M, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
         
         //Soft blur
         filterMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_F, ActionEvent.META_MASK | ActionEvent.CTRL_MASK));
+        KeyEvent.VK_F, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK));
         
         //Sharpen
         filterMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_S, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        KeyEvent.VK_S, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
         
         //Median
         filterMenu.getItem(3).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_A, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        KeyEvent.VK_A, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
         
         //Gaussian filter
         filterMenu.getItem(4).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_G, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        KeyEvent.VK_G, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
 
         //Block average
         filterMenu.getItem(5).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_B, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        KeyEvent.VK_B, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
         //
         filterMenu.getItem(6).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_R, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        KeyEvent.VK_R, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
         //
         filterMenu.getItem(7).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_E, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        KeyEvent.VK_E, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
         //
         filterMenu.getItem(8).setAccelerator(KeyStroke.getKeyStroke(
-        KeyEvent.VK_O, ActionEvent.META_MASK | ActionEvent.CTRL_MASK)); 
+        KeyEvent.VK_O, ActionEvent.ALT_MASK | ActionEvent.CTRL_MASK)); 
 
     }
 

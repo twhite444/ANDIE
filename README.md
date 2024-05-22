@@ -29,9 +29,11 @@ User Guide - Cushla, Tommo (modified by everyone)
 
 
 ## How our code was tested (in general, not a multi-page exhaustive list).
-Opened an image in the program and compared the results of running the functions to the correct outcome that was in the lab book. All actions correctly manipulated the image, so we tested a couple of images (png, jpg, partly transparent ect.) and no unexpected outcomes came about. 
+Uploaded an image to the program and compared the results of running the functions to the correct outcome that was in the lab book. All actions correctly manipulated the image, so we tested a couple of images and no unexpected outcomes came about. 
 
-Built Gradle and created JUnit Testing for most filters and other operations such as drawing.
+Built Gradle and created JUnit Testing but not extensively used for testing other than running the program through Gradle to be quicker.
+
+We did use Junit testing for transformation actions such as rotating and flipping. However, Junit testing was difficult for filters so resorted to manually checking through GUI. In the next deliverables we will look to add at least Junit testing for colour changes as that will be easier to implement.
 
 
 ## A list of any known issues or bugs.
@@ -41,6 +43,8 @@ If you open up a very large image it doesn’t automatically resize the GUI arou
 Limits on zoom in and zoom out features  
 
 When using crop while zoomed in or out the area that is selected sometimes flickers to having no zoom, this is purely visual and does not affect what area is cropped.
+
+When a block average filter is applied to a .jpg and either the x or y size is one a black line will appear along whatever edge 
 
 
 ## User Guide for ANDIE (A Non Destructive Image Editor)
