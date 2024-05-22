@@ -484,7 +484,7 @@ public class FilterActions {
 
                 direction = (String) comboBox.getSelectedItem(); // convert to string array
                 if (direction.equals(bundle.getString("menu_filter_embossFilter_middleLeft"))) {
-                    direction = "Middle left";
+                    direction = "Middle Left";
                 } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topLeft"))) {
                     direction = "Top Left";
                 } else if (direction.equals(bundle.getString("menu_filter_embossFilter_topMiddle"))) {
