@@ -60,11 +60,11 @@ There are 8 differernt menus that all contain different operations:
 **File**: Operations to open and manipulate files.
 **Edit**: Operations to chage what operations are applied to an image.
 **Draw**: Operations to draw various types of shapes on the image.
-**View**: Operations that change how the image is veiwed without changing
-**Filter**:
-**Colors**:
-**Transform**:
-**Language**:
+**View**: Operations to change how the image is viewed.
+**Filter**: Operations that apply various filters to the image, changing pixels based on nearby ones.
+**Colors**: Operations that changes the colours in the image.
+**Transform**: Operations that change the shape of the image.
+**Language**: Changes what language the program is in.
 
 
 ### File menu:
@@ -90,6 +90,7 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 **Zoom out**: Zooms the image out by 10%, down to a minimum of 50%.
 **Zoom full**: Resets zoom to 100%.
 
+
 ### Filter Menu:  
 **Mean filter**: A mean filter calculates the average pixel value within a specified neighborhood, smoothing out the image and reducing noise. It replaces each pixel with the average of its neighboring pixels.  
 **Soft Blur filter**: A soft blur filter is similar to the mean filter but does weaker blur, resulting in a smoother appearance. It effectively blurs the image while preserving its overall structure.  
@@ -108,16 +109,17 @@ Selecing any of **Draw rectangle**, **Draw oval** and **Draw Line** will open a 
 **Cycle Colours**: Allows you to cycle through colour channels of all possible combinations (BGR, BRG, GBR, GRB, RBG, RGB).
 **Change contrast and brightness**: Changes the contrast and brightness by a specified percetage from -100% to 100%.
 
+
 ### Transformation Menu: 
 **Resize to 50%**: Shrinks the image to half its original size.  
-**Resize to 100%**: Keeps the image at its original size.   
-**Flip Vertical/Horizontal**: Reflects the image either vertically (top becomes bottom) or horizontally (left becomes right).  
+**Resize to 100%**: Keeps the image at its original size.
+**Crop image**: Crops the image to a selected area.
+**Flip Vertical/Horizontal**: Reflects the image either vertically (top becomes bottom) or horizontally (left becomes right).
 **Rotations 90 (left), 90 (right), 180**: Rotates the image by the specified angle (90 degrees left, 90 degrees right, or 180 degrees).  
+
 
 ### Language Menu: 
 **There are two language options**: English is set as the default language, but selecting Russian and reopening the program will change it to Russian.  
-
-
 
 ## Keyboard shortcuts
 ### File menu shortcuts:
