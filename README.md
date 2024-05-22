@@ -1,3 +1,6 @@
+## Download
+The program can be downloaded as a single .jar file at: https://cosc202-kooky_koalas.cspages.otago.ac.nz/andie/
+
 ## Contributions to features
 Block averaging - Liam
 Colour channel cycling - Liam 
