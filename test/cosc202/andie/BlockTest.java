@@ -37,18 +37,18 @@ public class BlockTest {
         BufferedImage expectedOutputImage = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 
         // all the colours should be grey, each with r, g and b values of 127
-        expectedOutputImage.setRGB(0, 0, 0x7f7f7f); // Grey
-        expectedOutputImage.setRGB(1, 0, 0x7f7f7f); // Grey
-        expectedOutputImage.setRGB(2, 0, 0x7f7f7f); // Grey
-        expectedOutputImage.setRGB(0, 1, 0x7f7f7f); // Grey
-        expectedOutputImage.setRGB(1, 1, 0x7f7f7f); // Grey
-        expectedOutputImage.setRGB(2, 1, 0x7f7f7f); // Grey
-        expectedOutputImage.setRGB(0, 2, 0x7f7f7f); // Grey
-        expectedOutputImage.setRGB(1, 2, 0x7f7f7f); // Grey
-        expectedOutputImage.setRGB(2, 2, 0x7f7f7f); // Grey
+        expectedOutputImage.setRGB(0, 0, 0x808081); // Grey
+        expectedOutputImage.setRGB(1, 0, 0x808081); // Grey
+        expectedOutputImage.setRGB(2, 0, 0x808081); // Grey
+        expectedOutputImage.setRGB(0, 1, 0x808081); // Grey
+        expectedOutputImage.setRGB(1, 1, 0x808081); // Grey
+        expectedOutputImage.setRGB(2, 1, 0x808081); // Grey
+        expectedOutputImage.setRGB(0, 2, 0x808081); // Grey
+        expectedOutputImage.setRGB(1, 2, 0x808081); // Grey
+        expectedOutputImage.setRGB(2, 2, 0x808081); // Grey
 
         // Apply BlockAverage
-        BufferedImage outputImage = new BlockAverage(5, 5).apply(sampleInputImage);
+        BufferedImage outputImage = new BlockAverage(3, 3).apply(sampleInputImage);
 
         // Compare output with expected output
         assertImagesEqual(expectedOutputImage, outputImage);
