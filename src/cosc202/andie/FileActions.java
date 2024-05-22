@@ -136,7 +136,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
 
-            if (target.getImageDangerous().hasImage() && target.getImageDangerous().imageHasBeenEdited()) { // checks if an image is open and has been edited
+            if (target.getImage().hasImage() && target.getImage().imageHasBeenEdited()) { // checks if an image is open and has been edited
 
                 int option = JOptionPane.showOptionDialog(null, bundle.getString("error_message_OPEN_NEW_IMAGE"),
                 bundle.getString("message_OPEN"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -157,7 +157,7 @@ public class FileActions {
                 try {
 
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImageDangerous().open(imageFilepath);
+                    target.getImage().open(imageFilepath);
 
                 } catch (NullPointerException ex) {
 
@@ -219,7 +219,7 @@ public class FileActions {
 
             try {
 
-                target.getImageDangerous().save();
+                target.getImage().save();
 
             } catch (NullPointerException ex) {
 
@@ -286,7 +286,7 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImageDangerous().exportAs(imageFilepath);
+                    target.getImage().exportAs(imageFilepath);
 
                 } catch (NullPointerException ex) {
 
@@ -355,7 +355,7 @@ public class FileActions {
                 try {
 
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImageDangerous().saveAs(imageFilepath);
+                    target.getImage().saveAs(imageFilepath);
 
                 } catch (NullPointerException ex) {
 

@@ -79,27 +79,6 @@ public class ImagePanel extends JPanel {
      */
     public EditableImage getImage() {
 
-        if (!image.hasImage()) { // check if an image is loaded
-
-            JOptionPane.showMessageDialog(null, bundle.getString("error_imagePanel_noImage"), bundle.getString("error_generic"), JOptionPane.ERROR_MESSAGE);
-
-            throw new RuntimeException("no image found");
-
-        }
-
-        return image;
-
-    }
-
-    /**
-     * <p>
-     * Only required for when current image may be null
-     * </p>
-     *
-     * @return the image currently displayed or null
-     */
-    public EditableImage getImageDangerous() {
-
         return image;
 
     }
