@@ -58,7 +58,6 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
 
-        //System.out.println(xDist + " " + yDist);
 
         int width = input.getWidth();
         int height = input.getHeight();
@@ -79,13 +78,18 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
                 int xLocal = 0;
                 int yLocal = 0;
 
-                //int RGB = input.getRGB(Math.min(x + 1, width - 1), Math.min(y + 1, height - 1));
 
-                for (xLocal = 0; xLocal + x < width && xLocal <= xDist; xLocal ++) { // for each pixel within the block, add its color to the total
+                for (xLocal = 0; xLocal <= xDist; xLocal ++) { // for each pixel within the block, add its color to the total
 
-                    for (yLocal = 0; yLocal + y < height && yLocal <= yDist; yLocal ++) {
+                    for (yLocal = 0; yLocal <= yDist; yLocal ++) {
+                        int px =x + xLocal;
+                        int py = y+ yLocal;
 
-                        argb = input.getRGB(Math.min(x + xLocal, width - 1), Math.min(y + yLocal, height - 1));
+                        px = Math.max(0, Math.min(px, width-1));
+                        py = Math.max(0, Math.min(py, height - 1));
+
+
+                        argb = input.getRGB(px, py);
 
                         if (argb != 0) {
 
@@ -113,8 +117,11 @@ public class BlockAverage implements ImageOperation, java.io.Serializable {
 
                     for (yLocal = 0; yLocal <= yDist; yLocal ++) {
 
-                        input.setRGB(Math.min(x + xLocal, width - 1), Math.min(y + yLocal, height - 1), argb);
-
+                        int px = x + xLocal;
+                        int py = y + yLocal;
+                        px = Math.max(0, Math.min(px, width - 1));
+                        py = Math.max(0, Math.min(py, height - 1));
+                        input.setRGB(px, py, argb);
                     }
 
                 }
