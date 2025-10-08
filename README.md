@@ -1,5 +1,5 @@
 ## About This Project
-<br> <br>
+<br>
 ANDIE (A Non-Destructive Image Editor) is a Java-based image editing application built as part of the University of Otago COSC 202 Software Development paper. The goal was to design and extend a fully-featured desktop image editor while learning how to work effectively in a real software development team.
 <br>
 <br>
