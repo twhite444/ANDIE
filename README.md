@@ -5,7 +5,7 @@ ANDIE (A Non-Destructive Image Editor) is a Java-based image editing application
 <br>
 Over the semester, we followed professional workflows using Git and GitLab, Gradle builds, JUnit testing, and continuous integration pipelines. The project gave us hands-on experience with collaborative version control, feature branching, documentation, and writing reliable, maintainable code in a shared environment.
 <br><br>
-**My contributions** 
+**My contributions:** 
 
 <br>
 
