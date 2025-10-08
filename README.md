@@ -1,17 +1,20 @@
 ## About This Project
-<br>
+<br> <br>
 ANDIE (A Non-Destructive Image Editor) is a Java-based image editing application built as part of the University of Otago COSC 202 Software Development paper. The goal was to design and extend a fully-featured desktop image editor while learning how to work effectively in a real software development team.
 <br>
-Over the semester, we followed professional workflows using Git and GitLab, Gradle builds, JUnit testing, and continuous integration pipelines. The project gave us hands-on experience with collaborative version control, feature branching, documentation, and writing reliable, maintainable code in a shared environment.
 <br>
-**My contributions**<br>
+Over the semester, we followed professional workflows using Git and GitLab, Gradle builds, JUnit testing, and continuous integration pipelines. The project gave us hands-on experience with collaborative version control, feature branching, documentation, and writing reliable, maintainable code in a shared environment.
+<br><br>
+**My contributions** 
+
+<br>
 
 I worked mainly on the **image transformation and filtering systems**, as well as **testing and build automation**. Some of the specific things I did include: <br>
 	•	Implemented image resize, rotation (90°, 180°), and the transform actions menu. <br>
 	•	Developed Emboss, Edge Detection, Gaussian Blur, and Soft Blur filters, and built my own custom Convolution class used across most filter operations. <br>
 	•	Set up Gradle builds, JUnit test suites, and integrated them into the CI pipeline. <br>
 	•	Helped with exception handling, code documentation, and contributed to the User Guide.<br>
-
+<br>
 **Skills and tools:**<br>
 
 Through this project I gained practical experience with:<br>
@@ -19,7 +22,7 @@ Through this project I gained practical experience with:<br>
 	•	Gradle for builds and automation<br>
 	•	JUnit testing and continuous integration on GitLab<br>
 	•	Team development practices like branching, merging, and resolving conflicts<br>
-<br>
+<br><br>
 This project was challenging, rewarding, and a great introduction to collaborative software engineering: building a working, extensible application from the ground up while learning to manage code quality, testing, and communication within a team.
 
 
