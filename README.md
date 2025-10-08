@@ -1,3 +1,29 @@
+## About This Project
+
+ANDIE (A Non-Destructive Image Editor) is a Java-based image editing application built as part of the University of Otago COSC 202 Software Development paper. The goal was to design and extend a fully-featured desktop image editor while learning how to work effectively in a real software development team.
+
+Over the semester, we followed professional workflows using Git and GitLab, Gradle builds, JUnit testing, and continuous integration pipelines. The project gave us hands-on experience with collaborative version control, feature branching, documentation, and writing reliable, maintainable code in a shared environment.
+
+**My contributions**
+
+I worked mainly on the **image transformation and filtering systems**, as well as **testing and build automation**. Some of the specific things I did include:
+	•	Implemented image resize, rotation (90°, 180°), and the transform actions menu.
+	•	Developed Emboss, Edge Detection, Gaussian Blur, and Soft Blur filters, and built my own custom Convolution class used across most filter operations.
+	•	Set up Gradle builds, JUnit test suites, and integrated them into the CI pipeline.
+	•	Helped with exception handling, code documentation, and contributed to the User Guide.
+
+**Skills and tools:**
+
+Through this project I gained practical experience with:
+	•	Java (Swing GUI) and object-oriented design
+	•	Gradle for builds and automation
+	•	JUnit testing and continuous integration on GitLab
+	•	Team development practices like branching, merging, and resolving conflicts
+
+This project was challenging, rewarding, and a great introduction to collaborative software engineering: building a working, extensible application from the ground up while learning to manage code quality, testing, and communication within a team.
+
+
+------------------------------------------------------------------------------------------------------
 ## Download
 The program can be downloaded as a single .jar file at: https://cosc202-kooky_koalas.cspages.otago.ac.nz/andie/
 
