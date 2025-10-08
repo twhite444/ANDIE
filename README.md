@@ -1,25 +1,25 @@
 ## About This Project
-
+<br>
 ANDIE (A Non-Destructive Image Editor) is a Java-based image editing application built as part of the University of Otago COSC 202 Software Development paper. The goal was to design and extend a fully-featured desktop image editor while learning how to work effectively in a real software development team.
-
+<br>
 Over the semester, we followed professional workflows using Git and GitLab, Gradle builds, JUnit testing, and continuous integration pipelines. The project gave us hands-on experience with collaborative version control, feature branching, documentation, and writing reliable, maintainable code in a shared environment.
+<br>
+**My contributions**<br>
 
-**My contributions**
+I worked mainly on the **image transformation and filtering systems**, as well as **testing and build automation**. Some of the specific things I did include: <br>
+	•	Implemented image resize, rotation (90°, 180°), and the transform actions menu. <br>
+	•	Developed Emboss, Edge Detection, Gaussian Blur, and Soft Blur filters, and built my own custom Convolution class used across most filter operations. <br>
+	•	Set up Gradle builds, JUnit test suites, and integrated them into the CI pipeline. <br>
+	•	Helped with exception handling, code documentation, and contributed to the User Guide.<br>
 
-I worked mainly on the **image transformation and filtering systems**, as well as **testing and build automation**. Some of the specific things I did include:
-	•	Implemented image resize, rotation (90°, 180°), and the transform actions menu.
-	•	Developed Emboss, Edge Detection, Gaussian Blur, and Soft Blur filters, and built my own custom Convolution class used across most filter operations.
-	•	Set up Gradle builds, JUnit test suites, and integrated them into the CI pipeline.
-	•	Helped with exception handling, code documentation, and contributed to the User Guide.
+**Skills and tools:**<br>
 
-**Skills and tools:**
-
-Through this project I gained practical experience with:
-	•	Java (Swing GUI) and object-oriented design
-	•	Gradle for builds and automation
-	•	JUnit testing and continuous integration on GitLab
-	•	Team development practices like branching, merging, and resolving conflicts
-
+Through this project I gained practical experience with:<br>
+	•	Java (Swing GUI) and object-oriented design<br>
+	•	Gradle for builds and automation<br>
+	•	JUnit testing and continuous integration on GitLab<br>
+	•	Team development practices like branching, merging, and resolving conflicts<br>
+<br>
 This project was challenging, rewarding, and a great introduction to collaborative software engineering: building a working, extensible application from the ground up while learning to manage code quality, testing, and communication within a team.
 
 
@@ -28,34 +28,34 @@ This project was challenging, rewarding, and a great introduction to collaborati
 The program can be downloaded as a single .jar file at: https://cosc202-kooky_koalas.cspages.otago.ac.nz/andie/
 
 ## Contributions to features
-Block averaging - Liam
-Colour channel cycling - Liam 
-Colour picker for drawing - Yusei
-Contrast / Brightness adjustment - Liam 
-Convolution class used to rewrite most filters - Tommo
-Crop to selection - Yusei / Liam
-Drawing functions - Liam
-Emboss and edge detection - Tommo
-Exception handling - Everyone
-Gaussian blur filter - Charlotte / Yusei / Tommo
-Image inversion - Liam  
-Image resize - Tommo  
-Image rotations - Tommo  
-Image flip - Yusei  
-Image export - Charlotte  
-Junit Testing and Gradle build  - Tommo / Liam / Yusei / Charlotte
-Keyboard shortcuts - Charlotte
-Language Actions Menu - Charlotte 
-Macros - Charlotte
-Median Filter - Cushla, Liam, Yusei
-Multi-Language support - Charlotte 
-Random scattering - Yusei
-Sharpen Filter - Yusei / Tommo
-Soft Blur - Yusei / Tommo
-Toolbar for common operations - Charlotte
-Transformation actions menu - Tommo (added to by Yusei)  
-User Guide - Cushla, Tommo (modified by everyone)  
-Selected Area Random Scattering - Yusei 
+Block averaging - Liam<br>
+Colour channel cycling - Liam <br>
+Colour picker for drawing - Yusei<br>
+Contrast / Brightness adjustment - Liam <br>
+Convolution class used to rewrite most filters - Tommo<br>
+Crop to selection - Yusei / Liam<br>
+Drawing functions - Liam<br>
+Emboss and edge detection - Tommo<br>
+Exception handling - Everyone<br>
+Gaussian blur filter - Charlotte / Yusei / Tommo<br>
+Image inversion - Liam  <br>
+Image resize - Tommo  <br>
+Image rotations - Tommo<br>
+Image flip - Yusei  <br>
+Image export - Charlotte  <br>
+Junit Testing and Gradle build  - Tommo / Liam / Yusei / Charlotte<br>
+Keyboard shortcuts - Charlotte<br>
+Language Actions Menu - Charlotte <br>
+Macros - Charlotte<br>
+Median Filter - Cushla, Liam, Yusei<br>
+Multi-Language support - Charlotte <br>
+Random scattering - Yusei<br>
+Sharpen Filter - Yusei / Tommo<br>
+Soft Blur - Yusei / Tommo<br>
+Toolbar for common operations - Charlotte<br>
+Transformation actions menu - Tommo (added to by Yusei)  <br>
+User Guide - Cushla, Tommo (modified by everyone)  <br>
+Selected Area Random Scattering - Yusei <br>
 
 
 ## How our code was tested (in general, not a multi-page exhaustive list).
